@@ -1,5 +1,5 @@
 const express = require('express');
-const dotenv = require("dotenv").config({ path: '../.env' });
+// const dotenv = require("dotenv").config({ path: '../.env' });
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors');
@@ -45,7 +45,7 @@ const url = `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOSTNAME}:${M
 mongoose.connect(url, options)
   .then(function () {
     console.log('MongoDB is connected');
-    let server = app.listen(process.env.SERVER_PORT || 8081, () => {
+    let server = app.listen(process.env.SERVER_PORT || 8080, () => {
       console.log('Listening to: ', server.address())
     })
   })

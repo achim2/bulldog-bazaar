@@ -35,12 +35,14 @@ services:
       context: ./client
     env_file: .env
     environment:
-       NUXT_HOST: 0.0.0.0
-       NUXT_PORT: 3000
+      NUXT_HOST: 0.0.0.0
+      NUXT_PORT: 3000
+      API_HOST: 0.0.0.0
+      API_PORT: $SERVER_PORT
     volumes:
       - ./client:/usr/app
       - /usr/app/node_modules
-#    expose:
-#      - 3000
+    #    expose:
+    #      - 3000
     ports:
       - $CLIENT_PORT:3000
