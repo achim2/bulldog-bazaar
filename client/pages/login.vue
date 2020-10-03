@@ -60,10 +60,9 @@ export default {
     async onSubmit(evt) {
       evt.preventDefault();
 
-      //TODO: Don't need password encryption on FE???
-
       try {
         await this.$auth.loginWith('local', { data: { ...this.form } });
+        this.$notifier.showMessage({ message: 'You successful logged in!', type: 'info' })
       } catch (e) {
         console.log(e)
       }

@@ -23,7 +23,9 @@ export default {
   ],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
-  plugins: [],
+  plugins: [
+    '~/plugins/notifier',
+  ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
   components: true,
@@ -49,7 +51,7 @@ export default {
           login: { url: '/auth/login', method: 'post', propertyName: 'token' },
           logout: false,
           user: { url: '/auth/user', method: 'get', propertyName: 'user' },
-        }
+        },
       }
     }
   },
