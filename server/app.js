@@ -9,7 +9,7 @@ const indexRouter = require('./routes/index');
 const adminRouter = require('./routes/admin');
 const authRouter = require('./routes/auth');
 
-const isAuth = require('./middleware/is-auth');
+const isAuth = require('./middleware/auth');
 
 const app = express();
 

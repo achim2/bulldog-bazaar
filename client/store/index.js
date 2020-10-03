@@ -1,12 +1,13 @@
-export const strict = false
 export const state = () => ({
-  user: {
-    isAuthenticated: false
-  }
+  lang: null
 })
 
-export const getters = {
-  isAuthenticated: state => {
-    return state.user.isAuthenticated;
-  }
-}
+// export const getters = {
+// }
+
+// export const mutations = {
+// }
+
+// export const actions = {
+// }
+

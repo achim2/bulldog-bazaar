@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const User = require('../models/user');
+const decodedUser = require('../helper/auth');
 
 exports.signup = (req, res, next) => {
   const errors = validationResult(req);
@@ -69,7 +70,7 @@ exports.login = (req, res, next) => {
       }
 
       if (!loadedUser.isConfirmed) {
-        const error = new Error('Not confirmed!');
+        const error = new Error('Not confirmed registration!');
         error.statusCode = 401;
         throw error;
       }
@@ -94,5 +95,32 @@ exports.login = (req, res, next) => {
         err.statusCode = 500;
       }
       next(err);
+    })
+}
+
+exports.user = (req, res, next) => {
+  const user = decodedUser(req);
+  User
+    .findOne({ email: user.email })
+    .then(user => {
+      if (!user) {
+        const error = new Error('A user with this email could not be found.');
+        error.statusCode = 401;
+        throw error;
+      }
+
+      return user;
+    })
+    .then(user => {
+      console.log(user)
+      res
+        .status(200)
+        .json({
+          user: {
+            id: user._id,
+            name: user.name,
+            email: user.email
+          }
+        })
     })
 }

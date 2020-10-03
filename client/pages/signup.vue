@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-sm-10 col-md-8 col-lg-6">
-        <h2>Login</h2>
+        <h2>Sign up</h2>
         <b-form @submit="onSubmit" @submit.stop.prevent>
           <b-form-group
             id="input-group-1"
@@ -14,6 +14,18 @@
               type="email"
               required
               placeholder="Enter email"
+            ></b-form-input>
+          </b-form-group>
+
+          <b-form-group
+            id="input-group-2"
+            label="Nick name:"
+            label-for="input-2">
+            <b-form-input
+              id="input-2"
+              v-model="form.name"
+              required
+              placeholder="Enter name"
             ></b-form-input>
           </b-form-group>
 
@@ -46,29 +58,27 @@
 </template>
 
 <script>
-
 export default {
   data() {
     return {
       form: {
         email: 'ahimjuhasz@gmail.com',
+        name: 'achim2',
         password: 'dummy',
       }
     }
   },
   methods: {
     async onSubmit(evt) {
-      evt.preventDefault();
-
-      //TODO: Don't need password encryption on FE???
+      evt.preventDefault()
 
       try {
-        await this.$auth.loginWith('local', { data: { ...this.form } });
+        await this.$axios.$post('/auth/signup', { ...this.form });
+        this.$router.push({ name: 'index' });
       } catch (e) {
-        console.log(e)
+        console.log(e);
       }
-
-    },
+    }
   }
 }
 </script>

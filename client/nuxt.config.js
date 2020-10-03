@@ -33,15 +33,26 @@ export default {
 
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
-    [
-      '@nuxtjs/axios',
-      {
-        // baseURL: ``, //built by docker compose from API_PORT && API_HOST variables
-        https: false,
-      }
-    ],
-    ['bootstrap-vue/nuxt']
+    '@nuxtjs/axios',
+    '@nuxtjs/auth',
+    'bootstrap-vue/nuxt',
   ],
+
+  axios: {
+    // baseURL: ``, //built by docker compose from API_PORT && API_HOST variables
+  },
+
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: { url: '/auth/login', method: 'post', propertyName: 'token' },
+          logout: false,
+          user: { url: '/auth/user', method: 'get', propertyName: 'user' },
+        }
+      }
+    }
+  },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {},

@@ -14,9 +14,9 @@ services:
       - MONGO_PORT=$MONGO_PORT
       - MONGO_DB=$MONGO_DB
     expose:
-      - 8080
+      - $SERVER_PORT
     ports:
-      - $SERVER_PORT:8080
+      - $SERVER_PORT:$SERVER_PORT
     volumes:
       - ./server:/usr/app
       - /usr/app/node_modules
