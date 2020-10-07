@@ -1,14 +1,20 @@
 <template>
-  <main>
-    <Sidebar/>
+  <main class="layout layout--admin">
+    <Header/>
+    <Alert/>
     <Nuxt/>
   </main>
 </template>
 <script>
-import Sidebar from '../components/admin/Sidebar';
+
+import Header from '../components/Header';
+import Alert from '../components/Alert';
 
 export default {
-  components: { Sidebar },
+  components: {
+    Header,
+    Alert,
+  },
   middleware: 'auth',
 }
 </script>

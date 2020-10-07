@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main class="layout layout--default">
     <Header/>
     <Alert/>
     <Nuxt/>
