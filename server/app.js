@@ -8,6 +8,7 @@ const mongoose = require('mongoose');
 const indexRouter = require('./routes/index');
 const adminRouter = require('./routes/admin');
 const authRouter = require('./routes/auth');
+const productRouter = require('./routes/product');
 
 const isAuth = require('./middleware/auth');
 
@@ -22,6 +23,7 @@ app.use(cookieParser());
 app.use('/', indexRouter);
 app.use('/admin', isAuth, adminRouter);
 app.use('/auth', authRouter);
+// app.use('/product', productRouter);
 
 app.use((err, req, res, next) => {
   console.log(err);
