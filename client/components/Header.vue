@@ -1,6 +1,6 @@
 <template>
   <b-navbar toggleable="lg" type="dark" variant="info">
-    <b-navbar-brand href="/">
+    <b-navbar-brand to="/">
       <Logo/>
     </b-navbar-brand>
 
@@ -8,17 +8,17 @@
 
     <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav v-if="!$auth.loggedIn" class="ml-auto">
-        <b-nav-item href="/signup">Sign up</b-nav-item>
-        <b-nav-item href="/login">Login</b-nav-item>
+        <b-nav-item to="/signup">Sign up</b-nav-item>
+        <b-nav-item to="/login">Login</b-nav-item>
       </b-navbar-nav>
 
       <b-navbar-nav v-if="$auth.loggedIn" class="ml-auto">
 
-        <b-nav-item href="/admin/dogs">Dogs</b-nav-item>
-        <b-nav-item href="/admin/dogs/add">Add dog</b-nav-item>
+        <b-nav-item to="/admin/products">Products</b-nav-item>
+        <b-nav-item to="/admin/products/add">Add product</b-nav-item>
 
-        <b-nav-item href="#">{{ $auth.user.name }}</b-nav-item>
-        <b-nav-item href="/admin">Admin</b-nav-item>
+        <b-nav-item to="#">{{ $auth.user.name }}</b-nav-item>
+        <b-nav-item to="/admin">Admin</b-nav-item>
         <b-nav-item @click="logout">Logout</b-nav-item>
       </b-navbar-nav>
 

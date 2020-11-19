@@ -26,8 +26,8 @@
 
 <script>
 export default {
-  async mounted() {
-    await this.$axios.$get()
+  mounted() {
+    this.$axios.$get()
       .then(res => {
         console.log(res)
       })

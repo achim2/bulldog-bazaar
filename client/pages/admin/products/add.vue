@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h2>Add dogs</h2>
+    <h2>Add product</h2>
 
     <b-form @submit="onSubmit" @submit.stop.prevent>
       <!-- Name -->
@@ -18,7 +18,21 @@
       </b-form-group>
 
       <!-- Image -->
-      <FileUpload />
+      <!--      <FileUpload />-->
+
+      <!-- color -->
+      <b-form-group
+        id="input-group-2"
+        label="Image url:"
+        label-for="input-2">
+        <b-form-input
+          id="input-2"
+          v-model="form.imageUrl"
+          type="text"
+          required
+          placeholder="Enter image url"
+        ></b-form-input>
+      </b-form-group>
 
       <!-- color -->
       <b-form-group
@@ -76,7 +90,8 @@
         ></b-form-input>
       </b-form-group>
 
-      <b-button type="submit" variant="primary">Submit</b-button>
+      <b-button type="submit" variant="primary" v-on:click.prevent="onSubmit">Submit</b-button>
+      <b-button variant="secondary" v-on:click="() => this.$router.go(-1)">Back</b-button>
 
     </b-form>
 
@@ -90,9 +105,12 @@ export default {
   layout: 'admin',
   data() {
     return {
+      isEditing: false,
+      id: null,
       form: {
         name: '',
-        image: [],
+        // image: [],
+        imageUrl: '',
         color: '',
         birthday: '',
         sex: '',
@@ -100,16 +118,43 @@ export default {
       }
     }
   },
+  mounted() {
+    const id = this.id = this.$route.params.id;
+    if (id) {
+      this.isEditing = true
+      this.$axios.$get(`/admin/edit-product/${id}`)
+        .then(product => {
+          console.log(product)
+          this.form = {
+            name: product.name,
+            // image: [],
+            imageUrl: product.imageUrl,
+            color: product.color,
+            birthday: product.birthday,
+            sex: product.sex,
+            description: product.description,
+          }
+        })
+        .catch(err => console.log(err));
+
+    } else {
+      this.isEditing = false
+    }
+  },
   methods: {
-    async onSubmit(evt) {
-      evt.preventDefault();
-
-      try {
-        // this.$notifier.showMessage({ message: 'You successful logged in!', type: 'info' })
-      } catch (e) {
-        console.log(e)
-      }
-
+    onSubmit() {
+      const url = this.isEditing ? `admin/edit-product` : '/admin/add-product';
+      this.$axios.$post(url, {
+        userId: this.$auth.$state.user.id,
+        productId: this.id,
+        ...this.form
+      })
+        .then(res => {
+          console.log(res)
+          this.$router.push({ path: '/admin/products' });
+          this.$notifier.showMessage({ message: res.message, type: 'info' })
+        })
+        .catch(err => console.log(err))
     },
   }
 }
