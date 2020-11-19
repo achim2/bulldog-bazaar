@@ -11,6 +11,7 @@
   * error handling
   * cookie handling
   * multiple image upload
-  
+  * image optimalization
+   
 - Backend
   * 

@@ -42,10 +42,30 @@ export default {
   },
   methods: {
     deleteItem(id) {
-      this.$axios.$post('/admin/delete-product', { id: id })
-        .then(res => {
-          this.items = this.items.filter(item => item.delete !== id);
-          this.$notifier.showMessage({ message: res, type: 'info' })
+      const delItem = this.items.find(item => item.delete === id);
+      const h = this.$createElement;
+      const msgVNode = h('div', { domProps: { innerHTML: `Please confirm that you want to delete <b>${delItem.name}.</b>` } });
+
+      this.$bvModal.msgBoxConfirm(
+        [msgVNode],
+        {
+          title: 'Please Confirm',
+          okVariant: 'danger',
+          okTitle: 'YES',
+          cancelTitle: 'NO',
+          footerClass: 'p-2',
+          hideHeaderClose: false,
+          centered: true
+        })
+        .then(value => {
+          if (value) {
+            this.$axios.$post('/admin/delete-product', { id: id })
+              .then(res => {
+                this.items = this.items.filter(item => item.delete !== id);
+                this.$notifier.showMessage({ message: res, type: 'info' })
+              })
+              .catch(err => console.log(err))
+          }
         })
         .catch(err => console.log(err))
     },
