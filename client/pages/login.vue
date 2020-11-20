@@ -52,7 +52,7 @@ export default {
     return {
       form: {
         email: 'ahimjuhasz@gmail.com',
-        password: 'dummy',
+        password: '',
       }
     }
   },
@@ -62,9 +62,9 @@ export default {
 
       try {
         await this.$auth.loginWith('local', { data: { ...this.form } });
-        this.$notifier.showMessage({ message: 'You successful logged in!', type: 'info' })
+        this.$notifier.showMessage({ message: ['You successful logged in!'], type: 'success' })
       } catch (e) {
-        console.log(e)
+        this.$notifier.showMessage({ message: [e.response.data.message], type: 'danger' })
       }
 
     },

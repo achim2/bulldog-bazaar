@@ -62,12 +62,17 @@ export default {
             this.$axios.$post('/admin/delete-product', { id: id })
               .then(res => {
                 this.items = this.items.filter(item => item.delete !== id);
-                this.$notifier.showMessage({ message: res, type: 'info' })
+                this.$notifier.showMessage({ message: [res], type: 'success' })
               })
-              .catch(err => console.log(err))
+              .catch(err => {
+                const msg = err.response.data.message;
+                this.$notifier.showMessage({ message: [msg], type: 'danger' })
+              })
           }
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+          this.$notifier.showMessage({ message: ['Error occurred on delete item process', err], type: 'danger' })
+        })
     },
   },
 }

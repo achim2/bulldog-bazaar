@@ -53,7 +53,7 @@ export default {
     },
     async logout() {
       await this.$auth.logout();
-      this.$notifier.showMessage({ message: 'You successful logged out!', type: 'info' })
+      this.$notifier.showMessage({ message: ['You successful logged out!'], type: 'success' })
     },
   }
 }

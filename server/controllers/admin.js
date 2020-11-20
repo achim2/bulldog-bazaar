@@ -1,4 +1,5 @@
 const Product = require('../models/product');
+const { validationResult } = require('express-validator');
 
 exports.getIndex = (req, res, next) => {
   res
@@ -7,6 +8,14 @@ exports.getIndex = (req, res, next) => {
 };
 
 exports.postAddProduct = (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const error = new Error('Validation failed!');
+    error.statusCode = 422;
+    error.errors = errors.array();
+    throw error;
+  }
+
   const product = new Product({
     userId: req.body.userId,
     name: req.body.name,
@@ -27,31 +36,54 @@ exports.postAddProduct = (req, res, next) => {
           product: result,
         })
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
+    });
 };
 
 exports.getEditProduct = (req, res, next) => {
-  Product.findById(req.params.id)
+  const id = req.params.id;
+
+  Product
+    .findById(id)
     .then(product => {
       if (!product) {
-        res
-          .status(404)
-          .json('Product not found!')
+        const error = new Error('Product not found!');
+        error.statusCode = 404;
+        throw error;
       }
 
       res
         .status(200)
         .json(product);
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
+    });
 };
 
 exports.postEditProduct = (req, res, next) => {
   const id = req.body.productId;
+  const userId = req.body.userId;
 
-  Product.findById(id)
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const error = new Error('Validation failed!');
+    error.statusCode = 422;
+    error.errors = errors.array();
+    throw error;
+  }
+
+  Product
+    .findById(id)
     .then(product => {
-      product.userId = req.body.userId;
+      product.userId = userId;
       product.name = req.body.name;
       product.imageUrl = req.body.imageUrl;
       product.color = req.body.color;
@@ -69,7 +101,12 @@ exports.postEditProduct = (req, res, next) => {
           product: result
         });
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
+    });
 };
 
 exports.getProducts = (req, res, next) => {
@@ -79,16 +116,27 @@ exports.getProducts = (req, res, next) => {
         .status(200)
         .json(products)
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
+    });
 };
 
 exports.postDeleteProduct = (req, res, next) => {
   const id = req.body.id;
+
   Product.findOneAndDelete(id)
     .then(() => {
       res
         .status(200)
         .json('Product deleted!')
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
+    });
 };

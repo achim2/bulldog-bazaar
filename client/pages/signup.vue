@@ -64,7 +64,7 @@ export default {
       form: {
         email: 'ahimjuhasz@gmail.com',
         name: 'achim2',
-        password: 'dummy',
+        password: '',
       }
     }
   },
@@ -75,9 +75,19 @@ export default {
       try {
         await this.$axios.$post('/auth/signup', { ...this.form });
         this.$router.push({ name: 'index' });
-      } catch (e) {
-        console.log(e);
+        this.$notifier.showMessage({ message: ['Successful sign up. You can login now.'], type: 'success' })
+
+      } catch (err) {
+        const errors = err.response.data.errors;
+        const msg = err.response.data.message;
+
+        if (errors) {
+          this.$notifier.showMessage({ message: errors.map(obj => obj.msg), type: 'danger' })
+        } else {
+          this.$notifier.showMessage({ message: [msg], type: 'danger' })
+        }
       }
+
     }
   }
 }

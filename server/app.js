@@ -26,12 +26,12 @@ app.use('/auth', authRouter);
 // app.use('/product', productRouter);
 
 app.use((err, req, res, next) => {
-  console.log(err);
+  console.error('ERROR: ', err);
   res
     .status(err.statusCode || 500)
     .json({
       message: err.message,
-      data: err.data,
+      errors: err.errors
     })
 })
 

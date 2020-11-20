@@ -150,11 +150,19 @@ export default {
         ...this.form
       })
         .then(res => {
-          console.log(res)
           this.$router.push({ path: '/admin/products' });
-          this.$notifier.showMessage({ message: res.message, type: 'info' })
+          this.$notifier.showMessage({ message: [res.message], type: 'success' });
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+          const errors = err.response.data.errors;
+          const msg = err.response.data.message;
+
+          if (errors) {
+            this.$notifier.showMessage({ message: errors.map(obj => obj.msg), type: 'danger' })
+          } else {
+            this.$notifier.showMessage({ message: [msg], type: 'danger' })
+          }
+        })
     },
   }
 }

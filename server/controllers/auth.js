@@ -7,12 +7,11 @@ const decodedUser = require('../helper/auth');
 
 exports.signup = (req, res, next) => {
   const errors = validationResult(req);
-  console.log(req.body);
 
   if (!errors.isEmpty()) {
     const error = new Error('Validation failed!');
     error.statusCode = 422;
-    error.data = errors.array();
+    error.errors = errors.array();
     throw error;
   }
 
@@ -112,7 +111,6 @@ exports.user = (req, res, next) => {
       return user;
     })
     .then(user => {
-      console.log(user)
       res
         .status(200)
         .json({
