@@ -11,5 +11,10 @@ export default function ({ $axios, redirect }) {
   $axios.onError(error => {
     console.log('onError: ', error)
     console.log('onError response: ', error.response)
+
+    //if jwt token expired or authorization error occurred then BE throw 401 status code && url not login then reload login
+    if (error.response.status === 401 && error.response.config.url !== '/login') {
+      redirect({ name: 'login' })
+    }
   })
 }
