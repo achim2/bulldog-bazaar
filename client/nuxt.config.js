@@ -17,9 +17,9 @@ export default {
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: [
-    '~/assets/scss/main.scss',
-    '~node_modules/bootstrap/dist/css/bootstrap.css',
-    '~node_modules/bootstrap-vue/dist/bootstrap-vue.css'
+    '@/assets/scss/styles.scss',
+    // '~node_modules/bootstrap/dist/css/bootstrap.css',
+    // '~node_modules/bootstrap-vue/dist/bootstrap-vue.css',
   ],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
@@ -38,8 +38,24 @@ export default {
   modules: [
     '@nuxtjs/axios',
     '@nuxtjs/auth',
+    '@nuxtjs/style-resources',
     'bootstrap-vue/nuxt',
   ],
+
+  styleResources: {
+    scss: [
+      // './assets/scss/*.scss',
+      '@/assets/scss/_variables.scss',
+      '@/node_modules/bootstrap/scss/_functions.scss',
+      '@/node_modules/bootstrap/scss/_variables.scss',
+      '@/node_modules/bootstrap/scss/mixins/_breakpoints.scss',
+    ]
+  },
+
+  bootstrapVue: {
+    bootstrapCSS: false,
+    bootstrapVueCSS: false
+  },
 
   axios: {
     // baseURL: ``, //built by docker compose from API_PORT && API_HOST variables

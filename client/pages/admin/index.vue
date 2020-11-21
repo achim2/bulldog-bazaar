@@ -1,7 +1,8 @@
 <template>
   <main>
     <h1>Admin page index</h1>
-    <NuxtLink to="/">Back to Home</NuxtLink>
+    <br>
+    <br>
   </main>
 </template>
 

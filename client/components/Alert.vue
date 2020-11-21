@@ -1,13 +1,12 @@
 <template>
-  <div class="container">
-    <b-alert
-      :show="dismissCountDown"
-      :variant="this.type"
-      fade
-      @dismiss-count-down="countDownChanged">
-      <p v-for="message in messages">{{ message }}</p>
-    </b-alert>
-  </div>
+  <b-alert
+    class="container"
+    :show="dismissCountDown"
+    :variant="this.type"
+    fade
+    @dismiss-count-down="countDownChanged">
+    <p v-for="message in messages">{{ message }}</p>
+  </b-alert>
 </template>
 
 <script>

@@ -18,11 +18,11 @@
           </b-form-group>
 
           <b-form-group
-            id="input-group-3"
+            id="input-group-2"
             label="Password:"
-            label-for="text-password">
+            label-for="input-2">
             <b-form-input
-              id="input-3"
+              id="input-2"
               v-model="form.password"
               type="password"
               required
