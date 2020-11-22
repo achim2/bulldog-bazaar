@@ -84,4 +84,8 @@ export default {
       })
     }
   },
+
+  publicRuntimeConfig: {
+    imagePath: `${process.env.BASE_URL}:${process.env.API_PORT}/uploads`,
+  },
 }

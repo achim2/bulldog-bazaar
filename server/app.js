@@ -4,6 +4,9 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors');
 const mongoose = require('mongoose');
+// const bodyParser = require('body-parser')
+const multer = require('multer');
+const path = require('path');
 
 const indexRouter = require('./routes/index');
 const adminRouter = require('./routes/admin');
@@ -12,18 +15,37 @@ const productRouter = require('./routes/product');
 
 const isAuth = require('./middleware/auth');
 
+const fileStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, './uploads')
+  },
+  filename: (req, file, cb) => {
+    cb(null, new Date().toISOString() + '_' + file.originalname);
+  }
+})
+
+const fileFilter = (req, file, cb) => {
+  if (file.mimeType === 'image/png' || file.mimeType === 'image/jpg' || file.mimeType === 'image/jpeg') {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+}
+
 const app = express();
 
 app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+// app.use(bodyParser.json())
+app.use(multer({ storage: fileStorage }).single('image'))
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use('/', indexRouter);
 app.use('/admin', isAuth, adminRouter);
 app.use('/auth', authRouter);
-// app.use('/product', productRouter);
+app.use('/products', productRouter);
 
 app.use((err, req, res, next) => {
   console.error('ERROR: ', err);

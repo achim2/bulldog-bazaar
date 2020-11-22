@@ -1,20 +1,40 @@
 const Product = require('../models/product');
 
 exports.getProducts = (req, res, next) => {
-  Product
-    .find()
+  Product.find()
     .then(products => {
-      console.log(products)
+      res
+        .status(200)
+        .json(products)
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
+    });
 };
 
 exports.getProduct = (req, res, next) => {
-  const prodId = req.params.productId;
+  const id = req.params.id;
+
   Product
-    .findById(prodId)
+    .findById(id)
     .then(product => {
-      console.log(product)
+      if (!product) {
+        const error = new Error('Product not found!');
+        error.statusCode = 404;
+        throw error;
+      }
+
+      res
+        .status(200)
+        .json(product);
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
+    });
 };

@@ -17,23 +17,6 @@
         ></b-form-input>
       </b-form-group>
 
-      <!-- Image -->
-      <!--      <FileUpload />-->
-
-      <!-- color -->
-      <b-form-group
-        id="input-group-2"
-        label="Image url:"
-        label-for="input-2">
-        <b-form-input
-          id="input-2"
-          v-model="form.imageUrl"
-          type="text"
-          required
-          placeholder="Enter image url"
-        ></b-form-input>
-      </b-form-group>
-
       <!-- color -->
       <b-form-group
         id="input-group-3"
@@ -90,6 +73,29 @@
         ></b-form-input>
       </b-form-group>
 
+      <b-form-group
+        id="input-group-7"
+        label="Choose images:"
+        label-for="input-7">
+        <!--        <b-form-file-->
+        <!--          multiple-->
+        <!--          v-model="form.images"-->
+        <!--          :state="Boolean(form.images)"-->
+        <!--          placeholder="Choose a file or drop it here..."-->
+        <!--          drop-placeholder="Drop file here..."-->
+        <!--        ></b-form-file>-->
+        <!--        <div class="mt-3">Selected file: {{ form.images ? form.images : '' }}</div>-->
+
+        <b-form-file
+          v-model="form.image"
+          :state="Boolean(form.image)"
+          placeholder="Choose a file or drop it here..."
+          drop-placeholder="Drop file here..."
+        ></b-form-file>
+        <div class="mt-3">Selected file: {{ form.image ? form.image.name : '' }}</div>
+
+      </b-form-group>
+
       <b-button type="submit" variant="primary" v-on:click.prevent="onSubmit">Submit</b-button>
       <b-button variant="secondary" v-on:click="() => this.$router.go(-1)">Back</b-button>
 
@@ -99,7 +105,6 @@
 </template>
 
 <script>
-import FileUpload from './../../../components/FileUpload';
 
 export default {
   layout: 'admin',
@@ -109,13 +114,12 @@ export default {
       id: null,
       form: {
         name: '',
-        // image: [],
-        imageUrl: '',
         color: '',
         birthday: '',
         sex: '',
         description: '',
-      }
+        image: null,
+      },
     }
   },
   mounted() {
@@ -124,15 +128,14 @@ export default {
       this.isEditing = true
       this.$axios.$get(`/admin/edit-product/${id}`)
         .then(product => {
-          console.log(product)
+          console.log("Editing: ", product)
           this.form = {
             name: product.name,
-            // image: [],
-            imageUrl: product.imageUrl,
             color: product.color,
             birthday: product.birthday,
             sex: product.sex,
             description: product.description,
+            image: product.image,
           }
         })
         .catch(err => console.log(err));
@@ -143,12 +146,18 @@ export default {
   },
   methods: {
     onSubmit() {
-      const url = this.isEditing ? `admin/edit-product` : '/admin/add-product';
-      this.$axios.$post(url, {
-        userId: this.$auth.$state.user.id,
-        productId: this.id,
-        ...this.form
-      })
+      const url = this.isEditing ? `/admin/edit-product` : '/admin/add-product';
+      const formData = new FormData();
+
+      formData.append('id', this.id);
+      formData.append('userId', this.$auth.$state.user.id);
+      formData.append('name', this.form.name);
+      formData.append('color', this.form.color);
+      formData.append('birthday', this.form.birthday);
+      formData.append('sex', this.form.sex);
+      formData.append('image', this.form.image);
+
+      this.$axios.$post(url, formData)
         .then(res => {
           this.$router.push({ path: '/admin/products' });
           this.$notifier.showMessage({ message: [res.message], type: 'success' });

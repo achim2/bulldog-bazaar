@@ -39,6 +39,7 @@ services:
       NUXT_PORT: 3000
       API_HOST: 0.0.0.0
       API_PORT: $SERVER_PORT
+      BASE_URL: $BASE_URL
     volumes:
       - ./client:/usr/app
       - /usr/app/node_modules

@@ -6,11 +6,6 @@ exports.addProduct = [
     .not()
     .isEmpty()
     .withMessage('Name is required!'),
-  body('imageUrl')
-    .trim()
-    .not()
-    .isEmpty()
-    .withMessage('Image is required!'),
   body('color')
     .trim()
     .not()
