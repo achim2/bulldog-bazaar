@@ -4,7 +4,6 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors');
 const mongoose = require('mongoose');
-// const bodyParser = require('body-parser')
 const multer = require('multer');
 const path = require('path');
 
@@ -38,8 +37,7 @@ app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(cookieParser());
-// app.use(bodyParser.json())
-app.use(multer({ storage: fileStorage }).single('image'))
+app.use(multer({ storage: fileStorage }).array('images', 10))
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use('/', indexRouter);

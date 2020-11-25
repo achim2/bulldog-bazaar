@@ -78,10 +78,18 @@ export default {
 
   router: {
     extendRoutes(routes, resolve) {
-      routes.push({
-        path: '/admin/products/edit/:id',
-        component: 'pages/admin/products/add.vue'
-      })
+      routes.push(
+        {
+          name: 'product-edit',
+          path: '/admin/products/edit/:id',
+          component: 'pages/admin/products/add.vue'
+        },
+        {
+          name: 'product-image-upload',
+          path: '/admin/products/upload-images/:id',
+          component: 'pages/admin/products/imageUpload.vue'
+        }
+      )
     }
   },
 
