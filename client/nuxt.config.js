@@ -82,13 +82,18 @@ export default {
         {
           name: 'product-edit',
           path: '/admin/products/edit/:id',
-          component: 'pages/admin/products/add.vue'
+          component: 'pages/admin/products/add.vue',
         },
         {
           name: 'product-image-upload',
           path: '/admin/products/upload-images/:id',
-          component: 'pages/admin/products/imageUpload.vue'
-        }
+          component: 'pages/admin/products/imageUpload.vue',
+        },
+        {
+          name: 'custom',
+          path: '*',
+          component: resolve(__dirname, 'pages/404.vue'),
+        },
       )
     }
   },
