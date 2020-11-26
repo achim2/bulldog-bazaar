@@ -91,8 +91,9 @@ exports.postEditProduct = (req, res, next) => {
 exports.postUpdateProductImages = (req, res, next) => {
   const id = req.body.productId;
   const userId = req.body.userId;
-  const files = req.files ? req.files.map(file => file.filename) : [];
-  const oldImages = JSON.parse(req.body.oldImages);
+  const files = [];
+  const deletedImage = req.body.deletedImage;
+  const selectedImage = req.body.selectedImage;
 
   // if (req.files) {
   //   const error = new Error('No image provided!');
@@ -106,14 +107,50 @@ exports.postUpdateProductImages = (req, res, next) => {
   Product
     .findById(id)
     .then(product => {
-      //update images
-      if (files.length === 0) {
-        const filteredImages = product.images.filter(image => !oldImages.includes(image));
+      let existingImages = product.images;
+      const hasSelected = product.images.find(img => img.selected);
+
+      // update images
+      if (req.files.length !== 0) {
+        console.log('in req.files if')
+        req.files.forEach((file, i) => {
+          files.push({
+            name: file.filename,
+            selected: false,
+          })
+        });
+
+        if (!hasSelected) {
+          files[0].selected = true;
+        }
+      }
+
+      //if deleted not empty
+      if (deletedImage !== '') {
+        console.log('in deleted if')
+        if (hasSelected && hasSelected.name === deletedImage) {
+          const error = new Error('You cannot delete selected image!')
+          error.statusCode = 422;
+          throw error;
+        }
+        const filteredImages = product.images.filter(image => image.name === deletedImage);
+        existingImages = product.images.filter(image => image.name !== deletedImage);
         deleteImages(filteredImages);
       }
+
+      //selected not empty
+      if (selectedImage !== '') {
+        console.log('in selected if')
+        existingImages = product.images.map(img => {
+          img.selected = img.name === selectedImage;
+          return img;
+        });
+      }
+
       //update images url
       product.userId = userId;
-      product.images = [...oldImages, ...files];
+      product.images = [...existingImages, ...files];
+      product.markModified('images');
 
       return product.save();
     })
@@ -155,11 +192,11 @@ exports.postDeleteProduct = (req, res, next) => {
 
 deleteImages = (imageArr) => {
   if (imageArr.length > 0) {
-    imageArr.map(name => {
+    imageArr.map(img => {
       const unlinkAsync = promisify(fs.unlink)
-      unlinkAsync(path.resolve('./uploads/' + name))
-        // .then(res => console.log('remove image success', res))
-        // .catch(err => console.log('remove image error', err));
+      unlinkAsync(path.resolve('./uploads/' + img.name))
+      // .then(res => console.log('remove image success', res))
+      // .catch(err => console.log('remove image error', err));
     });
   }
 }

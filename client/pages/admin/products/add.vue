@@ -128,7 +128,6 @@ export default {
         ...this.form
       })
         .then(res => {
-          console.log(res.product._id)
           this.$router.push({ path: `/admin/products/upload-images/${res.product._id}` });
         })
         .catch(err => {

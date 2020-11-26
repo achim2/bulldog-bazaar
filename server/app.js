@@ -23,6 +23,7 @@ const fileStorage = multer.diskStorage({
   }
 })
 
+//Todo: file filter not works in multer.
 const fileFilter = (req, file, cb) => {
   if (file.mimeType === 'image/png' || file.mimeType === 'image/jpg' || file.mimeType === 'image/jpeg') {
     cb(null, true);

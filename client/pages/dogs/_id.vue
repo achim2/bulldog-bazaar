@@ -4,7 +4,11 @@
       <div class="product-wrapper">
         <div class="product-left">
           <!--    Image gallery    -->
-          <img :src="`${$config.imagePath}/${product.imageUrl}`" :alt="product.name" v-if="product.imageUrl">
+          <img v-for="(image) in product.images"
+               :src="`${$config.imagePath}/${image.name}`"
+               :alt="image.name"
+               v-if="image"
+               style="width: 200px; height: auto">
         </div>
         <div class="product-right">
           <!--    info    -->

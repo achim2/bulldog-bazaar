@@ -7,9 +7,10 @@
   * Send email if error occurred
   * password encryption to FE ??
   * cookie handling
-  * multiple image upload
   * image optimalization
   * if user not logged in then nuxt auth trying to get auth & BE response send back 'token expired'
+  * status handling
+  * loading component
    
 - Backend
   * 

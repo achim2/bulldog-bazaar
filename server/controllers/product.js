@@ -15,6 +15,28 @@ exports.getProducts = (req, res, next) => {
     });
 };
 
+exports.getProductsFiltered = (req, res, next) => {
+  Product.find()
+    .then(products => {
+      const filteredProducts = [];
+      for (let product of products) {
+        product.images = product.images.find(img => img.selected);
+        filteredProducts.push(product)
+          // image: product.images.find(img => img.selected),
+      }
+
+      res
+        .status(200)
+        .json(filteredProducts);
+    })
+    .catch(err => {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
+    });
+}
+
 exports.getProduct = (req, res, next) => {
   const id = req.params.id;
 

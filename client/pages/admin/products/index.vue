@@ -1,6 +1,7 @@
 <template>
   <div class="container my-5">
     <h2>Products</h2>
+    <NuxtLink :to="{name: 'admin-products-add'}" class="btn btn-success">Add product</NuxtLink>
     <b-table striped
              hover
              bordered

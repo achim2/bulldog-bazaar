@@ -22,14 +22,15 @@
 
       <br>
 
-      <div class="d-flex">
-        <div v-for="image in oldImages">
-          <span @click="deleteImage(image)" style="cursor: pointer">remove</span>
-          <img :src="`${$config.imagePath}/${image}`"
-               :alt="image"
-               :title="image"
-               style="width: 100px; height: auto; margin-right: 10px"
-          >
+      <div class="uploaded">
+        <div v-for="(image, index) in oldImages"
+             class="uploaded__image-wrapper"
+             :data-selected="image.selected">
+          <img :src="`${$config.imagePath}/${image.name}`"
+               :alt="image.name"
+               :title="image.name">
+          <a v-if="!image.selected" @click="setSelected(image.name)" class="btn btn-info mb-1">set selected</a>
+          <a @click="deleteImage(image.name)" class="btn btn-danger">remove</a>
         </div>
       </div>
 
@@ -51,6 +52,8 @@ export default {
       name: '',
       newImages: [],
       oldImages: [],
+      deletedImage: '',
+      selectedImage: '',
     }
   },
   mounted() {
@@ -76,9 +79,8 @@ export default {
       const formData = new FormData();
       formData.append('productId', this.id);
       formData.append('userId', this.$auth.$state.user.id);
-      //send array with image names info
-      formData.append('oldImages', JSON.stringify(this.oldImages));
-      //send images
+      formData.append('deletedImage', this.deletedImage);
+      formData.append('selectedImage', this.selectedImage);
       this.newImages.map(image => formData.append('images', image));
 
       this.$axios.$post(`/admin/update-product-images`, formData)
@@ -97,11 +99,45 @@ export default {
             this.$notifier.showMessage({ message: [msg], type: 'danger' })
           }
         })
+        .finally(() => {
+          this.deletedImage = '';
+          this.selectedImage = '';
+        })
     },
     deleteImage(name) {
-      this.oldImages = this.oldImages.filter(image => image !== name);
+      this.deletedImage = name;
       this.onSubmit();
     },
+    setSelected(name) {
+      this.selectedImage = name;
+      this.onSubmit();
+    }
   }
 }
 </script>
+
+<style lang="scss">
+.uploaded {
+  display: flex;
+  flex-wrap: wrap;
+
+  .uploaded__image-wrapper {
+    display: flex;
+    flex-direction: column;
+
+    &[data-selected='true'] {
+      border: 2px solid red;
+    }
+
+    img {
+      width: 100px;
+      height: auto;
+      margin: 10px;
+    }
+
+    a {
+      cursor: pointer;
+    }
+  }
+}
+</style>

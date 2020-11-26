@@ -11,7 +11,7 @@
         <div class="col-sm-6 col-md-4"
              v-for="item in items">
           <nuxtLink :to="`/dogs/${item._id}`" class="product">
-            <img :src="`${$config.imagePath}/${item.imageUrl}`"
+            <img :src="`${$config.imagePath}/${item.images[0].name}`"
                  :alt="item.name">
             <h3>{{ item.name }}</h3>
             <p>{{ item.color }}</p>
@@ -42,7 +42,7 @@ export default {
     }
   },
   mounted() {
-    this.$axios.$get('/products')
+    this.$axios.$get('/products/filtered')
       .then(res => {
         console.log(res)
         this.items = res;
