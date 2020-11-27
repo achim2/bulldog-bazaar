@@ -6,7 +6,14 @@
              hover
              bordered
              :items="items"
+             :fields="['name', 'sex', 'color', 'edit', 'delete', 'status']"
     >
+      <template #cell(name)="data">
+        <NuxtLink :to="`/${data.item.id.toLowerCase()}`" target="_blank">{{data.item.name}}</NuxtLink>
+      </template>
+      <template #cell(status)="data">
+        <b-form-checkbox v-model="data.value" @change="changeStatus(data)" size="lg" switch/>
+      </template>
       <template #cell(edit)="data">
         <NuxtLink :to="`/admin/products/edit/${data.value.toLowerCase()}`" class="btn btn-info">Edit</NuxtLink>
       </template>
@@ -28,20 +35,40 @@ export default {
   mounted() {
     this.$axios.$get('/admin/products')
       .then(res => {
-        this.items = res.map(item => {
-          return {
-            name: item.name,
-            description: item.description,
-            sex: item.sex,
-            color: item.color,
-            edit: item._id,
-            delete: item._id,
-          }
-        });
+        this.setTableSchema(res)
       })
       .catch(err => console.log(err));
   },
   methods: {
+    changeStatus(data) {
+      this.$axios.$post('/admin/change-status',
+        {
+          id: data.item.id,
+          userId: this.$auth.$state.user.id,
+        }
+      )
+        .then(res => {
+          this.items = this.items.map(item => item.id === data.item.id ? data.item : item);
+          this.$notifier.showMessage({ message: [res.message], type: 'success' })
+        })
+        .catch(err => {
+          const msg = err.response.data.message;
+          this.$notifier.showMessage({ message: [msg], type: 'danger' })
+        })
+    },
+    setTableSchema(data) {
+      this.items = data.map(item => {
+        return {
+          id: item._id,
+          name: item.name,
+          sex: item.sex,
+          color: item.color,
+          edit: item._id,
+          delete: item._id,
+          status: item.status,
+        }
+      });
+    },
     deleteItem(id) {
       const delItem = this.items.find(item => item.delete === id);
       const h = this.$createElement;

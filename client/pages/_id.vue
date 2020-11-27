@@ -21,7 +21,7 @@
       </div>
 
       <div class="related-products">
-        <!-- other dogs -->
+        <!-- other products -->
       </div>
     </div>
   </div>

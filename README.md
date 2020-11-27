@@ -9,9 +9,8 @@
   * cookie handling
   * image optimalization
   * if user not logged in then nuxt auth trying to get auth & BE response send back 'token expired'
-  * status handling
   * loading component
-  * 404 page
+  * multer file filter & limits
    
 - Backend
   * 

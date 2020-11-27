@@ -1,29 +1,15 @@
 const Product = require('../models/product');
 
-exports.getProducts = (req, res, next) => {
-  Product.find()
-    .then(products => {
-      res
-        .status(200)
-        .json(products)
-    })
-    .catch(err => {
-      if (!err.statusCode) {
-        err.statusCode = 500;
-      }
-      next(err);
-    });
-};
-
 exports.getProductsFiltered = (req, res, next) => {
   Product.find()
     .then(products => {
-      const filteredProducts = [];
+      let filteredProducts = [];
       for (let product of products) {
         product.images = product.images.find(img => img.selected);
         filteredProducts.push(product)
-          // image: product.images.find(img => img.selected),
       }
+
+      filteredProducts = filteredProducts.filter(product => product.status);
 
       res
         .status(200)
@@ -37,7 +23,7 @@ exports.getProductsFiltered = (req, res, next) => {
     });
 }
 
-exports.getProduct = (req, res, next) => {
+exports.getProductFiltered = (req, res, next) => {
   const id = req.params.id;
 
   Product
@@ -45,6 +31,12 @@ exports.getProduct = (req, res, next) => {
     .then(product => {
       if (!product) {
         const error = new Error('Product not found!');
+        error.statusCode = 404;
+        throw error;
+      }
+
+      if (!product.status) {
+        const error = new Error('Product not allowed!');
         error.statusCode = 404;
         throw error;
       }

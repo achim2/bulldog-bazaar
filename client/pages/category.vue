@@ -1,7 +1,7 @@
 <template>
   <div class="category-view">
     <div class="container">
-      <h2>dogs category</h2>
+      <h2>category</h2>
     </div>
   </div>
 </template>

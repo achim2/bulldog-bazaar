@@ -16,5 +16,9 @@ export default function ({ $axios, redirect }) {
     if (error.response.status === 401 && error.response.config.url !== '/login') {
       redirect({ name: 'login' })
     }
+
+    if (error.response.status === 404) {
+      redirect({ name: '404' })
+    }
   })
 }

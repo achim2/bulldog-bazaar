@@ -10,7 +10,7 @@
       <div class="row">
         <div class="col-sm-6 col-md-4"
              v-for="item in items">
-          <nuxtLink :to="`/dogs/${item._id}`" class="product">
+          <nuxtLink :to="`/${item._id}`" class="product">
             <img :src="`${$config.imagePath}/${item.images[0].name}`"
                  :alt="item.name">
             <h3>{{ item.name }}</h3>

@@ -30,6 +30,10 @@ const productSchema = new Schema({
   description: {
     type: String,
   },
+  status: {
+    type: Boolean,
+    default: false,
+  }
 });
 
 module.exports = mongoose.model('Product', productSchema);

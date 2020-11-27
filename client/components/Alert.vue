@@ -4,7 +4,8 @@
     :show="dismissCountDown"
     :variant="this.type"
     fade
-    @dismiss-count-down="countDownChanged">
+    @dismiss-count-down="countDownChanged"
+    dismissible>
     <p v-for="message in messages">{{ message }}</p>
   </b-alert>
 </template>
