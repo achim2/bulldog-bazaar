@@ -89,11 +89,6 @@ export default {
           path: '/admin/products/upload-images/:id',
           component: 'pages/admin/products/imageUpload.vue',
         },
-        {
-          name: 'custom',
-          path: '*',
-          component: resolve(__dirname, 'pages/404.vue'),
-        },
       )
     }
   },
@@ -101,4 +96,6 @@ export default {
   publicRuntimeConfig: {
     imagePath: `${process.env.BASE_URL}:${process.env.API_PORT}/uploads`,
   },
+
+  loading: '~/components/LoadingBar.vue',
 }
