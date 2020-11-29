@@ -1,6 +1,6 @@
 <template>
-  <div class="container">
-    <h2>Upload images to product: {{ this.name }}</h2>
+  <div class="container py-5">
+    <h2 class="mb-4">Upload images to product: {{ this.name }}</h2>
     <b-form @submit="onSubmit"
             @submit.stop.prevent
             v-on:change.prevent="onSubmit">
@@ -17,27 +17,38 @@
           placeholder="Choose a file or drop it here..."
           drop-placeholder="Drop file here..."
         ></b-form-file>
-        <!--        <div class="mt-3">Selected file: {{ images ? images.name : '' }}</div>-->
       </b-form-group>
 
-      <br>
+      <hr>
 
-      <div class="uploaded">
-        <div v-for="(image, index) in oldImages"
-             class="uploaded__image-wrapper"
-             :data-selected="image.selected">
-          <img :src="`${$config.imagePath}/${image.name}`"
-               :alt="image.name"
-               :title="image.name">
-          <a v-if="!image.selected" @click="setSelected(image.name)" class="btn btn-info mb-1">set selected</a>
-          <a @click="deleteImage(image.name)" class="btn btn-danger">remove</a>
-        </div>
+      <b-row>
+        <b-col v-for="(image, index) in oldImages"
+               :key="index"
+               :data-selected="image.selected"
+               sm="6"
+               md="4"
+               lg="3"
+        >
+          <div class="uploaded">
+            <b-img :src="`${$config.imagePath}/${image.name}`"
+                   :alt="image.name"
+                   :title="image.name"
+                   :data-selected="image.selected"
+                   thumbnail
+                   fluid
+            />
+            <a v-if="!image.selected" @click="setSelected(image.name)" class="btn btn-info mt-2">set selected</a>
+            <a @click="deleteImage(image.name)" class="btn btn-danger mt-2 mb-4">remove</a>
+          </div>
+        </b-col>
+      </b-row>
+
+      <hr>
+
+      <div class="d-flex flex-column justify-content-between align-items-start pb-2">
+        <nuxtLink :to="{name: 'product-edit', params: {id: this.id}}" class="btn btn-secondary mr-2 mb-2">Back to details</nuxtLink>
+        <nuxtLink :to="{name: 'admin-products'}" class="btn btn-primary">Products</nuxtLink>
       </div>
-
-      <br>
-
-      <nuxtLink :to="{name: 'product-edit', params: {id: this.id}}" class="btn btn-secondary">Back</nuxtLink>
-      <nuxtLink :to="{name: 'admin-products'}" class="btn btn-secondary">Products</nuxtLink>
 
     </b-form>
   </div>
@@ -61,7 +72,6 @@ export default {
     if (id) {
       this.$axios.$get(`/admin/edit-product/${id}`)
         .then(product => {
-          console.log("Editing: ", product)
           this.oldImages = product.images;
           this.name = product.name;
         })
@@ -119,25 +129,10 @@ export default {
 <style lang="scss">
 .uploaded {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
 
-  .uploaded__image-wrapper {
-    display: flex;
-    flex-direction: column;
-
-    &[data-selected='true'] {
-      border: 2px solid red;
-    }
-
-    img {
-      width: 100px;
-      height: auto;
-      margin: 10px;
-    }
-
-    a {
-      cursor: pointer;
-    }
+  img[data-selected='true'] {
+    border: 2px solid red;
   }
 }
 </style>

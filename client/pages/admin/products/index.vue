@@ -1,15 +1,20 @@
 <template>
-  <div class="container my-5">
-    <h2>Products</h2>
-    <NuxtLink :to="{name: 'admin-products-add'}" class="btn btn-success">Add product</NuxtLink>
+  <div class="container py-5">
+    <div class="d-flex flex-wrap justify-content-between align-items-start pb-2">
+      <h2 class="mr-2">Products</h2>
+      <NuxtLink :to="{name: 'admin-products-add'}" class="btn btn-success">Add product</NuxtLink>
+    </div>
     <b-table striped
              hover
              bordered
              :items="items"
-             :fields="['name', 'sex', 'color', 'edit', 'delete', 'status']"
+             :fields="['name', 'gender', 'birthday', 'color', 'edit', 'delete', 'status']"
     >
       <template #cell(name)="data">
-        <NuxtLink :to="`/${data.item.id.toLowerCase()}`" target="_blank">{{data.item.name}}</NuxtLink>
+        <NuxtLink :to="`/${data.item.name}`" target="_blank">{{ data.item.name }}</NuxtLink>
+      </template>
+      <template #cell(birthday)="data">
+        {{ data.item.birthday | dateFilter }}
       </template>
       <template #cell(status)="data">
         <b-form-checkbox v-model="data.value" @change="changeStatus(data)" size="lg" switch/>
@@ -61,8 +66,9 @@ export default {
         return {
           id: item._id,
           name: item.name,
-          sex: item.sex,
+          gender: item.gender,
           color: item.color,
+          birthday: item.birthday,
           edit: item._id,
           delete: item._id,
           status: item.status,

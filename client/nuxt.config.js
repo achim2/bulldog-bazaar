@@ -26,6 +26,7 @@ export default {
   plugins: [
     '~/plugins/notifier',
     '~/plugins/axios',
+    '~/plugins/dateFilter',
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)

@@ -14,8 +14,8 @@
           <!--    info    -->
           <h3 v-if="product.name">Name: <b>{{ product.name }}</b></h3>
           <p v-if="product.color">Color: <b>{{ product.color }}</b></p>
-          <p v-if="product.birthday">Birthday: <b>{{ product.birthday }}</b></p>
-          <p v-if="product.sex">Sex: <b>{{ product.sex }}</b></p>
+          <p v-if="product.birthday">Birthday: <b>{{ product.birthday | dateFilter }}</b></p>
+          <p v-if="product.gender">Gender: <b>{{ product.gender }}</b></p>
           <p v-if="product.description">Description <b>{{ product.description }}</b></p>
         </div>
       </div>

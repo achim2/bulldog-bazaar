@@ -65,7 +65,7 @@ exports.postAddProduct = (req, res, next) => {
     name: req.body.name,
     color: req.body.color,
     birthday: req.body.birthday,
-    sex: req.body.sex,
+    gender: req.body.gender,
     description: req.body.description,
   })
 
@@ -106,7 +106,7 @@ exports.postEditProduct = (req, res, next) => {
       product.name = req.body.name;
       product.color = req.body.color;
       product.birthday = req.body.birthday;
-      product.sex = req.body.sex;
+      product.gender = req.body.gender;
       product.description = req.body.description;
 
       return product.save();

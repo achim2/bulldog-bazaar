@@ -13,8 +13,7 @@
       </b-navbar-nav>
 
       <b-navbar-nav v-if="$auth.loggedIn" class="ml-auto">
-<!--        <b-nav-item to="#">{{ $auth.user.name }}</b-nav-item>-->
-        <b-nav-item to="/admin">Admin</b-nav-item>
+        <b-nav-item to="#">{{ $auth.user.name }}</b-nav-item>
         <b-nav-item to="/admin/products">Products</b-nav-item>
         <b-nav-item @click="logout">Logout</b-nav-item>
       </b-navbar-nav>

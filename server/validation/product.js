@@ -16,9 +16,9 @@ exports.addProduct = [
     .not()
     .isEmpty()
     .withMessage('Birthday is required!'),
-  body('sex')
+  body('gender')
     .trim()
     .not()
     .isEmpty()
-    .withMessage('Sex is required!'),
+    .withMessage('gender is required!'),
 ];

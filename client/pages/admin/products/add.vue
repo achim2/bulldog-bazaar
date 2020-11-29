@@ -1,81 +1,85 @@
 <template>
-  <div class="container">
+  <div class="container py-5">
     <h2>Add product</h2>
 
     <b-form @submit="onSubmit"
             @submit.stop.prevent>
-      <!-- Name -->
-      <b-form-group
-        id="input-group-1"
-        label="Name:"
-        label-for="input-1">
-        <b-form-input
-          id="input-1"
-          v-model="form.name"
-          type="text"
-          required
-          placeholder="Enter name"
-        ></b-form-input>
-      </b-form-group>
+      <div class="row">
+        <div class="col-md-6">
+          <!-- Name -->
+          <b-form-group
+            id="input-group-1"
+            label="Name:"
+            label-for="input-1">
+            <b-form-input
+              id="input-1"
+              v-model="form.name"
+              type="text"
+              required
+              placeholder="Enter name"
+            ></b-form-input>
+          </b-form-group>
+        </div>
 
-      <!-- color -->
-      <b-form-group
-        id="input-group-3"
-        label="Color:"
-        label-for="input-3">
-        <b-form-input
-          id="input-3"
-          v-model="form.color"
-          type="text"
-          required
-          placeholder="Enter color"
-        ></b-form-input>
-      </b-form-group>
+        <div class="col-md-6">
+          <!-- color -->
+          <b-form-group
+            id="input-group-3"
+            label="Color:"
+            label-for="input-3">
+            <b-form-input
+              id="input-3"
+              v-model="form.color"
+              type="text"
+              required
+              placeholder="Enter color"
+            ></b-form-input>
+          </b-form-group>
+        </div>
 
-      <!-- birthday -->
-      <b-form-group
-        id="input-group-4"
-        label="Birthday:"
-        label-for="input-4">
-        <b-form-input
-          id="input-4"
-          v-model="form.birthday"
-          type="text"
-          required
-          placeholder="Enter birthday"
-        ></b-form-input>
-      </b-form-group>
+        <div class="col-md-6">
+          <!-- birthday -->
+          <b-form-group
+            id="input-group-4"
+            label="Birthday:"
+            label-for="input-4">
+            <b-form-datepicker id="input-4"
+                               v-model="form.birthday"
+                               :date-format-options="{ year: 'numeric', month: 'long', day: '2-digit'}"
+                               today-button
+            ></b-form-datepicker>
+          </b-form-group>
 
-      <!-- sex -->
-      <b-form-group
-        id="input-group-5"
-        label="Sex:"
-        label-for="input-5">
-        <b-form-input
-          id="input-5"
-          v-model="form.sex"
-          type="text"
-          required
-          placeholder="Enter sex"
-        ></b-form-input>
-      </b-form-group>
+        </div>
+        <div class="col-md-6">
+          <!-- gender -->
+          <b-form-group
+            id="input-group-5"
+            label="Gender:"
+            label-for="input-5">
+            <b-form-select v-model="form.gender" :options="options" id="input-5"></b-form-select>
+          </b-form-group>
+        </div>
+      </div>
 
       <!-- Description -->
       <b-form-group
         id="input-group-6"
         label="Description:"
         label-for="input-6">
-        <b-form-input
+        <b-form-textarea
           id="input-6"
           v-model="form.description"
-          type="text"
           required
           placeholder="Enter description"
-        ></b-form-input>
+          rows="3"
+        ></b-form-textarea>
       </b-form-group>
 
-      <b-button type="submit" variant="primary" v-on:click.prevent="onSubmit">Upload images</b-button>
-      <b-button variant="secondary" v-on:click="() => this.$router.go(-1)">Back</b-button>
+      <div class="d-flex flex-wrap justify-content-between align-items-start pb-2">
+        <nuxtLink :to="{name: 'admin-products'}" class="btn btn-secondary mr-2 mb-2">Back</nuxtLink>
+        <b-button type="submit" variant="primary" v-on:click.prevent="onSubmit">Save & upload images</b-button>
+      </div>
     </b-form>
 
   </div>
@@ -92,9 +96,14 @@ export default {
         name: '',
         color: '',
         birthday: '',
-        sex: '',
+        gender: null,
         description: '',
       },
+      options: [
+        { value: null, text: 'Please select an option' },
+        { value: 'male', text: 'Male' },
+        { value: 'female', text: 'Female' },
+      ]
     }
   },
   mounted() {
@@ -103,12 +112,11 @@ export default {
       this.isEditing = true
       this.$axios.$get(`/admin/edit-product/${id}`)
         .then(product => {
-          console.log("Editing: ", product)
           this.form = {
             name: product.name,
             color: product.color,
             birthday: product.birthday,
-            sex: product.sex,
+            gender: product.gender,
             description: product.description,
           };
         })

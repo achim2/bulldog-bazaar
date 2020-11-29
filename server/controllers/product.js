@@ -27,8 +27,11 @@ exports.getProductFiltered = (req, res, next) => {
   const id = req.params.id;
 
   Product
-    .findById(id)
+    // .findById(id)
+    .find({ name: id })
     .then(product => {
+      product = product.find(x => x !== undefined);
+
       if (!product) {
         const error = new Error('Product not found!');
         error.statusCode = 404;
