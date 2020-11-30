@@ -1,0 +1,24 @@
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  min-height: 100vh;
+
+  header,
+  nav,
+  main,
+  footer {
+    flex-shrink: 0;
+  }
+
+  main {
+    flex-grow: 1;
+    padding: $main-padding 0;
+  }
+}

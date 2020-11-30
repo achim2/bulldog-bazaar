@@ -1,5 +1,5 @@
 <template>
-  <div class="container py-5">
+  <div class="container">
     <h2 class="mb-4">Upload images to product: {{ this.name }}</h2>
     <b-form @submit="onSubmit"
             @submit.stop.prevent

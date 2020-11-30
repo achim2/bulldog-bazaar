@@ -1,9 +1,7 @@
 <template>
-  <main>
+  <div>
     <h1>Admin page index</h1>
-    <br>
-    <br>
-  </main>
+  </div>
 </template>
 
 <script>

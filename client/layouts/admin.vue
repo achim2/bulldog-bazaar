@@ -1,9 +1,11 @@
 <template>
-  <main :class="['layout layout--admin']">
+  <section :class="['layout layout--admin']">
     <Header/>
     <Alert/>
-    <Nuxt/>
-  </main>
+    <main>
+      <Nuxt/>
+    </main>
+  </section>
 </template>
 
 <script>

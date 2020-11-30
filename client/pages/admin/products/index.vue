@@ -1,5 +1,5 @@
 <template>
-  <div class="container py-5">
+  <div class="container">
     <div class="d-flex flex-wrap justify-content-between align-items-start pb-2">
       <h2 class="mr-2">Products</h2>
       <NuxtLink :to="{name: 'admin-products-add'}" class="btn btn-success">Add product</NuxtLink>

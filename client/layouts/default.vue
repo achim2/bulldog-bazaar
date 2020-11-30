@@ -1,10 +1,12 @@
 <template>
-  <main class="layout layout--default">
+  <section class="layout layout--default">
     <Header/>
     <Alert/>
-    <Nuxt/>
+    <main>
+      <Nuxt/>
+    </main>
     <Footer/>
-  </main>
+  </section>
 </template>
 
 <script>

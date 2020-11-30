@@ -1,5 +1,5 @@
 <template>
-  <div class="container py-5">
+  <div class="container">
     <h2>Add product</h2>
 
     <b-form @submit="onSubmit"

@@ -17,6 +17,7 @@ export default {
 
 <style lang="scss">
 .hero {
+  margin: -$main-padding 0 $main-padding;
   background: aquamarine;
 }
 </style>

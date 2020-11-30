@@ -1,5 +1,5 @@
 <template>
-  <div class="footer">
+  <footer>
     <div class="container">
       <ul>
         <li>
@@ -7,22 +7,17 @@
         </li>
       </ul>
     </div>
-  </div>
+  </footer>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-    }
-  },
-  methods: {
-  }
 }
 </script>
 
 <style lang="scss">
-.footer {
+footer {
+  height: 100px;
   background: darkgrey;
 }
 </style>
