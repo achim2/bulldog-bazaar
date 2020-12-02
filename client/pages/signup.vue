@@ -74,7 +74,12 @@ export default {
 
       try {
         await this.$axios.$post('/auth/signup', { ...this.form });
-        this.$router.push({ name: 'index' });
+        this.form = {
+          email: '',
+          name: '',
+          password: '',
+        }
+        this.$router.push({ name: 'login' });
         this.$notifier.showMessage({ message: ['Successful sign up. You can login now.'], type: 'success' })
 
       } catch (err) {

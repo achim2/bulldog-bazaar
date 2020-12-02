@@ -29,9 +29,66 @@
 
 <script>
 export default {
+  head() {
+    return {
+      title: this.title,
+      meta: [
+        //facebook
+        // { property: 'og:site_name', content: 'I Love Painting' },
+        // { hid: 'og:type', property: 'og:type', content: 'website' },
+        {
+          hid: 'og:url',
+          property: 'og:url',
+          content: this.metaProduct.url,
+        },
+        {
+          hid: 'og:title',
+          property: 'og:title',
+          content: this.metaProduct.name,
+        },
+        {
+          hid: 'og:description',
+          property: 'og:description',
+          content: this.metaProduct.description,
+        },
+        {
+          hid: 'og:image',
+          property: 'og:image',
+          content: this.metaProduct.image_url,
+        },
+        // { property: 'og:image:width', content: '740' },
+        // { property: 'og:image:height', content: '300' },
+
+        //twitter
+        // { name: "twitter:site", content: "@bobross" },
+        // { name: "twitter:card", content: "summary_large_image" },
+        {
+          hid: "twitter:url",
+          name: "twitter:url",
+          content: this.metaProduct.url,
+        },
+        {
+          hid: "twitter:title",
+          name: "twitter:title",
+          content: this.metaProduct.name,
+        },
+        {
+          hid: "twitter:description",
+          name: "twitter:description",
+          content: this.metaProduct.description,
+        },
+        {
+          hid: "twitter:image",
+          name: "twitter:image",
+          content: this.metaProduct.image_url,
+        },
+      ]
+    }
+  },
   data() {
     return {
       product: {},
+      metaProduct: {},
     }
   },
   mounted() {
@@ -39,10 +96,18 @@ export default {
     if (id) {
       this.$axios.$get(`/products/${id}`)
         .then(product => {
-          console.log("current product: ", product);
           this.product = product;
+          this.setMetaSchema();
         })
         .catch(err => console.log(err));
+    }
+  },
+  methods: {
+    setMetaSchema() {
+      this.metaProduct = JSON.parse(JSON.stringify(this.product));
+      this.metaProduct.images = this.metaProduct.images.find(img => img.selected);
+      this.metaProduct.image_url = `${process.env.imagePath}/${this.metaProduct.images.name}`;
+      this.metaProduct.url = `${process.env.baseUrl}/${this.metaProduct.name}`;
     }
   },
 }

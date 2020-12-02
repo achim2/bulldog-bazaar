@@ -62,6 +62,10 @@ export default {
 
       try {
         await this.$auth.loginWith('local', { data: { ...this.form } });
+        this.form = {
+          email: '',
+          password: '',
+        }
         this.$notifier.showMessage({ message: ['You successful logged in!'], type: 'success' })
       } catch (e) {
         this.$notifier.showMessage({ message: [e.response.data.message], type: 'danger' })

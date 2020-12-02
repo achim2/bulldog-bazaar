@@ -10,8 +10,14 @@
   * image optimalization
   * if user not logged in then nuxt auth trying to get auth & BE response send back 'token expired'
   * multer file filter & limits
+ 
+- Build 
   * carousel
   * fb, insta, meta
-   
+  * img lazy loading
+  * logo
+  * cookie message
+  * include insta and fb 
+  
 - Backend
   * 
