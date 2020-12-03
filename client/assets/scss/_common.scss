@@ -10,6 +10,12 @@ body {
   align-items: stretch;
   min-height: 100vh;
 
+  &.layout--default {
+    background: $white;
+    color: $text;
+    font-family: 'Josefin Sans', sans-serif;
+  }
+
   header,
   nav,
   main,

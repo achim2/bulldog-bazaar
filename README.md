@@ -18,6 +18,7 @@
   * logo
   * cookie message
   * include insta and fb 
+  * icons
   
 - Backend
   * 

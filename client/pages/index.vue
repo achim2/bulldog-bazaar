@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Hero/>
     <div class="container">
       <h1 class="title">
         Bulldog bazaar home page
@@ -39,12 +38,8 @@
 </template>
 
 <script>
-import Hero from '@/components/Hero';
-
 export default {
-  component: {
-    Hero,
-  },
+  component: {},
   data() {
     return {
       items: [],
