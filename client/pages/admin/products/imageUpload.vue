@@ -46,8 +46,8 @@
       <hr>
 
       <div class="d-flex flex-column justify-content-between align-items-start pb-2">
-        <nuxtLink :to="{name: 'product-edit', params: {id: this.id}}" class="btn btn-secondary mr-2 mb-2">Back to details</nuxtLink>
-        <nuxtLink :to="{name: 'admin-products'}" class="btn btn-primary">Products</nuxtLink>
+        <nuxtLink :to="localePath({name: 'product-edit', params: {id: this.id}})" class="btn btn-secondary mr-2 mb-2">Back to details</nuxtLink>
+        <nuxtLink :to="localePath({name: 'admin-products'})" class="btn btn-primary">Products</nuxtLink>
       </div>
 
     </b-form>
@@ -77,11 +77,9 @@ export default {
         })
         .catch(err => {
           if (err.response.status === 404) {
-            this.$router.push({ path: '/admin/products' });
+            this.$router.push(this.localePath({ name: 'admin-products' }));
           }
         });
-    } else {
-      this.$router.push({ path: '/admin/products' });
     }
   },
   methods: {

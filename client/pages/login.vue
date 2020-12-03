@@ -56,6 +56,12 @@ export default {
       }
     }
   },
+  // TODO: rewrite this
+  beforeMount() {
+    if (this.$auth.$state.loggedIn) {
+      this.$router.push(this.localePath({ name: 'admin-products' }));
+    }
+  },
   methods: {
     async onSubmit(evt) {
       evt.preventDefault();
@@ -66,7 +72,8 @@ export default {
           email: '',
           password: '',
         }
-        this.$notifier.showMessage({ message: ['You successful logged in!'], type: 'success' })
+        // this.$notifier.showMessage({ message: ['You successful logged in!'], type: 'success' })
+        // this.$router.push(this.localePath({ name: 'admin-products' }));
       } catch (e) {
         this.$notifier.showMessage({ message: [e.response.data.message], type: 'danger' })
       }

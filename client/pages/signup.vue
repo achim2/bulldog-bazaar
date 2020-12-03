@@ -68,6 +68,12 @@ export default {
       }
     }
   },
+  // TODO: rewrite this
+  beforeMount() {
+    if (this.$auth.$state.loggedIn) {
+      this.$router.push(this.localePath({ name: 'admin-products' }));
+    }
+  },
   methods: {
     async onSubmit(evt) {
       evt.preventDefault()
@@ -79,7 +85,7 @@ export default {
           name: '',
           password: '',
         }
-        this.$router.push({ name: 'login' });
+        this.$router.push(this.localePath({ name: 'login' }));
         this.$notifier.showMessage({ message: ['Successful sign up. You can login now.'], type: 'success' })
 
       } catch (err) {

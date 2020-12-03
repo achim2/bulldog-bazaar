@@ -42,6 +42,7 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/auth',
     '@nuxtjs/style-resources',
+    'nuxt-i18n',
     'bootstrap-vue/nuxt',
   ],
 
@@ -73,7 +74,13 @@ export default {
           user: { url: '/auth/user', method: 'get', propertyName: 'user' },
         },
       }
-    }
+    },
+    redirect: {
+      login: '/login',
+      logout: '/',
+      callback: '/login',
+      home: '/admin/products',
+    },
   },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
@@ -108,4 +115,26 @@ export default {
   },
 
   loading: '~/components/LoadingBar.vue',
+
+  i18n: {
+    locales: [
+      { code: 'en', iso: 'en-US', file: 'en.js' },
+      { code: 'hu', iso: 'hu-HU', file: 'hu.js' },
+      { code: 'de', iso: 'de-DE', file: 'de.js' },
+    ],
+    defaultLocale: 'en',
+    lazy: true,
+    langDir: '/i18n/',
+    parsePages: false,
+    vueI18n: {
+      fallbackLocale: 'en',
+    },
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: 'i18n_redirected',
+    },
+    seo: false,
+    vueI18nLoader: true,
+    strategy: 'no_prefix',
+  }
 }
