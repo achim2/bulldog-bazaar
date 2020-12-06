@@ -4,11 +4,23 @@
       <div class="product-wrapper">
         <div class="product-left">
           <!--    Image gallery    -->
-          <img v-for="(image) in product.images"
-               :src="`${$config.imagePath}/${image.name}`"
-               :alt="image.name"
-               v-if="image"
-               style="width: 200px; height: auto">
+          <picture v-for="(image, index) in product.images"
+                   v-if="image"
+                   :key="index"
+          >
+            <source :data-srcset="`${$config.imagePath}/${image.name}`"
+                    :alt="image.name"
+                    type="image/webp"
+                    class="lazyload"/>
+            <source :data-srcset="`${$config.imagePath}/${image.name}`"
+                    :alt="image.name"
+                    type="image/jpeg"
+                    class="lazyload"/>
+            <img :data-src="`${$config.imagePath}/${image.name}`"
+                 :alt="image.name"
+                 class="lazyload"/>
+          </picture>
+
         </div>
         <div class="product-right">
           <!--    info    -->

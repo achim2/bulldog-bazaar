@@ -14,7 +14,7 @@
         <b-nav-item :to="localePath({name: 'contact'})">{{ $t('contactUs') }}</b-nav-item>
 
         <!-- Navbar dropdowns -->
-        <b-nav-item-dropdown text="Lang" right>
+        <b-nav-item-dropdown :text="$i18n.locale" right>
           <b-dropdown-item
             v-for="locale in availableLocales"
             :key="locale.code"

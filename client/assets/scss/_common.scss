@@ -4,6 +4,20 @@ body {
   height: 100%;
 }
 
+.lazyload {
+  opacity: 0;
+}
+
+.lazyloading {
+  opacity: 1;
+  transition: opacity 300ms;
+  background: rgba(0, 0, 0, .5) url(~assets/Eclipse-1s-200px.svg) no-repeat center;
+}
+
+img.lazyload:not([src]) {
+  visibility: hidden;
+}
+
 .layout {
   display: flex;
   flex-direction: column;

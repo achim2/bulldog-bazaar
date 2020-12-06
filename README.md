@@ -5,17 +5,14 @@
   * Send email via contact form (BE dependent)
   * Send email if error occurred
   * password encryption to FE ??
-  * cookie handling
-  * image optimalization
-  * if user not logged in then nuxt auth trying to get auth & BE response send back 'token expired'
   * multer file filter & limits
-  * drop nuxt auth & write custom auth (not important)
+  * drop nuxt auth (if user not logged in then nuxt auth trying to get auth & BE response send back 'token expired') & write custom auth (not important)
+  * image optimalization (not finished, only build, check if build)
   * i18n (not finished)
  
 - Build 
   * carousel
   * fb, insta, meta
-  * img lazy loading
   * logo
   * cookie message
   * include insta and fb 

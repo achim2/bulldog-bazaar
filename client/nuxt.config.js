@@ -35,7 +35,10 @@ export default {
   components: true,
 
   // Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
-  buildModules: [],
+  buildModules: [
+    'nuxt-lazysizes', //https://github.com/ivodolenc/nuxt-lazysizes
+    '@aceforth/nuxt-optimized-images', //https://github.com/juliomrqz/nuxt-optimized-images //only build
+  ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
@@ -136,5 +139,40 @@ export default {
     seo: false,
     vueI18nLoader: true,
     strategy: 'no_prefix',
+  },
+
+  lazySizes: {
+    extendAssetUrls: {
+      img: 'data-src',
+      source: 'data-srcset',
+      // Component with custom props
+      AppImage: ['source-md-url', 'image-url'],
+    },
+  },
+
+  optimizedImages: {
+    inlineImageLimit: 1000,
+    handleImages: ['jpeg', 'png', 'svg', 'webp', 'gif'],
+    optimizeImages: true,
+    optimizeImagesInDev: false,
+    defaultImageLoader: 'img-loader',
+    mozjpeg: {
+      quality: 80,
+    },
+    optipng: {
+      optimizationLevel: 3,
+    },
+    pngquant: false,
+    gifsicle: {
+      interlaced: true,
+      optimizationLevel: 3,
+    },
+    svgo: {
+      // enable/disable svgo plugins here
+    },
+    webp: {
+      preset: 'default',
+      quality: 75,
+    },
   }
 }

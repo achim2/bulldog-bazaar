@@ -30,10 +30,11 @@
                lg="3"
         >
           <div class="uploaded">
-            <b-img :src="`${$config.imagePath}/${image.name}`"
+            <b-img :data-src="`${$config.imagePath}/${image.name}`"
                    :alt="image.name"
                    :title="image.name"
                    :data-selected="image.selected"
+                   class="lazyload"
                    thumbnail
                    fluid
             />
