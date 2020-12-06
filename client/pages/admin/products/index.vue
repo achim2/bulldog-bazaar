@@ -14,7 +14,7 @@
         <NuxtLink :to="`/${data.item.name}`" target="_blank">{{ data.item.name }}</NuxtLink>
       </template>
       <template #cell(birthday)="data">
-        {{ data.item.birthday | dateFilter }}
+        {{ data.item.birthday | dateFilter($i18n.locale) }}
       </template>
       <template #cell(status)="data">
         <b-form-checkbox v-model="data.value" @change="changeStatus(data)" size="lg" switch/>
