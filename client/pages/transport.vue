@@ -1,7 +1,7 @@
 <template>
-  <div class="about">
+  <div class="transport">
     <div class="container">
-      <h2>about us</h2>
+      <h2>Transport</h2>
     </div>
   </div>
 </template>

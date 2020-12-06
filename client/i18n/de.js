@@ -1,9 +1,10 @@
 export default {
   welcome: 'Herzlich willkommen',
   home: 'Startseite',
-  breedInfo: 'Rasse',
-  aboutUs: 'Über uns',
-  contactUs: 'Kontaktiere uns',
+  gallery: 'Galerie',
+  transport: 'Transport',
+  contact: 'Kontaktiere',
+
   name: 'Name',
   color: 'Farbe',
   birthday: 'Geburtstag',
@@ -11,6 +12,6 @@ export default {
   description: 'Beschreibung',
   female: 'Szuka németeül',
   male: 'Kan németeül',
-  //colors
 
+  phone: 'Telefon',
 }

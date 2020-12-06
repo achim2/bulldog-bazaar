@@ -1,9 +1,10 @@
 export default {
   welcome: 'Welcome',
   home: 'Home',
-  breedInfo: 'Breed info',
-  aboutUs: 'About us',
-  contactUs: 'Contact us',
+  gallery: 'Gallery',
+  transport: 'Transport',
+  contact: 'Contact',
+
   name: 'Name',
   color: 'Color',
   birthday: 'Birthday',
@@ -11,6 +12,6 @@ export default {
   description: 'Description',
   female: 'Female',
   male: 'Male',
-  //colors
 
+  phone: 'Phone',
 }

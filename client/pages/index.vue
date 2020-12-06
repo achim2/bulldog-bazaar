@@ -4,7 +4,6 @@
       <h1 class="title">{{ $t('welcome') }}</h1>
 
       <br>
-      <br>
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque id ipsa, praesentium quasi sequi voluptas. Alias amet blanditiis, dolor et fuga, harum illo maxime nulla quam recusandae repellat temporibus veritatis.</p>
 
       <div class="row">
@@ -29,39 +28,6 @@
       </div>
 
       <br>
-      <br>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque id ipsa, praesentium quasi sequi voluptas. Alias amet blanditiis, dolor et fuga, harum illo maxime nulla quam recusandae repellat temporibus veritatis.</p>
-
-      <br>
-      <br>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque id ipsa, praesentium quasi sequi voluptas. Alias amet blanditiis, dolor et fuga, harum illo maxime nulla quam recusandae repellat temporibus veritatis.</p>
-
-      <br>
-      <br>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque id ipsa, praesentium quasi sequi voluptas. Alias amet blanditiis, dolor et fuga, harum illo maxime nulla quam recusandae repellat temporibus veritatis.</p>
-
-      <br>
-      <br>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque id ipsa, praesentium quasi sequi voluptas. Alias amet blanditiis, dolor et fuga, harum illo maxime nulla quam recusandae repellat temporibus veritatis.</p>
-
-      <br>
-      <br>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque id ipsa, praesentium quasi sequi voluptas. Alias amet blanditiis, dolor et fuga, harum illo maxime nulla quam recusandae repellat temporibus veritatis.</p>
-
-      <br>
-      <br>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque id ipsa, praesentium quasi sequi voluptas. Alias amet blanditiis, dolor et fuga, harum illo maxime nulla quam recusandae repellat temporibus veritatis.</p>
-
-      <br>
-      <br>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque id ipsa, praesentium quasi sequi voluptas. Alias amet blanditiis, dolor et fuga, harum illo maxime nulla quam recusandae repellat temporibus veritatis.</p>
-
-      <br>
-      <br>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque id ipsa, praesentium quasi sequi voluptas. Alias amet blanditiis, dolor et fuga, harum illo maxime nulla quam recusandae repellat temporibus veritatis.</p>
-
-      <br>
-      <br>
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque id ipsa, praesentium quasi sequi voluptas. Alias amet blanditiis, dolor et fuga, harum illo maxime nulla quam recusandae repellat temporibus veritatis.</p>
 
     </div>
@@ -70,7 +36,6 @@
 
 <script>
 export default {
-  component: {},
   data() {
     return {
       items: [],

@@ -1,4 +1,5 @@
 const Product = require('../models/product');
+const Info = require('../models/info');
 
 exports.getProductsFiltered = (req, res, next) => {
   Product.find()
@@ -21,7 +22,7 @@ exports.getProductsFiltered = (req, res, next) => {
       }
       next(err);
     });
-}
+};
 
 exports.getProductFiltered = (req, res, next) => {
   const id = req.params.id;
@@ -47,6 +48,21 @@ exports.getProductFiltered = (req, res, next) => {
       res
         .status(200)
         .json(product);
+    })
+    .catch(err => {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
+    });
+};
+
+exports.getInfo = (req, res, next) => {
+  Info.findOne()
+    .then(info => {
+      res
+        .status(200)
+        .json(info)
     })
     .catch(err => {
       if (!err.statusCode) {

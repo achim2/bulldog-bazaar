@@ -20,5 +20,8 @@ export default {
     Header,
     Footer,
   },
+  mounted() {
+    this.$store.dispatch('fetchInfo');
+  },
 }
 </script>

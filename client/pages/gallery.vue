@@ -1,7 +1,7 @@
 <template>
-  <div class="about">
+  <div class="gallery">
     <div class="container">
-      <h2>Breed info</h2>
+      <h2>Gallery</h2>
     </div>
   </div>
 </template>

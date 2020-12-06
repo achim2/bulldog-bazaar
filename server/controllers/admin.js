@@ -2,6 +2,7 @@ const fs = require('fs');
 const { promisify } = require('util');
 const path = require('path')
 
+const Info = require('../models/info');
 const Product = require('../models/product');
 const { validationResult } = require('express-validator');
 
@@ -207,7 +208,7 @@ exports.postUpdateProductImages = (req, res, next) => {
       }
       next(err);
     });
-}
+};
 
 exports.postChangeStatus = (req, res, next) => {
   const id = req.body.id;
@@ -235,7 +236,7 @@ exports.postChangeStatus = (req, res, next) => {
       }
       next(err);
     });
-}
+};
 
 exports.postDeleteProduct = (req, res, next) => {
   const id = req.body.id;
@@ -266,4 +267,44 @@ deleteImages = (imageArr) => {
       // .catch(err => console.log('remove image error', err));
     });
   }
-}
+};
+
+exports.setInfo = (req, res, next) => {
+  const userId = req.body.userId;
+  const email = req.body.email;
+  const phone = req.body.phone;
+
+  Info
+    .findOne()
+    .then(dbInfo => {
+      if (dbInfo) {
+        dbInfo.userId = userId;
+        dbInfo.email = email;
+        dbInfo.phone = phone;
+
+        return dbInfo.save();
+      }
+
+      const info = new Info({
+        userId: userId,
+        email: email,
+        phone: phone,
+      })
+
+      return info.save();
+    })
+    .then(result => {
+      res
+        .status(200)
+        .json({
+          message: 'Info updated!',
+          info: result,
+        })
+    })
+    .catch(err => {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
+    });
+};

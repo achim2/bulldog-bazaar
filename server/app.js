@@ -7,10 +7,9 @@ const mongoose = require('mongoose');
 const multer = require('multer');
 const path = require('path');
 
-const indexRouter = require('./routes/index');
+const pageRouter = require('./routes/page');
 const adminRouter = require('./routes/admin');
 const authRouter = require('./routes/auth');
-const productRouter = require('./routes/product');
 
 const isAuth = require('./middleware/auth');
 
@@ -41,10 +40,9 @@ app.use(cookieParser());
 app.use(multer({ storage: fileStorage }).array('images', 10))
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-app.use('/', indexRouter);
+app.use('/', pageRouter);
 app.use('/admin', isAuth, adminRouter);
 app.use('/auth', authRouter);
-app.use('/products', productRouter);
 
 app.use((err, req, res, next) => {
   console.error('ERROR: ', err);

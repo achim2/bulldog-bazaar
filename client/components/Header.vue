@@ -9,27 +9,28 @@
     <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav class="ml-auto">
         <b-nav-item :to="localePath({name: 'index'})">{{ $t('home') }}</b-nav-item>
-        <b-nav-item :to="localePath({name: 'breed'})">{{ $t('breedInfo') }}</b-nav-item>
-        <b-nav-item :to="localePath({name: 'about'})">{{ $t('aboutUs') }}</b-nav-item>
-        <b-nav-item :to="localePath({name: 'contact'})">{{ $t('contactUs') }}</b-nav-item>
+        <b-nav-item :to="localePath({name: 'gallery'})">{{ $t('gallery') }}</b-nav-item>
+        <b-nav-item :to="localePath({name: 'transport'})">{{ $t('transport') }}</b-nav-item>
+        <b-nav-item :to="localePath({name: 'contact'})">{{ $t('contact') }}</b-nav-item>
 
         <!-- Navbar dropdowns -->
-        <b-nav-item-dropdown :text="$i18n.locale" right>
+        <b-nav-item-dropdown :text="$i18n.locale.toUpperCase()" right>
           <b-dropdown-item
             v-for="locale in availableLocales"
             :key="locale.code"
             @click="$i18n.setLocale(locale.code)"
-          >{{ locale.code }}
+          >{{ locale.code.toUpperCase() }}
           </b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
 
       <b-navbar-nav class="navbar-nav--admin" v-if="$auth.loggedIn">
-        <!--        <b-nav-item to="#">{{ $auth.user.name }}</b-nav-item>-->
-        <b-nav-item :to="localePath({name: 'admin-products'})">Products</b-nav-item>
-        <b-nav-item @click="logout">Logout</b-nav-item>
+        <b-nav-item-dropdown :text="$auth.user.name" right>
+          <b-dropdown-item :to="localePath({name: 'admin-products'})">Products</b-dropdown-item>
+          <b-dropdown-item :to="localePath({name: 'admin'})">Page info</b-dropdown-item>
+          <b-dropdown-item @click="logout">Logout</b-dropdown-item>
+        </b-nav-item-dropdown>
       </b-navbar-nav>
-
 
     </b-collapse>
   </b-navbar>
@@ -51,7 +52,7 @@ export default {
   methods: {
     setNavbarScroll() {
       let prevScrollpos = window.pageYOffset;
-      const navbar = document.querySelector(".navbar");
+      const navbar = document.querySelector("nav.navbar");
       const navbarHeight = navbar.offsetHeight;
 
       window.onscroll = function () {

@@ -3,7 +3,8 @@
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-md-6">
-          <h2>Contact me!</h2>
+          <h2 class="text-center">Contact me!</h2>
+          <p class="text-center">Please remember that we will always be here for you. Don’t hesitate to write or call for whatever question you might have. Our customers, feel free to call 24/7 if anything needed.</p>
           <b-form @submit="onSubmit" @submit.stop.prevent>
             <b-form-group
               id="input-group-1"

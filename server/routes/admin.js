@@ -20,4 +20,6 @@ router.post('/update-product-images', adminController.postUpdateProductImages);
 
 router.post('/delete-product', adminController.postDeleteProduct);
 
+router.post('/info', adminController.setInfo);
+
 module.exports = router;

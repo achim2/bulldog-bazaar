@@ -1,15 +1,27 @@
 <template>
   <footer class="footer">
     <div class="container">
-      <p>logo</p>
+      <Logo/>
       <p>social icons</p>
-      <p>copyright</p>
+      <p>Email: {{ info.email }}</p>
+      <p>{{ $t('phone') }}: {{ info.phone }}</p>
     </div>
   </footer>
 </template>
 
 <script>
-export default {}
+import { mapGetters } from 'vuex';
+
+import Logo from '@/components/Logo';
+
+export default {
+  components: { Logo },
+  computed: {
+    ...mapGetters([
+      'info'
+    ])
+  }
+}
 </script>
 
 <style lang="scss">

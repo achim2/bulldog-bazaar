@@ -1,9 +1,10 @@
 export default {
   welcome: 'Üdvözlet',
   home: 'Főoldal',
-  breedInfo: 'Tenyésztés',
-  aboutUs: 'Rólunk',
-  contactUs: 'Kapcsolat',
+  gallery: 'Galéria',
+  transport: 'Szállítás',
+  contact: 'Kapcsolat',
+
   name: 'Név',
   color: 'Szín',
   birthday: 'Születési idő',
@@ -11,6 +12,6 @@ export default {
   description: 'Leírás',
   female: 'Szuka',
   male: 'Kan',
-  //colors
 
+  phone: 'Telefon',
 }

@@ -106,7 +106,6 @@ export default {
     }
   },
 
-
   env: {
     baseUrl: `${process.env.BASE_URL}`,
     imagePath: `${process.env.BASE_URL}:${process.env.API_PORT}/uploads`,
