@@ -46,7 +46,7 @@
 
       <hr>
 
-      <div class="d-flex flex-column justify-content-between align-items-start pb-2">
+      <div class="d-flex align-items-start pb-2">
         <nuxtLink :to="localePath({name: 'product-edit', params: {id: this.id}})" class="btn btn-secondary mr-2 mb-2">Back to details</nuxtLink>
         <nuxtLink :to="localePath({name: 'admin-products'})" class="btn btn-primary">Products</nuxtLink>
       </div>

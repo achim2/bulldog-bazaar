@@ -11,24 +11,26 @@
             <source :data-srcset="`${$config.imagePath}/${image.name}`"
                     :alt="image.name"
                     type="image/webp"
-                    class="lazyload"/>
+                    class="lazyload product-image"/>
             <source :data-srcset="`${$config.imagePath}/${image.name}`"
                     :alt="image.name"
                     type="image/jpeg"
-                    class="lazyload"/>
+                    class="lazyload product-image"/>
             <img :data-src="`${$config.imagePath}/${image.name}`"
                  :alt="image.name"
-                 class="lazyload"/>
+                 class="lazyload product-image"/>
           </picture>
 
         </div>
         <div class="product-right">
           <!--    info    -->
-          <h3 v-if="product.name">Name: <b>{{ product.name }}</b></h3>
-          <p v-if="product.color">Color: <b>{{ product.color }}</b></p>
-          <p v-if="product.birthday">Birthday: <b>{{ (product.birthday)| dateFilter($i18n.locale) }}</b></p>
-          <p v-if="product.gender">Gender: <b>{{ product.gender }}</b></p>
-          <p v-if="product.description">Description <b>{{ product.description }}</b></p>
+          <h3 v-if="product.name">{{ $t('name') }}: <b>{{ product.name }}</b></h3>
+          <p v-if="product.color">{{ $t('color') }}: <b>{{ $t(product.color) }}</b></p>
+          <p v-if="product.birthday">{{ $t('birthday') }}: <b>{{ (product.birthday)| dateFilter($i18n.locale) }}</b></p>
+          <p v-if="product.gender">{{ $t('gender') }}: <b>{{ $t(product.gender) }}</b></p>
+          <div v-for="desc in product.description">
+            <p v-if="desc.text && desc.locale === $i18n.locale">{{ $t('description') }}: <b>{{ desc.text }}</b></p>
+          </div>
         </div>
       </div>
 
@@ -116,14 +118,20 @@ export default {
   },
   methods: {
     setMetaSchema() {
+      //english meta
       this.metaProduct = JSON.parse(JSON.stringify(this.product));
       this.metaProduct.images = this.metaProduct.images.find(img => img.selected);
       this.metaProduct.image_url = `${process.env.imagePath}/${this.metaProduct.images.name}`;
       this.metaProduct.url = `${process.env.baseUrl}/${this.metaProduct.name}`;
+      this.metaProduct.description = this.metaProduct.description[0].text;
     }
   },
 }
 </script>
 
 <style lang="scss">
+.product-image {
+  width: 200px;
+  height: auto;
+}
 </style>

@@ -4,4 +4,13 @@ export default {
   breedInfo: 'Rasse',
   aboutUs: 'Über uns',
   contactUs: 'Kontaktiere uns',
+  name: 'Name',
+  color: 'Farbe',
+  birthday: 'Geburtstag',
+  gender: 'Geschlecht',
+  description: 'Beschreibung',
+  female: 'Szuka németeül',
+  male: 'Kan németeül',
+  //colors
+
 }

@@ -31,7 +31,7 @@ const productSchema = new Schema(
       required: true
     },
     description: {
-      type: String,
+      type: Array,
     },
     status: {
       type: Boolean,
