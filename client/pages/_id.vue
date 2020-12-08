@@ -122,7 +122,7 @@ export default {
       this.metaProduct = JSON.parse(JSON.stringify(this.product));
       this.metaProduct.images = this.metaProduct.images.find(img => img.selected);
       this.metaProduct.image_url = `${process.env.imagePath}/${this.metaProduct.images.name}`;
-      this.metaProduct.url = `${process.env.baseUrl}/${this.metaProduct.name}`;
+      this.metaProduct.url = `${process.env.baseUrl}/${this.metaProduct.slug}`;
       this.metaProduct.description = this.metaProduct.description[0].text;
     }
   },

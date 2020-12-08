@@ -9,7 +9,7 @@
       <div class="row">
         <div class="col-sm-6 col-md-4"
              v-for="item in items" :key="item._id">
-          <nuxtLink :to="localePath(`/${item.name}`)" class="product">
+          <nuxtLink :to="localePath(`/${item.slug}`)" class="product">
             <picture>
               <source :data-srcset="`${$config.imagePath}/${item.images[0].name}`"
                       type="image/webp"

@@ -64,6 +64,7 @@ exports.postAddProduct = (req, res, next) => {
   const product = new Product({
     userId: req.body.userId,
     name: req.body.name,
+    slug: slugify(req.body.name),
     color: req.body.color,
     birthday: req.body.birthday,
     gender: req.body.gender,
@@ -105,6 +106,7 @@ exports.postEditProduct = (req, res, next) => {
     .then(product => {
       product.userId = userId;
       product.name = req.body.name;
+      product.slug = slugify(req.body.name);
       product.color = req.body.color;
       product.birthday = req.body.birthday;
       product.gender = req.body.gender;
@@ -258,17 +260,6 @@ exports.postDeleteProduct = (req, res, next) => {
     });
 };
 
-deleteImages = (imageArr) => {
-  if (imageArr.length > 0) {
-    imageArr.map(img => {
-      const unlinkAsync = promisify(fs.unlink)
-      unlinkAsync(path.resolve('./uploads/' + img.name))
-      // .then(res => console.log('remove image success', res))
-      // .catch(err => console.log('remove image error', err));
-    });
-  }
-};
-
 exports.setInfo = (req, res, next) => {
   const userId = req.body.userId;
   const email = req.body.email;
@@ -308,3 +299,29 @@ exports.setInfo = (req, res, next) => {
       next(err);
     });
 };
+
+deleteImages = (imageArr) => {
+  if (imageArr.length > 0) {
+    imageArr.map(img => {
+      const unlinkAsync = promisify(fs.unlink)
+      unlinkAsync(path.resolve('./uploads/' + img.name))
+      // .then(res => console.log('remove image success', res))
+      // .catch(err => console.log('remove image error', err));
+    });
+  }
+};
+
+slugify = (string) => {
+  const a = 'àáâäæãåāăąçćčđďèéêëēėęěğǵḧîïíīįìłḿñńǹňôöòóœøōõőṕŕřßśšşșťțûüùúūǘůűųẃẍÿýžźż·/_,:;'
+  const b = 'aaaaaaaaaacccddeeeeeeeegghiiiiiilmnnnnoooooooooprrsssssttuuuuuuuuuwxyyzzz------'
+  const p = new RegExp(a.split('').join('|'), 'g')
+
+  return string.toString().toLowerCase()
+    .replace(/\s+/g, '-') // Replace spaces with -
+    .replace(p, c => b.charAt(a.indexOf(c))) // Replace special characters
+    .replace(/&/g, '-and-') // Replace & with 'and'
+    .replace(/[^\w\-]+/g, '') // Remove all non-word characters
+    .replace(/\-\-+/g, '-') // Replace multiple - with single -
+    .replace(/^-+/, '') // Trim - from start of text
+    .replace(/-+$/, '') // Trim - from end of text
+}

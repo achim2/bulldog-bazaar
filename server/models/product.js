@@ -13,6 +13,11 @@ const productSchema = new Schema(
       unique: true,
       required: true
     },
+    slug: {
+      type: String,
+      unique: true,
+      required: true
+    },
     images: {
       type: Array,
       // required: true

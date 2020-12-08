@@ -29,7 +29,7 @@ exports.getProductFiltered = (req, res, next) => {
 
   Product
     // .findById(id)
-    .find({ name: id })
+    .find({ slug: id })
     .then(product => {
       product = product.find(x => x !== undefined);
 
