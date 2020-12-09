@@ -22,6 +22,9 @@ const productSchema = new Schema(
       type: Array,
       // required: true
     },
+    selectedFilename: {
+      type: String,
+    },
     color: {
       type: String,
       required: true

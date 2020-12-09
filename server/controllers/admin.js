@@ -1,15 +1,17 @@
 const fs = require('fs');
 const { promisify } = require('util');
-const path = require('path')
+const path = require('path');
 
 const Info = require('../models/info');
 const Product = require('../models/product');
+const Gallery = require('../models/gallery');
+
 const { validationResult } = require('express-validator');
 
 exports.getIndex = (req, res, next) => {
   res
     .status(200)
-    .json('hello admin')
+    .json('hello admin');
 };
 
 exports.getProducts = (req, res, next) => {
@@ -17,7 +19,7 @@ exports.getProducts = (req, res, next) => {
     .then(products => {
       res
         .status(200)
-        .json(products)
+        .json(products);
     })
     .catch(err => {
       if (!err.statusCode) {
@@ -69,7 +71,7 @@ exports.postAddProduct = (req, res, next) => {
     birthday: req.body.birthday,
     gender: req.body.gender,
     description: req.body.description,
-  })
+  });
 
   product
     .save()
@@ -79,7 +81,7 @@ exports.postAddProduct = (req, res, next) => {
         .json({
           message: 'Product created!',
           product: result,
-        })
+        });
     })
     .catch(err => {
       if (!err.statusCode) {
@@ -130,6 +132,74 @@ exports.postEditProduct = (req, res, next) => {
     });
 };
 
+exports.getGallery = (req, res, next) => {
+  Gallery
+    .find()
+    .then(images => {
+      if (!images) {
+        const error = new Error('Image not found!');
+        error.statusCode = 404;
+        throw error;
+      }
+
+      res
+        .status(200)
+        .json(images);
+    })
+    .catch(err => {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
+    });
+};
+
+exports.postUpdateGallery = (req, res, next) => {
+  const userId = req.body.userId;
+  const deletedImage = req.body.deletedImage;
+  let method = null;
+  const files = [];
+
+  req.files.map(file => {
+    files.push({
+      userId: userId,
+      filename: file.filename
+    });
+  });
+
+  if (req.files.length) {
+    //update
+    method = Gallery.insertMany(files);
+
+  } else if (deletedImage) {
+    //delete
+    method = Gallery.findOneAndDelete({ filename: deletedImage });
+    deleteImages([deletedImage]);
+
+  } else {
+    //error
+    const error = new Error('No image provided!');
+    error.statusCode = 422;
+    throw error;
+  }
+
+  method
+    .then(result => {
+      res
+        .status(200)
+        .json({
+          message: 'Images Updated!',
+          result: result,
+        });
+    })
+    .catch(err => {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
+    });
+};
+
 exports.postUpdateProductImages = (req, res, next) => {
   const id = req.body.productId;
   const userId = req.body.userId;
@@ -143,50 +213,40 @@ exports.postUpdateProductImages = (req, res, next) => {
   //   throw error;
   // }
 
-  // console.log('new files: ', files)
-  // console.log('old files: ', oldImages)
-
   Product
     .findById(id)
     .then(product => {
       let existingImages = product.images;
-      const hasSelected = product.images.find(img => img.selected);
+      const hasSelected = product.selectedFilename;
 
       // update images
-      if (req.files.length !== 0) {
-        console.log('in req.files if')
+      if (req.files) {
         req.files.forEach((file, i) => {
           files.push({
-            name: file.filename,
-            selected: false,
-          })
+            filename: file.filename,
+          });
         });
 
         if (!hasSelected) {
-          files[0].selected = true;
+          product.selectedFilename = files[0].filename;
         }
       }
 
       //if deleted not empty
-      if (deletedImage !== '') {
-        console.log('in deleted if')
-        if (hasSelected && hasSelected.name === deletedImage) {
-          const error = new Error('You cannot delete selected image!')
+      if (deletedImage) {
+        if (hasSelected === deletedImage) {
+          const error = new Error('You cannot delete selected image!');
           error.statusCode = 422;
           throw error;
         }
-        const filteredImages = product.images.filter(image => image.name === deletedImage);
-        existingImages = product.images.filter(image => image.name !== deletedImage);
-        deleteImages(filteredImages);
+        const filteredImage = product.images.find(image => image.filename === deletedImage);
+        existingImages = product.images.filter(image => image.filename !== deletedImage);
+        deleteImages(filteredImage.filename);
       }
 
       //selected not empty
-      if (selectedImage !== '') {
-        console.log('in selected if')
-        existingImages = product.images.map(img => {
-          img.selected = img.name === selectedImage;
-          return img;
-        });
+      if (selectedImage) {
+        product.selectedFilename = selectedImage;
       }
 
       //update images url
@@ -250,7 +310,7 @@ exports.postDeleteProduct = (req, res, next) => {
       deleteImages(result.images);
       res
         .status(200)
-        .json('Product deleted!')
+        .json('Product deleted!');
     })
     .catch(err => {
       if (!err.statusCode) {
@@ -260,7 +320,7 @@ exports.postDeleteProduct = (req, res, next) => {
     });
 };
 
-exports.setInfo = (req, res, next) => {
+exports.postSetInfo = (req, res, next) => {
   const userId = req.body.userId;
   const email = req.body.email;
   const phone = req.body.phone;
@@ -280,7 +340,7 @@ exports.setInfo = (req, res, next) => {
         userId: userId,
         email: email,
         phone: phone,
-      })
+      });
 
       return info.save();
     })
@@ -290,7 +350,7 @@ exports.setInfo = (req, res, next) => {
         .json({
           message: 'Info updated!',
           info: result,
-        })
+        });
     })
     .catch(err => {
       if (!err.statusCode) {
@@ -300,21 +360,19 @@ exports.setInfo = (req, res, next) => {
     });
 };
 
-deleteImages = (imageArr) => {
-  if (imageArr.length > 0) {
-    imageArr.map(img => {
-      const unlinkAsync = promisify(fs.unlink)
-      unlinkAsync(path.resolve('./uploads/' + img.name))
-      // .then(res => console.log('remove image success', res))
-      // .catch(err => console.log('remove image error', err));
-    });
+deleteImages = (filename) => {
+  if (filename) {
+    const unlinkAsync = promisify(fs.unlink);
+    unlinkAsync(path.resolve('./uploads/' + filename));
+    // .then(res => console.log('remove image success', res))
+    // .catch(err => console.log('remove image error', err));
   }
 };
 
 slugify = (string) => {
-  const a = 'àáâäæãåāăąçćčđďèéêëēėęěğǵḧîïíīįìłḿñńǹňôöòóœøōõőṕŕřßśšşșťțûüùúūǘůűųẃẍÿýžźż·/_,:;'
-  const b = 'aaaaaaaaaacccddeeeeeeeegghiiiiiilmnnnnoooooooooprrsssssttuuuuuuuuuwxyyzzz------'
-  const p = new RegExp(a.split('').join('|'), 'g')
+  const a = 'àáâäæãåāăąçćčđďèéêëēėęěğǵḧîïíīįìłḿñńǹňôöòóœøōõőṕŕřßśšşșťțûüùúūǘůűųẃẍÿýžźż·/_,:;';
+  const b = 'aaaaaaaaaacccddeeeeeeeegghiiiiiilmnnnnoooooooooprrsssssttuuuuuuuuuwxyyzzz------';
+  const p = new RegExp(a.split('').join('|'), 'g');
 
   return string.toString().toLowerCase()
     .replace(/\s+/g, '-') // Replace spaces with -
@@ -323,5 +381,5 @@ slugify = (string) => {
     .replace(/[^\w\-]+/g, '') // Remove all non-word characters
     .replace(/\-\-+/g, '-') // Replace multiple - with single -
     .replace(/^-+/, '') // Trim - from start of text
-    .replace(/-+$/, '') // Trim - from end of text
-}
+    .replace(/-+$/, ''); // Trim - from end of text
+};

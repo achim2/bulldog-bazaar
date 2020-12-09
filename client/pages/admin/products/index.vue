@@ -11,7 +11,7 @@
              :fields="['name', 'gender', 'birthday', 'color', 'edit', 'delete', 'status']"
     >
       <template #cell(name)="data">
-        <NuxtLink :to="`/${data.item.name}`" target="_blank">{{ data.item.name }}</NuxtLink>
+        <NuxtLink :to="`/${data.item.slug}`" target="_blank">{{ data.item.name }}</NuxtLink>
       </template>
       <template #cell(birthday)="data">
         {{ data.item.birthday | dateFilter($i18n.locale) }}
@@ -72,6 +72,7 @@ export default {
           edit: item._id,
           delete: item._id,
           status: item.status,
+          slug: item.slug,
         }
       });
     },

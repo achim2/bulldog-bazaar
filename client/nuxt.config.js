@@ -98,9 +98,9 @@ export default {
           component: 'pages/admin/products/add.vue',
         },
         {
-          name: 'product-image-upload',
-          path: '/admin/products/upload-images/:id',
-          component: 'pages/admin/products/imageUpload.vue',
+          name: 'addProductImage',
+          path: '/admin/products/addProductImage/:id',
+          component: 'pages/admin/products/addProductImage.vue',
         },
       )
     }

@@ -178,7 +178,7 @@ export default {
           if (back) {
             this.$router.push(this.localePath({ name: `admin-products`}));
           } else {
-            this.$router.push(this.localePath({ name: `product-image-upload`, params: { id: res.product._id } }));
+            this.$router.push(this.localePath({ name: `addProductImage`, params: { id: res.product._id } }));
           }
         })
         .catch(err => {

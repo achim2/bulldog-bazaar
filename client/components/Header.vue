@@ -28,6 +28,7 @@
         <b-nav-item-dropdown :text="$auth.user.name" right>
           <b-dropdown-item :to="localePath({name: 'admin-products'})">Products</b-dropdown-item>
           <b-dropdown-item :to="localePath({name: 'admin'})">Page info</b-dropdown-item>
+          <b-dropdown-item :to="localePath({name: 'admin-addGalleryImage'})">Gallery</b-dropdown-item>
           <b-dropdown-item @click="logout">Logout</b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
