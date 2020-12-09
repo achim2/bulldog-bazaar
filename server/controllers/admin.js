@@ -132,28 +132,6 @@ exports.postEditProduct = (req, res, next) => {
     });
 };
 
-exports.getGallery = (req, res, next) => {
-  Gallery
-    .find()
-    .then(images => {
-      if (!images) {
-        const error = new Error('Image not found!');
-        error.statusCode = 404;
-        throw error;
-      }
-
-      res
-        .status(200)
-        .json(images);
-    })
-    .catch(err => {
-      if (!err.statusCode) {
-        err.statusCode = 500;
-      }
-      next(err);
-    });
-};
-
 exports.postUpdateGallery = (req, res, next) => {
   const userId = req.body.userId;
   const deletedImage = req.body.deletedImage;

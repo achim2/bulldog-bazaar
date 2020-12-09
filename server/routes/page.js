@@ -9,4 +9,6 @@ router.get('/products/:id', pageController.getProductFiltered);
 
 router.get('/info', pageController.getInfo);
 
+router.get('/gallery', pageController.getGallery);
+
 module.exports = router;

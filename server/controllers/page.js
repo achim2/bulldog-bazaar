@@ -1,16 +1,11 @@
 const Product = require('../models/product');
 const Info = require('../models/info');
+const Gallery = require('../models/gallery');
 
 exports.getProductsFiltered = (req, res, next) => {
   Product.find()
     .then(products => {
-      let filteredProducts = [];
-      for (let product of products) {
-        product.images = product.images.find(img => img.selected);
-        filteredProducts.push(product)
-      }
-
-      filteredProducts = filteredProducts.filter(product => product.status);
+      const filteredProducts = products.filter(product => product.status);
 
       res
         .status(200)
@@ -62,7 +57,29 @@ exports.getInfo = (req, res, next) => {
     .then(info => {
       res
         .status(200)
-        .json(info)
+        .json(info);
+    })
+    .catch(err => {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
+    });
+};
+
+exports.getGallery = (req, res, next) => {
+  Gallery
+    .find()
+    .then(images => {
+      if (!images) {
+        const error = new Error('Image not found!');
+        error.statusCode = 404;
+        throw error;
+      }
+
+      res
+        .status(200)
+        .json(images);
     })
     .catch(err => {
       if (!err.statusCode) {

@@ -11,13 +11,13 @@
              v-for="item in items" :key="item._id">
           <nuxtLink :to="localePath(`/${item.slug}`)" class="product">
             <picture>
-              <source :data-srcset="`${$config.imagePath}/${item.images[0].name}`"
+              <source :data-srcset="`${$config.imagePath}/${item.selectedFilename}`"
                       type="image/webp"
                       class="lazyload"/>
-              <source :data-srcset="`${$config.imagePath}/${item.images[0].name}`"
+              <source :data-srcset="`${$config.imagePath}/${item.selectedFilename}`"
                       type="image/jpeg"
                       class="lazyload"/>
-              <img :data-src="`${$config.imagePath}/${item.images[0].name}`"
+              <img :data-src="`${$config.imagePath}/${item.selectedFilename}`"
                    :alt="item.name"
                    class="lazyload"/>
             </picture>
@@ -52,10 +52,4 @@ export default {
 </script>
 
 <style lang="scss">
-.product {
-  img {
-    display: block;
-    width: 100%;
-  }
-}
 </style>

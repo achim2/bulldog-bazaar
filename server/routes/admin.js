@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const adminController = require('../controllers/admin');
+const pageController = require('../controllers/page');
 const productValidation = require('../validation/product');
 
 router.get('/', adminController.getIndex);
@@ -24,6 +25,6 @@ router.post('/info', adminController.postSetInfo);
 
 router.post('/update-gallery', adminController.postUpdateGallery);
 
-router.get('/gallery', adminController.getGallery);
+router.get('/gallery', pageController.getGallery);
 
 module.exports = router;

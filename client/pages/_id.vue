@@ -8,16 +8,16 @@
                    v-if="image"
                    :key="index"
           >
-            <source :data-srcset="`${$config.imagePath}/${image.name}`"
-                    :alt="image.name"
+            <source :data-srcset="`${$config.imagePath}/${image.filename}`"
+                    :alt="product.name"
                     type="image/webp"
                     class="lazyload product-image"/>
-            <source :data-srcset="`${$config.imagePath}/${image.name}`"
-                    :alt="image.name"
+            <source :data-srcset="`${$config.imagePath}/${image.filename}`"
+                    :alt="product.name"
                     type="image/jpeg"
                     class="lazyload product-image"/>
-            <img :data-src="`${$config.imagePath}/${image.name}`"
-                 :alt="image.name"
+            <img :data-src="`${$config.imagePath}/${image.filename}`"
+                 :alt="product.name"
                  class="lazyload product-image"/>
           </picture>
 
@@ -68,7 +68,7 @@ export default {
         {
           hid: 'og:image',
           property: 'og:image',
-          content: this.metaProduct.image_url,
+          content: this.metaProduct.filename,
         },
         // { property: 'og:image:width', content: '740' },
         // { property: 'og:image:height', content: '300' },
@@ -94,7 +94,7 @@ export default {
         {
           hid: "twitter:image",
           name: "twitter:image",
-          content: this.metaProduct.image_url,
+          content: this.metaProduct.filename,
         },
       ]
     }
@@ -120,8 +120,7 @@ export default {
     setMetaSchema() {
       //english meta
       this.metaProduct = JSON.parse(JSON.stringify(this.product));
-      this.metaProduct.images = this.metaProduct.images.find(img => img.selected);
-      this.metaProduct.image_url = `${process.env.imagePath}/${this.metaProduct.images.name}`;
+      this.metaProduct.filename = `${process.env.imagePath}/${this.metaProduct.selectedFilename}`;
       this.metaProduct.url = `${process.env.baseUrl}/${this.metaProduct.slug}`;
       this.metaProduct.description = this.metaProduct.description[0].text;
     }

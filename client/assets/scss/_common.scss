@@ -18,6 +18,11 @@ img.lazyload:not([src]) {
   visibility: hidden;
 }
 
+img {
+  display: block;
+  width: 100%;
+}
+
 .layout {
   display: flex;
   flex-direction: column;
