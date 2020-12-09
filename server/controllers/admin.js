@@ -220,7 +220,7 @@ exports.postUpdateProductImages = (req, res, next) => {
       const hasSelected = product.selectedFilename;
 
       // update images
-      if (req.files) {
+      if (req.files.length) {
         req.files.forEach((file, i) => {
           files.push({
             filename: file.filename,
@@ -234,13 +234,13 @@ exports.postUpdateProductImages = (req, res, next) => {
 
       //if deleted not empty
       if (deletedImage) {
-        if (hasSelected === deletedImage) {
-          const error = new Error('You cannot delete selected image!');
-          error.statusCode = 422;
-          throw error;
-        }
         const filteredImage = product.images.find(image => image.filename === deletedImage);
         existingImages = product.images.filter(image => image.filename !== deletedImage);
+        if (existingImages.length) {
+          product.selectedFilename = existingImages[0].filename;
+        } else {
+          product.selectedFilename = '';
+        }
         deleteImages(filteredImage.filename);
       }
 
