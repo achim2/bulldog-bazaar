@@ -1,31 +1,22 @@
 export default function ({ store, $axios }) {
   $axios.onRequest((config) => {
-    store._vm.$nextTick(() => {
-      if (store._vm.$nuxt != null) {
-        store._vm.$nuxt.$loading.start();
-        return config;
-      }
-    })
   })
 
   $axios.onResponse((response) => {
-    store._vm.$nextTick(() => {
-      if (store._vm.$nuxt != null) {
-        store._vm.$nuxt.$loading.finish();
-        return response;
-      }
-    })
   })
 
   $axios.onError((error) => {
+    const errors = error.response.data.errors;
+    const msg = error.response.data.message;
+
     console.log('onError: ', error);
     console.log('onError response: ', error.response);
 
-    store._vm.$nextTick(() => {
-      if (store._vm.$nuxt != null) {
-        store._vm.$nuxt.$loading.finish();
-        return Promise.reject(error);
-      }
-    })
+    if (errors) {
+      store.$notifier.showMessage({ message: errors.map(obj => obj.msg), type: 'danger' });
+    } else {
+      store.$notifier.showMessage({ message: [msg], type: 'danger' });
+    }
+
   })
 }

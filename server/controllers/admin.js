@@ -132,99 +132,31 @@ exports.postEditProduct = (req, res, next) => {
     });
 };
 
-exports.postUpdateGallery = (req, res, next) => {
-  const userId = req.body.userId;
-  const deletedImage = req.body.deletedImage;
-  let method = null;
-  const files = [];
-
-  req.files.map(file => {
-    files.push({
-      userId: userId,
-      filename: file.filename
-    });
-  });
-
-  if (req.files.length) {
-    //update
-    method = Gallery.insertMany(files);
-
-  } else if (deletedImage) {
-    //delete
-    method = Gallery.findOneAndDelete({ filename: deletedImage });
-    deleteImages([deletedImage]);
-
-  } else {
-    //error
-    const error = new Error('No image provided!');
-    error.statusCode = 422;
-    throw error;
-  }
-
-  method
-    .then(result => {
-      res
-        .status(200)
-        .json({
-          message: 'Images Updated!',
-          result: result,
-        });
-    })
-    .catch(err => {
-      if (!err.statusCode) {
-        err.statusCode = 500;
-      }
-      next(err);
-    });
-};
-
 exports.postUpdateProductImages = (req, res, next) => {
   const id = req.body.productId;
   const userId = req.body.userId;
   const files = [];
-  const deletedImage = req.body.deletedImage;
-  const selectedImage = req.body.selectedImage;
-
-  // if (req.files) {
-  //   const error = new Error('No image provided!');
-  //   error.statusCode = 422;
-  //   throw error;
-  // }
 
   Product
     .findById(id)
     .then(product => {
       let existingImages = product.images;
       const hasSelected = product.selectedFilename;
+      let counter = existingImages.length ? existingImages.length : 0;
 
       // update images
       if (req.files.length) {
-        req.files.forEach((file, i) => {
+        req.files.map(file => {
           files.push({
             filename: file.filename,
+            index: counter,
           });
+          counter++;
         });
 
         if (!hasSelected) {
           product.selectedFilename = files[0].filename;
         }
-      }
-
-      //if deleted not empty
-      if (deletedImage) {
-        const filteredImage = product.images.find(image => image.filename === deletedImage);
-        existingImages = product.images.filter(image => image.filename !== deletedImage);
-        if (existingImages.length) {
-          product.selectedFilename = existingImages[0].filename;
-        } else {
-          product.selectedFilename = '';
-        }
-        deleteImages(filteredImage.filename);
-      }
-
-      //selected not empty
-      if (selectedImage) {
-        product.selectedFilename = selectedImage;
       }
 
       //update images url
@@ -248,6 +180,176 @@ exports.postUpdateProductImages = (req, res, next) => {
       }
       next(err);
     });
+};
+
+exports.postUpdateProductImageIndex = (req, res, next) => {
+  const userId = req.body.userId;
+  const id = req.body.productId;
+  const images = req.body.images;
+
+  Product.findOne({ _id: id })
+    .then(product => {
+      const sorted = setImageIndex(images);
+      product.selectedFilename = sorted[0].filename;
+      product.userId = userId;
+      product.images = sorted;
+      product.markModified('images');
+
+      return product.save();
+    })
+    .then(result => {
+      res
+        .status(200)
+        .json({
+          message: 'Images updated!',
+          product: result
+        });
+    })
+    .catch(err => {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
+    });
+};
+
+exports.postDeleteProductImage = (req, res, next) => {
+  const userId = req.body.userId;
+  const id = req.body.productId;
+  const deletedImage = req.body.deletedImage;
+
+  Product
+    .findById(id)
+    .then(product => {
+      const filteredImage = product.images.filter(image => image.filename === deletedImage);
+      let filteredArr = product.images.filter(image => image.filename !== deletedImage);
+
+      if (filteredArr.length) {
+        filteredArr = setImageIndex(filteredArr);
+      }
+
+      if (filteredArr.length) {
+        product.selectedFilename = filteredArr[0].filename;
+      } else {
+        product.selectedFilename = '';
+      }
+
+      deleteImages(filteredImage);
+
+      product.images = filteredArr;
+      product.userId = userId;
+      product.markModified('images');
+
+      return product.save();
+    })
+    .then(result => {
+      res
+        .status(200)
+        .json({
+          message: 'Image deleted!',
+          product: result,
+        });
+    })
+    .catch(err => {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
+    });
+};
+
+exports.postUpdateGallery = async (req, res, next) => {
+  const userId = req.body.userId;
+  const files = [];
+
+  try {
+    //find all image
+    const find = await Gallery.find();
+    let counter = find.length ? find.length : 0;
+
+    //set files userId && filename && index
+    req.files.map(file => {
+      files.push({
+        userId: userId,
+        filename: file.filename,
+        index: counter,
+      });
+      counter++;
+    });
+
+    //insert files
+    const result = await Gallery.insertMany(files);
+
+    res
+      .status(200)
+      .json({
+        message: 'Images uploaded!',
+        result: result,
+      });
+
+  } catch (err) {
+    if (!err.statusCode) {
+      err.statusCode = 500;
+    }
+    next(err);
+  }
+};
+
+exports.postDeleteGalleryImage = async (req, res, next) => {
+  const deletedImage = req.body.deletedImage;
+  let filtered = [];
+
+  try {
+    //Delete image
+    await Gallery
+      .findOneAndDelete({ filename: deletedImage })
+      .then(result => {
+        deleteImages([result]);
+      });
+
+    //Query all image
+    const find = await Gallery.find();
+
+    //Set new image indexes if images not empty
+    if (find.length) {
+      filtered = await updateGalleryImageIndex(setImageIndex(find));
+    }
+
+    //Response
+    res
+      .status(200)
+      .json({
+        message: 'Images deleted!',
+        result: filtered,
+      });
+
+  } catch (err) {
+    if (!err.statusCode) {
+      err.statusCode = 500;
+    }
+    next(err);
+  }
+};
+
+exports.postUpdateGalleryImageIndex = async (req, res, next) => {
+  const images = req.body.images;
+
+  try {
+    const filtered = await updateGalleryImageIndex(setImageIndex(images));
+
+    res
+      .status(200)
+      .json({
+        message: 'Images updated!',
+        result: filtered,
+      });
+
+  } catch (err) {
+    if (!err.statusCode) {
+      err.statusCode = 500;
+    }
+    next(err);
+  }
 };
 
 exports.postChangeStatus = (req, res, next) => {
@@ -338,12 +440,16 @@ exports.postSetInfo = (req, res, next) => {
     });
 };
 
-deleteImages = (filename) => {
-  if (filename) {
-    const unlinkAsync = promisify(fs.unlink);
-    unlinkAsync(path.resolve('./uploads/' + filename));
-    // .then(res => console.log('remove image success', res))
-    // .catch(err => console.log('remove image error', err));
+deleteImages = (arr) => {
+  if (arr.length) {
+    arr.map(img => {
+      if (img.filename) {
+        const unlinkAsync = promisify(fs.unlink);
+        unlinkAsync(path.resolve('./uploads/' + img.filename));
+        // .then(res => console.log('remove image success', res))
+        // .catch(err => console.log('remove image error', err));
+      }
+    });
   }
 };
 
@@ -360,4 +466,50 @@ slugify = (string) => {
     .replace(/\-\-+/g, '-') // Replace multiple - with single -
     .replace(/^-+/, '') // Trim - from start of text
     .replace(/-+$/, ''); // Trim - from end of text
+};
+
+setImageIndex = (arr) => {
+  if (arr.length) {
+    return arr.map((image, index) => {
+      image.index = index;
+      return image;
+    });
+  }
+
+  return null;
+};
+
+updateGalleryImageIndex = (arr) => {
+  if (arr.length) {
+    const promises = arr.map(obj => {
+      return Gallery
+        .findOne({ _id: obj._id })
+        .then(image => {
+          image.index = obj.index;
+          image.save();
+          return image;
+        })
+        .catch(err => {
+          if (!err.statusCode) {
+            err.statusCode = 500;
+          }
+          throw new Error(err);
+        });
+    });
+
+    return Promise
+      .all(promises)
+      .then(result => {
+        console.log('485', result);
+        return result;
+      })
+      .catch(err => {
+        if (!err.statusCode) {
+          err.statusCode = 500;
+        }
+        throw new Error(err);
+      });
+  }
+
+  return null;
 };

@@ -17,78 +17,79 @@
         ></b-form-file>
       </b-form-group>
 
-      <hr>
-
-      <b-row>
-        <b-col v-for="(image, index) in images"
-               :key="index"
-               sm="6"
-               md="4"
-               lg="3"
-        >
-          <div class="uploaded">
-            <b-img :src="`${$config.imagePath}/${image.filename}`"
-                   :alt="image.filename"
-                   :title="image.filename"
-                   :data-selected="image.filename === selected"
-                   thumbnail
-                   fluid
-            />
-            <a v-if="selected && selected !== image.filename" @click="setSelected(image.filename)" class="btn btn-info mt-2">set selected</a>
-            <a @click="deleteImage(image.filename)" class="btn btn-danger mt-2 mb-4">remove</a>
-          </div>
-        </b-col>
-      </b-row>
-
     </b-form>
+    <hr>
+
+    <draggable :list="images"
+               :move="handleMove"
+               @end="handleDragEnd"
+               class="row">
+      <b-col v-for="(image, index) in images"
+             :key="images.index"
+             sm="6"
+             md="4"
+             lg="3"
+      >
+        <div class="uploaded">
+          <b-img :src="`${$config.imagePath}/${image.filename}`"
+                 :alt="image.filename"
+                 :title="image.filename"
+                 thumbnail
+                 fluid
+          />
+          <a @click="$emit('onDelete', image.filename)" class="btn btn-danger mt-2 mb-4">remove</a>
+        </div>
+      </b-col>
+    </draggable>
+
   </div>
 </template>
 
 <script>
+import draggable from 'vuedraggable';
+
 export default {
   props: [
     'title',
     'images',
-    'selected',
   ],
+  components: {
+    draggable,
+  },
   data() {
     return {
       newImages: [],
-      deletedImage: '',
-      selectedImage: '',
     };
   },
   methods: {
     handlingForm() {
       const formData = new FormData();
       formData.append('userId', this.$auth.$state.user.id);
-      formData.append('deletedImage', this.deletedImage);
-      formData.append('selectedImage', this.selectedImage);
       this.newImages.map(image => formData.append('images', image));
       this.newImages = [];
-      this.deletedImage = '';
-      this.selectedImage = '';
       this.$emit('onSubmit', formData);
     },
-    deleteImage(name) {
-      this.deletedImage = name;
-      this.handlingForm();
+    handleMove(e) {
+      //   console.log('filename: ', e.draggedContext.element.filename);
     },
-    setSelected(name) {
-      this.selectedImage = name;
-      this.handlingForm();
-    }
+    handleDragEnd() {
+      this.$emit('handleDragEnd', Object.assign([], this.images));
+    },
   },
 };
 </script>
 
 <style lang="scss">
 .uploaded {
+  position: relative;
   display: flex;
   flex-direction: column;
 
-  img[data-selected='true'] {
-    border: 2px solid red;
+  .btn.btn-danger {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 8px;
   }
 }
 </style>

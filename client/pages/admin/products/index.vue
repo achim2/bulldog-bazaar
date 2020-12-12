@@ -35,12 +35,12 @@ export default {
   data() {
     return {
       items: [],
-    }
+    };
   },
   mounted() {
     this.$axios.$get('/admin/products')
       .then(res => {
-        this.setTableSchema(res)
+        this.setTableSchema(res);
       })
       .catch(err => console.log(err));
   },
@@ -54,12 +54,12 @@ export default {
       )
         .then(res => {
           this.items = this.items.map(item => item.id === data.item.id ? data.item : item);
-          this.$notifier.showMessage({ message: [res.message], type: 'success' })
+          this.$notifier.showMessage({ message: [res.message], type: 'success' });
         })
         .catch(err => {
           const msg = err.response.data.message;
-          this.$notifier.showMessage({ message: [msg], type: 'danger' })
-        })
+          this.$notifier.showMessage({ message: [msg], type: 'danger' });
+        });
     },
     setTableSchema(data) {
       this.items = data.map(item => {
@@ -73,7 +73,7 @@ export default {
           delete: item._id,
           status: item.status,
           slug: item.slug,
-        }
+        };
       });
     },
     deleteItem(id) {
@@ -97,18 +97,11 @@ export default {
             this.$axios.$post('/admin/delete-product', { id: id })
               .then(res => {
                 this.items = this.items.filter(item => item.delete !== id);
-                this.$notifier.showMessage({ message: [res], type: 'success' })
-              })
-              .catch(err => {
-                const msg = err.response.data.message;
-                this.$notifier.showMessage({ message: [msg], type: 'danger' })
-              })
+                this.$notifier.showMessage({ message: [res], type: 'success' });
+              });
           }
-        })
-        .catch(err => {
-          this.$notifier.showMessage({ message: ['Error occurred on delete item process', err], type: 'danger' })
-        })
+        });
     },
   },
-}
+};
 </script>

@@ -14,12 +14,12 @@
         <b-nav-item :to="localePath({name: 'contact'})">{{ $t('contact') }}</b-nav-item>
 
         <!-- Navbar dropdowns -->
-        <b-nav-item-dropdown :text="$i18n.locale.toUpperCase()" right>
+        <b-nav-item-dropdown :text="$i18n.locale" right>
           <b-dropdown-item
             v-for="locale in availableLocales"
             :key="locale.code"
             @click="$i18n.setLocale(locale.code)"
-          >{{ locale.code.toUpperCase() }}
+          >{{ locale.code }}
           </b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>

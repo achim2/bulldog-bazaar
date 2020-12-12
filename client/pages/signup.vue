@@ -66,7 +66,7 @@ export default {
         name: 'achim2',
         password: '',
       }
-    }
+    };
   },
   // TODO: rewrite this
   beforeMount() {
@@ -76,7 +76,7 @@ export default {
   },
   methods: {
     async onSubmit(evt) {
-      evt.preventDefault()
+      evt.preventDefault();
 
       try {
         await this.$axios.$post('/auth/signup', { ...this.form });
@@ -84,22 +84,14 @@ export default {
           email: '',
           name: '',
           password: '',
-        }
+        };
         this.$router.push(this.localePath({ name: 'login' }));
-        this.$notifier.showMessage({ message: ['Successful sign up. You can login now.'], type: 'success' })
+        this.$notifier.showMessage({ message: ['Successful sign up. You can login now.'], type: 'success' });
 
       } catch (err) {
-        const errors = err.response.data.errors;
-        const msg = err.response.data.message;
-
-        if (errors) {
-          this.$notifier.showMessage({ message: errors.map(obj => obj.msg), type: 'danger' })
-        } else {
-          this.$notifier.showMessage({ message: [msg], type: 'danger' })
-        }
       }
 
     }
   }
-}
+};
 </script>

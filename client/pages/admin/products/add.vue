@@ -159,7 +159,6 @@ export default {
             description: product.description,
           };
         })
-        .catch(err => console.log(err));
 
     } else {
       this.isEditing = false
@@ -179,16 +178,6 @@ export default {
             this.$router.push(this.localePath({ name: `admin-products`}));
           } else {
             this.$router.push(this.localePath({ name: `addProductImage`, params: { id: res.product._id } }));
-          }
-        })
-        .catch(err => {
-          const errors = err.response.data.errors;
-          const msg = err.response.data.message;
-
-          if (errors) {
-            this.$notifier.showMessage({ message: errors.map(obj => obj.msg), type: 'danger' })
-          } else {
-            this.$notifier.showMessage({ message: [msg], type: 'danger' })
           }
         })
     },

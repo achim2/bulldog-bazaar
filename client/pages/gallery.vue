@@ -37,7 +37,6 @@ export default {
         console.log(res)
         this.items = res;
       })
-      .catch(err => console.log(err));
   },
 }</script>
 

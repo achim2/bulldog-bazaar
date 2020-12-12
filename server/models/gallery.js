@@ -10,7 +10,11 @@ const gallerySchema = new Schema(
     },
     filename: {
       type: String,
-      // required: true,
+      required: true,
+    },
+    index: {
+      type: Number,
+      required: true,
     },
   },
   { timestamps: true }

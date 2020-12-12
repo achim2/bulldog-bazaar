@@ -47,7 +47,7 @@ export default {
         email: '',
         phone: '',
       }
-    }
+    };
   },
   mounted() {
     this.getInfo();
@@ -60,7 +60,6 @@ export default {
             this.form = res;
           }
         })
-        .catch(err => console.log(err))
     },
     onSubmit() {
       this.$axios.$post('admin/info', {
@@ -70,18 +69,8 @@ export default {
         .then(res => {
           this.form = res.info;
           this.$notifier.showMessage({ message: [res.message], type: 'success' });
-        })
-        .catch(err => {
-          const errors = err.response.data.errors;
-          const msg = err.response.data.message;
-
-          if (errors) {
-            this.$notifier.showMessage({ message: errors.map(obj => obj.msg), type: 'danger' })
-          } else {
-            this.$notifier.showMessage({ message: [msg], type: 'danger' })
-          }
-        })
+        });
     }
   },
-}
+};
 </script>

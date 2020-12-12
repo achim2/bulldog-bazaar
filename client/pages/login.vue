@@ -75,7 +75,6 @@ export default {
         // this.$notifier.showMessage({ message: ['You successful logged in!'], type: 'success' })
         // this.$router.push(this.localePath({ name: 'admin-products' }));
       } catch (e) {
-        this.$notifier.showMessage({ message: [e.response.data.message], type: 'danger' })
       }
 
     },

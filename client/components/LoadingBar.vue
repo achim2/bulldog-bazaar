@@ -38,6 +38,10 @@ export default {
   opacity: 0;
   visibility: hidden;
 
+  img {
+    max-width: 200px;
+  }
+
   &.active {
     opacity: 1;
     visibility: visible;
