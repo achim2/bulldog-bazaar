@@ -4,22 +4,15 @@
       <div class="product-wrapper">
         <div class="product-left">
           <!--    Image gallery    -->
-          <picture v-for="(image, index) in product.images"
-                   v-if="image"
-                   :key="index"
+          <div class="product-image-wrapper"
           >
-            <source :data-srcset="`${$config.imagePath}/${image.filename}`"
-                    :alt="product.name"
-                    type="image/webp"
-                    class="lazyload product-image"/>
-            <source :data-srcset="`${$config.imagePath}/${image.filename}`"
-                    :alt="product.name"
-                    type="image/jpeg"
-                    class="lazyload product-image"/>
-            <img :data-src="`${$config.imagePath}/${image.filename}`"
+            <img v-for="(image, index) in product.images"
+                 v-if="image"
+                 :key="index"
+                 :data-src="`${$config.imagePath}/${image.filename}`"
                  :alt="product.name"
-                 class="lazyload product-image"/>
-          </picture>
+                 class="lazyload"/>
+          </div>
 
         </div>
         <div class="product-right">
@@ -77,33 +70,33 @@ export default {
         // { name: "twitter:site", content: "@bobross" },
         // { name: "twitter:card", content: "summary_large_image" },
         {
-          hid: "twitter:url",
-          name: "twitter:url",
+          hid: 'twitter:url',
+          name: 'twitter:url',
           content: this.metaProduct.url,
         },
         {
-          hid: "twitter:title",
-          name: "twitter:title",
+          hid: 'twitter:title',
+          name: 'twitter:title',
           content: this.metaProduct.name,
         },
         {
-          hid: "twitter:description",
-          name: "twitter:description",
+          hid: 'twitter:description',
+          name: 'twitter:description',
           content: this.metaProduct.description,
         },
         {
-          hid: "twitter:image",
-          name: "twitter:image",
+          hid: 'twitter:image',
+          name: 'twitter:image',
           content: this.metaProduct.filename,
         },
       ]
-    }
+    };
   },
   data() {
     return {
       product: {},
       metaProduct: {},
-    }
+    };
   },
   mounted() {
     const id = this.$route.params.id;
@@ -125,12 +118,17 @@ export default {
       this.metaProduct.description = this.metaProduct.description[0].text;
     }
   },
-}
+};
 </script>
 
 <style lang="scss">
-.product-image {
-  width: 200px;
-  height: auto;
+.product-image-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+
+  img {
+    width: 200px;
+    height: auto;
+  }
 }
 </style>

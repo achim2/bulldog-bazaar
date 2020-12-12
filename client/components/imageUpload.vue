@@ -26,7 +26,7 @@
                class="row">
       <b-col v-for="(image, index) in images"
              :key="images.index"
-             sm="6"
+             class="col-6"
              md="4"
              lg="3"
       >
@@ -84,12 +84,14 @@ export default {
   position: relative;
   display: flex;
   flex-direction: column;
+  margin-bottom: 10px;
 
   .btn.btn-danger {
     position: absolute;
     top: 0;
     right: 0;
     margin: 8px;
+    width: auto;
   }
 }
 </style>

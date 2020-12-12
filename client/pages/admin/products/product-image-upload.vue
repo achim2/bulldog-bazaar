@@ -11,8 +11,8 @@
 
     <hr>
 
-    <div class="d-flex align-items-start pb-2">
-      <nuxtLink :to="localePath({name: 'product-edit', params: {id: this.id}})" class="btn btn-secondary mr-2 mb-2">Back to details</nuxtLink>
+    <div class="d-flex flex-wrap align-items-start pb-2">
+      <nuxtLink :to="localePath({name: 'product-edit', params: {id: this.id}})" class="btn btn-secondary mr-sm-2 mb-2">Back to details</nuxtLink>
       <nuxtLink :to="localePath({name: 'admin-products'})" class="btn btn-primary">Products</nuxtLink>
     </div>
 

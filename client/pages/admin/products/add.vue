@@ -103,9 +103,9 @@
       </b-form-group>
 
       <div class="d-flex flex-wrap justify-content-between align-items-start pb-2">
-        <nuxtLink :to="{name: 'admin-products'}" class="btn btn-secondary mr-2 mb-2">Back</nuxtLink>
+        <nuxtLink :to="{name: 'admin-products'}" class="btn btn-secondary mr-sm-2 mb-2">Back</nuxtLink>
         <div class="d-flex flex-wrap align-items-start">
-          <b-button type="submit" variant="primary" class="mr-2 mb-2" v-on:click.prevent="onSubmit(true)">Save & back to products</b-button>
+          <b-button type="submit" variant="primary" class="mr-sm-2 mb-2" v-on:click.prevent="onSubmit(true)">Save & back to products</b-button>
           <b-button type="submit" variant="primary" v-on:click.prevent="onSubmit(false)">Save & upload images</b-button>
         </div>
       </div>
@@ -187,3 +187,8 @@ export default {
   }
 };
 </script>
+<style lang="scss">
+.layout.layout--admin .b-form-datepicker .btn {
+  width: auto;
+}
+</style>

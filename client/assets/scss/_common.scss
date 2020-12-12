@@ -47,3 +47,13 @@ img {
     padding: $main-padding 0;
   }
 }
+
+@include media-breakpoint-down(xs) {
+  .layout {
+    &.layout--admin {
+      .btn {
+        width: 100%;
+      }
+    }
+  }
+}

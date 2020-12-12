@@ -278,13 +278,14 @@ exports.postUpdateGallery = async (req, res, next) => {
     });
 
     //insert files
-    const result = await Gallery.insertMany(files);
+    await Gallery.insertMany(files);
+    const allResult = await Gallery.find();
 
     res
       .status(200)
       .json({
         message: 'Images uploaded!',
-        result: result,
+        result: allResult,
       });
 
   } catch (err) {

@@ -39,7 +39,7 @@ export default {
     onSubmit(formData) {
       this.$axios.$post(`/admin/update-gallery`, formData)
         .then(res => {
-          this.images = [...this.images, ...res.result];
+          this.images = res.result;
           this.$notifier.showMessage({ message: [res.message], type: 'success' });
         });
     },
