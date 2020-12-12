@@ -5,18 +5,19 @@
 
       <div class="row">
         <div class="col-sm-6 col-md-4"
-             v-for="image in items" :key="image.filename">
-            <picture>
-              <source :data-srcset="`${$config.imagePath}/${image.filename}`"
-                      type="image/webp"
-                      class="lazyload"/>
-              <source :data-srcset="`${$config.imagePath}/${image.filename}`"
-                      type="image/jpeg"
-                      class="lazyload"/>
-              <img :data-src="`${$config.imagePath}/${image.filename}`"
-                   :alt="image.filename"
-                   class="lazyload"/>
-            </picture>
+             v-for="image in items" :key="image.filename"
+             :style="{'order': image.index}">
+          <picture>
+            <source :data-srcset="`${$config.imagePath}/${image.filename}`"
+                    type="image/webp"
+                    class="lazyload"/>
+            <source :data-srcset="`${$config.imagePath}/${image.filename}`"
+                    type="image/jpeg"
+                    class="lazyload"/>
+            <img :data-src="`${$config.imagePath}/${image.filename}`"
+                 :alt="image.filename"
+                 class="lazyload"/>
+          </picture>
         </div>
       </div>
 
@@ -29,16 +30,16 @@ export default {
   data() {
     return {
       items: [],
-    }
+    };
   },
   mounted() {
     this.$axios.$get('/gallery')
       .then(res => {
-        console.log(res)
+        console.log(res);
         this.items = res;
-      })
+      });
   },
-}</script>
+};</script>
 
 <style lang="scss">
 </style>

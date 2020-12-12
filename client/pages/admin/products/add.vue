@@ -103,8 +103,11 @@
       </b-form-group>
 
       <div class="d-flex flex-wrap justify-content-between align-items-start pb-2">
-        <b-button type="submit" variant="secondary" class="mr-2 mb-2" v-on:click.prevent="onSubmit(true)">Save & back to products</b-button>
-        <b-button type="submit" variant="primary" v-on:click.prevent="onSubmit(false)">Save & upload images</b-button>
+        <nuxtLink :to="{name: 'admin-products'}" class="btn btn-secondary mr-2 mb-2">Back</nuxtLink>
+        <div class="d-flex flex-wrap align-items-start">
+          <b-button type="submit" variant="primary" class="mr-2 mb-2" v-on:click.prevent="onSubmit(true)">Save & back to products</b-button>
+          <b-button type="submit" variant="primary" v-on:click.prevent="onSubmit(false)">Save & upload images</b-button>
+        </div>
       </div>
     </b-form>
 
@@ -143,12 +146,12 @@ export default {
         { value: 'male', text: 'Male' },
         { value: 'female', text: 'Female' },
       ]
-    }
+    };
   },
   mounted() {
     const id = this.id = this.$route.params.id;
     if (id) {
-      this.isEditing = true
+      this.isEditing = true;
       this.$axios.$get(`/admin/edit-product/${id}`)
         .then(product => {
           this.form = {
@@ -158,10 +161,10 @@ export default {
             gender: product.gender,
             description: product.description,
           };
-        })
+        });
 
     } else {
-      this.isEditing = false
+      this.isEditing = false;
     }
   },
   methods: {
@@ -175,12 +178,12 @@ export default {
       })
         .then(res => {
           if (back) {
-            this.$router.push(this.localePath({ name: `admin-products`}));
+            this.$router.push(this.localePath({ name: `admin-products` }));
           } else {
-            this.$router.push(this.localePath({ name: `addProductImage`, params: { id: res.product._id } }));
+            this.$router.push(this.localePath({ name: `product-image-upload`, params: { id: res.product._id } }));
           }
-        })
+        });
     },
   }
-}
+};
 </script>

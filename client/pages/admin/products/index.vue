@@ -20,7 +20,8 @@
         <b-form-checkbox v-model="data.value" @change="changeStatus(data)" size="lg" switch/>
       </template>
       <template #cell(edit)="data">
-        <NuxtLink :to="`/admin/products/edit/${data.value.toLowerCase()}`" class="btn btn-info">Edit</NuxtLink>
+        <NuxtLink :to="`/admin/products/edit/${data.value.toLowerCase()}`" class="btn btn-info">Edit data</NuxtLink>
+        <NuxtLink :to="`/admin/products/product-image-upload/${data.value.toLowerCase()}`" class="btn btn-info">Edit images</NuxtLink>
       </template>
       <template #cell(delete)="data">
         <button v-on:click="deleteItem(data.value)" class="btn btn-danger">Delete</button>
