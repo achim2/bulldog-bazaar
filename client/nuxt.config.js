@@ -180,5 +180,5 @@ export default {
       preset: 'default',
       quality: 75,
     },
-  }
+  },
 };

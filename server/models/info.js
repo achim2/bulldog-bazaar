@@ -15,7 +15,15 @@ const infoSchema = new Schema(
     phone: {
       type: String,
       // required: true,
-    }
+    },
+    fbUrl: {
+      type: String,
+      // required: true,
+    },
+    instaUrl: {
+      type: String,
+      // required: true,
+    },
   },
   { timestamps: true }
 );

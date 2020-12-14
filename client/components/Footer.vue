@@ -5,19 +5,33 @@
         <div class="col-md-6">
 
           <Logo/>
-          <p>social icons</p>
+          <a :href="info.fbUrl"
+             v-if="info.fbUrl"
+             class="social"
+             target="_blank">
+            <img :src="require('~/assets/facebook.png')" alt="facebook">
+          </a>
+          <a :href="info.instaUrl"
+             v-if="info.instaUrl"
+             class="social"
+             target="_blank">
+            <img :src="require('~/assets/instagram.png')" alt="instagram">
+          </a>
+
+          <br>
           <p>Email: {{ info.email }}</p>
           <p>{{ $t('phone') }}: {{ info.phone }}</p>
 
-          <p>{{$t('available')}}</p>
-          <p>{{$t('paypal')}}</p>
-          <p>{{$t('payment')}}</p>
+          <p>{{ $t('available') }}</p>
+          <p>{{ $t('paypal') }}</p>
+          <p>{{ $t('payment') }}</p>
 
         </div>
         <div class="col-md-6">
-<!--          <facebook-embed :oembed-html="oembed"/>-->
+          <!--          <facebook-embed :oembed-html="oembed"/>-->
           <!-- OR -->
-<!--          <facebook-embed :url="url"/>-->
+          <facebook-embed :url="info.fbUrl"
+                          v-if="info.fbUrl"/>
         </div>
       </div>
     </div>
@@ -40,12 +54,6 @@ export default {
       'info'
     ])
   },
-  data() {
-    return {
-      oembed: '',
-      url: 'https://www.facebook.com/bihoneszter1',
-    };
-  }
 };
 </script>
 
@@ -55,5 +63,12 @@ export default {
   padding: 2rem 0;
   background: $footer;
   color: $footer-color;
+
+  .social {
+    img {
+      width: 40px;
+      height: auto;
+    }
+  }
 }
 </style>

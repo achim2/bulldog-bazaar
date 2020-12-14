@@ -19,15 +19,41 @@
       </b-form-group>
 
       <b-form-group
-        id="input-group-1"
+        id="input-group-2"
         label="Contact phone:"
-        label-for="input-1">
+        label-for="input-2">
         <b-form-input
-          id="input-1"
+          id="input-2"
           v-model="form.phone"
           type="text"
           required
           placeholder="Enter phone"
+        ></b-form-input>
+      </b-form-group>
+
+      <b-form-group
+        id="input-group-3"
+        label="Facebook url:"
+        label-for="input-3">
+        <b-form-input
+          id="input-3"
+          v-model="form.fbUrl"
+          type="text"
+          required
+          placeholder="Enter facebook url"
+        ></b-form-input>
+      </b-form-group>
+
+      <b-form-group
+        id="input-group-4"
+        label="Instagram url:"
+        label-for="input-4">
+        <b-form-input
+          id="input-"
+          v-model="form.instaUrl"
+          type="text"
+          required
+          placeholder="Enter instagram url"
         ></b-form-input>
       </b-form-group>
 
@@ -46,6 +72,8 @@ export default {
       form: {
         email: '',
         phone: '',
+        fbUrl: '',
+        instaUrl: '',
       }
     };
   },

@@ -405,6 +405,8 @@ exports.postSetInfo = (req, res, next) => {
   const userId = req.body.userId;
   const email = req.body.email;
   const phone = req.body.phone;
+  const fbUrl = req.body.fbUrl;
+  const instaUrl = req.body.instaUrl;
 
   Info
     .findOne()
@@ -413,6 +415,8 @@ exports.postSetInfo = (req, res, next) => {
         dbInfo.userId = userId;
         dbInfo.email = email;
         dbInfo.phone = phone;
+        dbInfo.fbUrl = fbUrl;
+        dbInfo.instaUrl = instaUrl;
 
         return dbInfo.save();
       }
@@ -421,6 +425,8 @@ exports.postSetInfo = (req, res, next) => {
         userId: userId,
         email: email,
         phone: phone,
+        fbUrl: fbUrl,
+        instaUrl: instaUrl,
       });
 
       return info.save();

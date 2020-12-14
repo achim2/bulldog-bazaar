@@ -6,6 +6,8 @@ export const state = () => ({
   info: {
     email: '',
     phone: '',
+    fbUrl: '',
+    instaUrl: '',
   }
 })
 
@@ -23,6 +25,8 @@ export const mutations = {
   fetchInfo(state, payload) {
     state.info.email = payload.email;
     state.info.phone = payload.phone;
+    state.info.fbUrl = payload.fbUrl;
+    state.info.instaUrl = payload.instaUrl;
   }
 }
 
