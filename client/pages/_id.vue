@@ -34,7 +34,7 @@
       </div>
 
       <div class="text-center my-5">
-        <nuxtLink :to="localePath({name: 'about'})">{{ $t('any question') }}</nuxtLink>
+        <nuxtLink :to="localePath({name: 'transport'})">{{ $t('how to get') }}</nuxtLink>
       </div>
     </div>
 

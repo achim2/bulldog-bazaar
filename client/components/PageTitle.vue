@@ -17,4 +17,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.page-title {
+  h1 {
+    color: $secondary;
+  }
+}
 </style>

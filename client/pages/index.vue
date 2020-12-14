@@ -12,7 +12,8 @@
 
     <section class="breed-info">
       <div class="container">
-        <PageText :text="$t('home breed')" class="mt-5"/>
+        <PageText :text="$t('home text 0')" class="mt-5"/>
+        <PageText :text="$t('home text 1')"/>
 
         <div class="text-center mb-5">
           <nuxtLink :to="localePath({name: 'about'})" class="mr-sm-3">{{ $t('about') }}</nuxtLink>
@@ -23,12 +24,14 @@
 
     <Widget :items="filtered"/>
 
-    <section class="about-us">
+    <section class="">
       <div class="container">
-        <PageText :text="$t('home about')" class="mt-5"/>
+        <PageText :text="$t('home text 3')" class="mt-5"/>
+        <PageText :text="$t('home text 4')"/>
+        <PageText :text="$t('home text 5')"/>
 
         <div class="text-center mb-2">
-          <nuxtLink :to="localePath({name: 'about'})">{{ $t('any question') }}</nuxtLink>
+          <nuxtLink :to="localePath({name: 'contact'})">{{ $t('any question') }}</nuxtLink>
         </div>
       </div>
     </section>

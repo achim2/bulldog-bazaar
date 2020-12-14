@@ -2,7 +2,7 @@
   <section class="section--widget" v-if="items">
     <div class="container">
       <div class="row">
-        <div class="col-md-6 col-lg-4"
+        <div :class="['col-md-6', {'col-lg-4': items.length > 4}]"
              v-for="item in items" :key="item._id">
           <nuxtLink :to="localePath(`/${item.slug}`)"
                     class="widget">

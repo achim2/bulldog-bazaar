@@ -9,6 +9,10 @@
           <p>Email: {{ info.email }}</p>
           <p>{{ $t('phone') }}: {{ info.phone }}</p>
 
+          <p>{{$t('available')}}</p>
+          <p>{{$t('paypal')}}</p>
+          <p>{{$t('payment')}}</p>
+
         </div>
         <div class="col-md-6">
 <!--          <facebook-embed :oembed-html="oembed"/>-->

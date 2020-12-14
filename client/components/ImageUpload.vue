@@ -38,7 +38,7 @@
                  fluid
           />
           <a @click="$emit('onDelete', image.filename)" class="btn btn-danger">
-            <b-icon-trash></b-icon-trash>
+            <b-icon-trash />
           </a>
         </div>
       </b-col>
