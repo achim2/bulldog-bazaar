@@ -37,7 +37,9 @@
                  thumbnail
                  fluid
           />
-          <a @click="$emit('onDelete', image.filename)" class="btn btn-danger mt-2 mb-4">remove</a>
+          <a @click="$emit('onDelete', image.filename)" class="btn btn-danger">
+            <b-icon-trash></b-icon-trash>
+          </a>
         </div>
       </b-col>
     </draggable>
@@ -90,7 +92,7 @@ export default {
     position: absolute;
     top: 0;
     right: 0;
-    margin: 8px;
+    margin: 5px;
     width: auto;
   }
 }

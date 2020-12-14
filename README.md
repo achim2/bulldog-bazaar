@@ -11,12 +11,8 @@
   * i18n (not finished)
  
 - Build 
-  * carousel
-  * fb, insta, meta
-  * logo
   * cookie message
   * include insta and fb 
-  * icons
   
 - Backend
   * 

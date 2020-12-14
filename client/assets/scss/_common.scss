@@ -11,7 +11,7 @@ body {
 .lazyloading {
   opacity: 1;
   transition: opacity 300ms;
-  background: rgba(0, 0, 0, .5) url(~assets/Eclipse-1s-200px.svg) no-repeat center;
+  background: rgba(0, 0, 0, .5) url(~assets/loader.svg) no-repeat center;
 }
 
 img.lazyload:not([src]) {
@@ -29,12 +29,6 @@ img {
   align-items: stretch;
   min-height: 100vh;
 
-  &.layout--default {
-    background: $white;
-    color: $text;
-    font-family: 'Josefin Sans', sans-serif;
-  }
-
   header,
   nav,
   main,
@@ -48,12 +42,24 @@ img {
   }
 }
 
-@include media-breakpoint-down(xs) {
-  .layout {
-    &.layout--admin {
-      .btn {
-        width: 100%;
-      }
+.layout.layout--default {
+  background: $white;
+  color: $text;
+  font-family: 'Josefin Sans', sans-serif;
+
+  p {
+    font-size: 18px;
+
+    @include media-breakpoint-up(md) {
+      font-size: 20px;
+    }
+  }
+}
+
+.layout.layout--admin {
+  .btn {
+    @include media-breakpoint-down(xs) {
+      width: 100%;
     }
   }
 }

@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import ImageUpload from '@/components/imageUpload';
+import ImageUpload from '@/components/ImageUpload';
 
 export default {
   components: { ImageUpload },

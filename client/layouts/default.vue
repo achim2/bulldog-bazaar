@@ -23,5 +23,5 @@ export default {
   mounted() {
     this.$store.dispatch('fetchInfo');
   },
-}
+};
 </script>

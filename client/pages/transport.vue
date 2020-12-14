@@ -1,13 +1,18 @@
 <template>
   <div class="transport">
+    <PageTitle :title="$t('transport')"/>
+
     <div class="container">
-      <h2>Transport</h2>
     </div>
   </div>
 </template>
 
 <script>
-export default {}
+import PageTitle from '../components/PageTitle';
+
+export default {
+  components: { PageTitle }
+};
 </script>
 
 <style lang="scss">

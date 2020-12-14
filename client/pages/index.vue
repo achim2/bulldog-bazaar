@@ -1,48 +1,99 @@
 <template>
   <div>
-    <div class="container">
-      <h1 class="title">{{ $t('welcome') }}</h1>
-
-      <br>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque id ipsa, praesentium quasi sequi voluptas. Alias amet blanditiis, dolor et fuga, harum illo maxime nulla quam recusandae
-        repellat temporibus veritatis.</p>
-
-      <div class="row">
-        <div class="col-sm-6 col-md-4"
-             v-for="item in items" :key="item._id">
-          <nuxtLink :to="localePath(`/${item.slug}`)" class="product">
-            <img :data-src="`${$config.imagePath}/${item.selectedFilename}`"
-                 :alt="item.name"
-                 class="lazyload"/>
-            <h3>{{ item.name }}</h3>
-            <p>{{ item.color }}</p>
-          </nuxtLink>
+    <!--  Hero  -->
+    <section class="hero" :style="{ backgroundImage: 'url(' + require('@/assets/hero.jpg') + ')' }">
+      <div class="container">
+        <div class="hero__inner">
+          <h1 class="hero__title">{{ $t('hero title') }}</h1>
+          <h3 class="hero__subtitle">{{ $t('hero subtitle') }}</h3>
         </div>
       </div>
+    </section>
 
-      <br>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque id ipsa, praesentium quasi sequi voluptas. Alias amet blanditiis, dolor et fuga, harum illo maxime nulla quam recusandae
-        repellat temporibus veritatis.</p>
+    <section class="breed-info">
+      <div class="container">
+        <!--  Breed info  -->
+        <PageText :text="$t('home breed')" class="mt-5"/>
 
-    </div>
+        <div class="text-center mb-5">
+          <nuxtLink :to="localePath({name: 'about'})" class="mr-sm-3">{{ $t('about') }}</nuxtLink>
+          <nuxtLink :to="localePath({name: 'breed'})">{{ $t('breed') }}</nuxtLink>
+        </div>
+      </div>
+    </section>
+
+    <Widget :items="filtered"/>
+
+    <section class="about-us">
+      <div class="container">
+        <PageText :text="$t('home about')" class="mt-5"/>
+
+        <div class="text-center mb-2">
+          <nuxtLink :to="localePath({name: 'about'})">{{ $t('any question') }}</nuxtLink>
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 
 <script>
+import PageText from '../components/PageText';
+import Widget from '../components/Widget';
+
 export default {
+  components: { Widget, PageText },
   data() {
     return {
-      items: [],
+      filtered: [],
     };
   },
   mounted() {
     this.$axios.$get('/products/filtered')
       .then(res => {
-        this.items = res;
+        this.filtered = res;
       });
   },
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+.hero {
+  display: flex;
+  align-items: flex-end;
+  height: calc(100vh - 71.5px);
+  margin-top: -2rem;
+  background-position: top center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  text-align: center;
+
+  .hero__inner {
+    padding-bottom: 2rem;
+  }
+
+  .hero__title,
+  .hero__subtitle {
+    color: $white;
+  }
+
+  .hero__title {
+    font-weight: 600;
+
+    @include media-breakpoint-up(md) {
+      font-size: 4em;
+    }
+    @include media-breakpoint-down(sm) {
+      font-size: 2.5em;
+    }
+  }
+
+  .hero__subtitle {
+    @include media-breakpoint-down(sm) {
+      font-size: 1.5em;
+    }
+  }
+}
+
+.breed-info {
+}
 </style>

@@ -62,7 +62,8 @@ export default {
 
   bootstrapVue: {
     bootstrapCSS: false,
-    bootstrapVueCSS: false
+    bootstrapVueCSS: false,
+    icons: true,
   },
 
   axios: {
@@ -108,7 +109,7 @@ export default {
           path: '/admin/gallery-image-upload',
           component: 'pages/admin/gallery-image-upload.vue',
         },
-      )
+      );
     }
   },
 
@@ -180,4 +181,4 @@ export default {
       quality: 75,
     },
   }
-}
+};

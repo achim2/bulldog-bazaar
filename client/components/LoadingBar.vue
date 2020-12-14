@@ -1,6 +1,6 @@
 <template>
   <div :class="['loading-page', {'active': loading}]">
-    <img :src="require(`~/assets/Eclipse-1s-200px.svg`)" alt="loading..."/>
+    <img :src="require(`~/assets/loader.svg`)" alt="loading..."/>
   </div>
 </template>
 

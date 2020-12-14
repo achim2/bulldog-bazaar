@@ -1,11 +1,24 @@
 export default {
+  //general
   welcome: 'Herzlich willkommen',
+  submit: 'Einreichen',
+  message: 'Botschaft',
+  contact: 'Kontaktiere',
+  about: 'Über',
+  breed: 'Rasseninfo',
+  name: 'Name',
+  phone: 'Telefon',
+  signup: 'Anmelden',
+  login: 'Anmeldung',
+  password: 'Passwort',
+  'password help': '',
+
+  //navigation
   home: 'Startseite',
   gallery: 'Galerie',
   transport: 'Transport',
-  contact: 'Kontaktiere',
 
-  name: 'Name',
+  //product page
   color: 'Farbe',
   birthday: 'Geburtstag',
   gender: 'Geschlecht',
@@ -13,5 +26,20 @@ export default {
   female: 'Szuka németeül',
   male: 'Kan németeül',
 
-  phone: 'Telefon',
-}
+  //home page
+  // 'hero title': '',
+  // 'hero subtitle': '',
+  // 'home breed': '',
+  // 'home about': '',
+  // 'any question': '',
+  //
+  // //about page
+  // 'about subtitle': '',
+  //
+  // //breed page
+  // 'breed subtitle': '',
+  //
+  // //contact
+  // 'contact subtitle': '',
+
+};
