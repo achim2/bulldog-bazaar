@@ -1,18 +1,18 @@
 <template>
-  <section class="widget">
+  <section class="section--widget" v-if="items">
     <div class="container">
       <div class="row">
         <div class="col-md-6 col-lg-4"
              v-for="item in items" :key="item._id">
-          <nuxtLink :to="localePath(`/${item.slug}`)" class="item">
-            <div class="item__img-wrapper">
-              <img :data-src="`${$config.imagePath}/${item.selectedFilename}`"
-                   :alt="item.name"
-                   class="item__img lazyload"/>
-            </div>
-            <div class="item__content">
-              <span class="item__name">{{ item.name }}</span> -
-              <span class="item__gender">{{ item.gender }}</span>
+          <nuxtLink :to="localePath(`/${item.slug}`)"
+                    class="widget">
+
+            <CustomImage :image="item" v-if="item"/>
+
+            <div class="widget__content" v-if="item && (item.name || item.gender || item.birthday)">
+              <span class="widget__name" v-if="item.name"><b>{{ item.name }}</b>,</span>
+              <span class="widget__gender" v-if="item.gender">{{ $t(item.gender) }}</span>
+              <span class="widget__birthday" v-if="item.gender"><b>{{ $t('birthday') }}</b>: {{ (item.birthday)| dateFilter($i18n.locale) }}</span>
             </div>
           </nuxtLink>
         </div>
@@ -22,7 +22,10 @@
 </template>
 
 <script>
+import CustomImage from './CustomImage';
+
 export default {
+  components: { CustomImage },
   props: ['items'],
   data() {
     return {};
@@ -30,60 +33,59 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.item {
+<style lang="scss">
+.widget {
   position: relative;
   display: block;
-  margin-bottom: 15px;
   border-radius: 5px;
   overflow: hidden;
 
-  @include media-breakpoint-up(sm) {
-    margin-bottom: 30px;
-  }
-
   &:hover {
-    .item__img {
-      transform: translate(-50%, -50%) scale(1.1);
+    .custom-image {
+      img {
+        transform: translate(-50%, -50%) scale(1.1);
+      }
+    }
+
+    .widget__birthday {
+      height: 24px;
+      visibility: visible;
+      opacity: 1;
     }
   }
 
-  .item__img-wrapper {
-    position: relative;
-    width: 100%;
-    height: 0;
-    padding-bottom: 100%;
+  .custom-image {
+    img {
+      transform: translate(-50%, -50%) scale(1);
+      transition: .45s ease;
+    }
   }
 
-  .item__img {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 100%;
-    object-fit: cover;
-    transform: translate(-50%, -50%) scale(1);
-    transition: .25s ease;
-  }
-
-  .item__content {
+  .widget__content {
     position: absolute;
     left: 5px;
     bottom: 5px;
+    max-width: calc(100% - 10px);
     padding: 7.5px 15px 5px;
     border-radius: 5px;
     background: $white;
+    overflow: hidden;
   }
 
-  .item__name,
-  .item__gender {
+  span {
     color: $header;
   }
 
-  .item__name {
-    font-weight: 600;
+  .widget__gender {
+    font-weight: 300;
   }
 
-  .item__gender {
+  .widget__birthday {
+    height: 0;
+    display: block;
+    transition: .25s ease;
+    opacity: 0;
+    visibility: hidden;
     font-weight: 300;
   }
 }

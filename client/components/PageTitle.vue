@@ -1,5 +1,5 @@
 <template>
-  <div class="container mb-5">
+  <div class="container page-title mb-5">
     <h1 class="text-center mb-3" v-if="title">{{ title }}</h1>
     <PageText :text="text" v-if="text" />
   </div>

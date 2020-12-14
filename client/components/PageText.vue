@@ -1,5 +1,5 @@
 <template>
-  <p v-if="text">{{ text }}</p>
+  <p v-if="text" class="page-text">{{ text }}</p>
 </template>
 
 <script>

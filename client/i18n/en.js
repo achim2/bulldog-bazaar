@@ -13,6 +13,11 @@ export default {
   password: 'Password',
   'password help': 'Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.',
 
+  //colors
+  blue: 'Blue',
+  tan: 'Tan',
+  lilac: 'Lilac',
+
   //navigation
   home: 'Home',
   gallery: 'Gallery',

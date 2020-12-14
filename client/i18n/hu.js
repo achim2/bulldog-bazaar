@@ -13,6 +13,11 @@ export default {
   password: 'Jelszó',
   'password help': '',
 
+  //colors
+  blue: 'Kék',
+  tan: 'Barna',
+  lilac: 'Lila',
+
   //navigation
   home: 'Főoldal',
   gallery: 'Galéria',

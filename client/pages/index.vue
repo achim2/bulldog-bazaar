@@ -12,7 +12,6 @@
 
     <section class="breed-info">
       <div class="container">
-        <!--  Breed info  -->
         <PageText :text="$t('home breed')" class="mt-5"/>
 
         <div class="text-center mb-5">
@@ -92,8 +91,5 @@ export default {
       font-size: 1.5em;
     }
   }
-}
-
-.breed-info {
 }
 </style>

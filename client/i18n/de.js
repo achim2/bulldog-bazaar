@@ -13,6 +13,11 @@ export default {
   password: 'Passwort',
   'password help': '',
 
+  //colors
+  // blue: '',
+  // tan: '',
+  // lilac: '',
+
   //navigation
   home: 'Startseite',
   gallery: 'Galerie',
