@@ -1,11 +1,18 @@
 <template>
-  <div>
-    <div v-html="oembedHtml"
-         v-if="oembedHtml"></div>
-
-    <div class="fb-page"
-         :data-href="url"
-         v-else-if="url"></div>
+  <div v-if="url"
+       class="fb-page"
+       :data-href="url"
+       data-tabs="timeline"
+       data-width="450"
+       data-height=""
+       data-small-header="false"
+       data-adapt-container-width="true"
+       data-hide-cover="false"
+       data-show-facepile="true">
+    <blockquote :cite="url"
+                class="fb-xfbml-parse-ignore">
+      <a :href="url">Facebook</a>
+    </blockquote>
   </div>
 </template>
 
@@ -23,11 +30,7 @@ export default {
     ]
   },
   props: [
-    'oembedHtml',
     'url'
   ],
-  mounted() {
-    // FB.XFBML.parse(this.$el);
-  },
 };
 </script>

@@ -14,8 +14,7 @@ export default {
   'password help': 'Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.',
   'any question': 'Any question?',
   available: 'I\'m available on Whatsapp, Facebook and Viber. ',
-  paypal: 'We accept PayPal payment menthod. Paying for purchases with PayPal is the most safe and popular online paying around the world.',
-  payment: 'Payment is safe!',
+  paypal: 'Payment is safe! We accept PayPal payment menthod. Paying for purchases with PayPal is the most safe and popular online paying around the world.',
 
   //colors
   blue: 'Blue',

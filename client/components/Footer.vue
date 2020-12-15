@@ -1,37 +1,40 @@
 <template>
   <footer class="footer">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6">
 
-          <Logo/>
-          <a :href="info.fbUrl"
-             v-if="info.fbUrl"
-             class="social"
-             target="_blank">
-            <img :src="require('~/assets/facebook.png')" alt="facebook">
-          </a>
-          <a :href="info.instaUrl"
-             v-if="info.instaUrl"
-             class="social"
-             target="_blank">
-            <img :src="require('~/assets/instagram.png')" alt="instagram">
-          </a>
+    <div class="footer__middle">
+      <div class="container">
+        <PageText :text="$t('paypal')" class="mb-0"/>
+      </div>
+    </div>
 
-          <br>
-          <p>Email: {{ info.email }}</p>
-          <p>{{ $t('phone') }}: {{ info.phone }}</p>
+    <div class="footer__bottom">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <facebook-embed :url="info.fbUrl"
+                            v-if="info.fbUrl"/>
+          </div>
+          <div class="col-md-6">
+            <div class="d-flex mb-3">
+              <a :href="info.fbUrl"
+                 v-if="info.fbUrl"
+                 class="social mr-3"
+                 target="_blank">
+                <img :src="require('~/assets/facebook.png')" alt="facebook">
+              </a>
+              <a :href="info.instaUrl"
+                 v-if="info.instaUrl"
+                 class="social"
+                 target="_blank">
+                <img :src="require('~/assets/instagram.png')" alt="instagram">
+              </a>
+            </div>
 
-          <p>{{ $t('available') }}</p>
-          <p>{{ $t('paypal') }}</p>
-          <p>{{ $t('payment') }}</p>
+            <p>{{ $t('available') }}</p>
+            <p>Email: <b>{{ info.email }}</b></p>
+            <p>{{ $t('phone') }}: <b>{{ info.phone }}</b></p>
 
-        </div>
-        <div class="col-md-6">
-          <!--          <facebook-embed :oembed-html="oembed"/>-->
-          <!-- OR -->
-          <facebook-embed :url="info.fbUrl"
-                          v-if="info.fbUrl"/>
+          </div>
         </div>
       </div>
     </div>
@@ -41,12 +44,12 @@
 <script>
 import { mapGetters } from 'vuex';
 
-import Logo from '@/components/Logo';
 import FacebookEmbed from '@/components/FacebookEmbed';
+import PageText from './PageText';
 
 export default {
   components: {
-    Logo,
+    PageText,
     FacebookEmbed,
   },
   computed: {
@@ -60,9 +63,19 @@ export default {
 <style lang="scss">
 .footer {
   min-height: 200px;
-  padding: 2rem 0;
   background: $footer;
   color: $footer-color;
+
+  .footer__middle {
+    padding: 10px 0;
+    text-align: center;
+    background: $footer-color;
+    color: $footer;
+  }
+
+  .footer__bottom {
+    padding: 2rem 0;
+  }
 
   .social {
     img {
