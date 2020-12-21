@@ -1,5 +1,5 @@
 <template>
-  <section class="section--product">
+  <section class="section--product" v-if="product">
     <PageTitle :title="product.name" v-if="product.name"/>
 
     <div class="container">
@@ -46,6 +46,18 @@ import CustomImage from '../components/CustomImage';
 import PageTitle from '../components/PageTitle';
 
 export default {
+  async asyncData({ params, $axios }) {
+    try {
+      const product = await $axios.$get(`/products/${params.id}`);
+      product.metaUrl = `${process.env.baseUrl}/${product.slug}`;
+      product.metaName = product.name;
+      product.metaFilename = `${process.env.imagePath}/${product.selectedFilename}`;
+      product.metaDescription = product.description[0].text;
+
+      return { product };
+    } catch (err) {
+    }
+  },
   components: { PageTitle, CustomImage },
   head() {
     return {
@@ -57,22 +69,22 @@ export default {
         {
           hid: 'og:url',
           property: 'og:url',
-          content: this.metaProduct.url,
+          content: this.product.metaUrl,
         },
         {
           hid: 'og:title',
           property: 'og:title',
-          content: this.metaProduct.name,
+          content: this.product.metaName,
         },
         {
           hid: 'og:description',
           property: 'og:description',
-          content: this.metaProduct.description,
+          content: this.product.metaDescription,
         },
         {
           hid: 'og:image',
           property: 'og:image',
-          content: this.metaProduct.filename,
+          content: this.product.metaFilename,
         },
         // { property: 'og:image:width', content: '740' },
         // { property: 'og:image:height', content: '300' },
@@ -83,51 +95,25 @@ export default {
         {
           hid: 'twitter:url',
           name: 'twitter:url',
-          content: this.metaProduct.url,
+          content: this.product.metaUrl,
         },
         {
           hid: 'twitter:title',
           name: 'twitter:title',
-          content: this.metaProduct.name,
+          content: this.product.metaName,
         },
         {
           hid: 'twitter:description',
           name: 'twitter:description',
-          content: this.metaProduct.description,
+          content: this.product.metaDescription,
         },
         {
           hid: 'twitter:image',
           name: 'twitter:image',
-          content: this.metaProduct.filename,
+          content: this.product.metaFilename,
         },
       ]
     };
-  },
-  data() {
-    return {
-      product: {},
-      metaProduct: {},
-    };
-  },
-  mounted() {
-    const id = this.$route.params.id;
-    if (id) {
-      this.$axios.$get(`/products/${id}`)
-        .then(product => {
-          this.product = product;
-          this.setMetaSchema();
-        })
-        .catch(err => console.log(err));
-    }
-  },
-  methods: {
-    setMetaSchema() {
-      //english meta
-      this.metaProduct = JSON.parse(JSON.stringify(this.product));
-      this.metaProduct.filename = `${process.env.imagePath}/${this.metaProduct.selectedFilename}`;
-      this.metaProduct.url = `${process.env.baseUrl}/${this.metaProduct.slug}`;
-      this.metaProduct.description = this.metaProduct.description[0].text;
-    }
   },
 };
 </script>

@@ -12,7 +12,6 @@
  
 - Build 
   * cookie message
-  * include insta and fb 
   
 - Backend
   * 
