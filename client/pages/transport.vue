@@ -11,7 +11,7 @@
       <PageText :text="$t('transport text 1')"/>
 
       <div class="text-center my-5">
-        <nuxtLink :to="localePath({name: 'contact'})">{{ $t('any question') }}</nuxtLink>
+        <nuxtLink :to="localePath({name: 'contact'})" class="btn btn-info">{{ $t('any question') }}</nuxtLink>
       </div>
     </div>
   </section>

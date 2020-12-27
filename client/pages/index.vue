@@ -16,8 +16,7 @@
         <PageText :text="$t('home text 1')"/>
 
         <div class="text-center mb-5">
-          <nuxtLink :to="localePath({name: 'about'})" class="mr-sm-3">{{ $t('about') }}</nuxtLink>
-          <nuxtLink :to="localePath({name: 'breed'})">{{ $t('breed') }}</nuxtLink>
+          <nuxtLink :to="localePath({name: 'breed'})" class="btn btn-info">{{ $t('breed') }}</nuxtLink>
         </div>
       </div>
     </section>
@@ -31,7 +30,7 @@
         <PageText :text="$t('home text 5')"/>
 
         <div class="text-center mb-2">
-          <nuxtLink :to="localePath({name: 'contact'})">{{ $t('any question') }}</nuxtLink>
+          <nuxtLink :to="localePath({name: 'contact'})" class="btn btn-info">{{ $t('any question') }}</nuxtLink>
         </div>
       </div>
     </section>
