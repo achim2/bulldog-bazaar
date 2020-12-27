@@ -74,7 +74,7 @@ mongoose.connect(process.env.MONGO_CONNECTION, options)
   .then(function () {
     console.log('MongoDB is connected');
     let server = app.listen(process.env.SERVER_PORT || 8080, () => {
-      // console.log('Listening to: ', server.address())
+      console.log('Listening to: ', server.address())
     })
   })
   .catch(function (err) {

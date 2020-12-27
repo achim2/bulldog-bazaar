@@ -1,6 +1,7 @@
 <template>
   <section class="section--product" v-if="product">
-    <PageTitle :title="product.name" v-if="product.name"/>
+    <PageTitle :title="product.name" v-if="product.name"></PageTitle>
+
 
     <div class="container">
       <div class="row">
@@ -9,7 +10,8 @@
              class="col-md-6"
              :style="{'order': image.index}">
           <CustomImage :image="image"
-                       v-if="image"/>
+                       v-if="image">
+          </CustomImage>
         </div>
 
         <!--    info    -->
@@ -46,22 +48,16 @@ import CustomImage from '../components/CustomImage';
 import PageTitle from '../components/PageTitle';
 
 export default {
-  async asyncData({ params, $axios }) {
-    try {
-      const product = await $axios.$get(`/products/${params.id}`);
-      product.metaUrl = `${process.env.baseUrl}/${product.slug}`;
-      product.metaName = product.name;
-      product.metaFilename = `${process.env.imagePath}/${product.selectedFilename}`;
-      product.metaDescription = product.description[0].text;
-
-      return { product };
-    } catch (err) {
-    }
+  async asyncData({ params, $axios, error }) {
+    const product = await $axios.$get(`products/${params.id}`);
+    product.metaUrl = `${process.env.baseUrl}/${product.slug}`;
+    product.metaName = product.name;
+    product.metaFilename = `${process.env.imagePath}/${product.selectedFilename}`;
+    product.metaDescription = product.description[0].text;
+    return { product };
   },
-  components: { PageTitle, CustomImage },
   head() {
     return {
-      title: this.title,
       meta: [
         //facebook
         // { property: 'og:site_name', content: 'I Love Painting' },

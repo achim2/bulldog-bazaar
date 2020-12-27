@@ -11,3 +11,6 @@ RUN yarn install
 COPY . .
 
 CMD ["yarn", "dev"]
+
+#CMD ["yarn", "build"]
+#CMD ["yarn", "start"]
