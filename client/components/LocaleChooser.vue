@@ -1,6 +1,6 @@
 <template>
   <div :class="['locales', {active: active}]">
-    <h2 class="locales__title">Choose your language!</h2>
+    <h2 class="locales__title">{{$t('choose-lang')}}</h2>
     <div class="locales__wrapper">
       <div class="locales__item"
            v-for="locale in locales"

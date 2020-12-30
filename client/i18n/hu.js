@@ -16,6 +16,8 @@ export default {
   // available: '',
   // paypal: '',
   // 'cookie-message': '',
+  // 'choose-lang': '',
+  accept: 'Elfogadás',
 
   //colors
   blue: 'Kék',

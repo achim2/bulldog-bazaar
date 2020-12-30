@@ -1,7 +1,7 @@
 <template>
   <div :class="['cookie-message', {active: active}]">
     <p>{{ $t('cookie-message') }}</p>
-    <button class="btn btn-primary" @click="accept">Accept</button>
+    <button class="btn btn-primary" @click="accept">{{$t('accept')}}</button>
   </div>
 </template>
 
