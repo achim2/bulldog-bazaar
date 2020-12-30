@@ -49,6 +49,7 @@ import PageTitle from '../components/PageTitle';
 
 export default {
   async asyncData({ params, $axios, error }) {
+    // const product = await $axios.$get(`https://api.nuxtjs.dev/posts/${params.id}`) // id: 1
     const product = await $axios.$get(`products/${params.id}`);
     product.metaUrl = `${process.env.baseUrl}/${product.slug}`;
     product.metaName = product.name;

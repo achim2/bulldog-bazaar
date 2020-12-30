@@ -51,6 +51,10 @@ export default {
     'bootstrap-vue/nuxt',
   ],
 
+  serverMiddleware: [
+    '~/middleware/logger'
+  ],
+
   styleResources: {
     scss: [
       // './assets/scss/*.scss',
