@@ -22,7 +22,7 @@
               <b-dropdown-item
                 v-for="locale in availableLocales"
                 :key="locale.code"
-                @click="$i18n.setLocale(locale.code)"
+                @click="setLocale(locale.code)"
               >{{ locale.code }}
               </b-dropdown-item>
             </b-nav-item-dropdown>
@@ -77,6 +77,10 @@ export default {
       // this.$notifier.showMessage({ message: ['You successful logged out!'], type: 'success' })
       // this.$router.push(this.localePath({ name: 'index' }));
     },
+    setLocale(code) {
+      this.$i18n.setLocale(code);
+      this.$storage.setLocale(code);
+    },
   }
 };
 </script>
@@ -107,6 +111,10 @@ header {
 
   .nav-link {
     color: $white;
+  }
+
+  .dropdown-menu {
+    min-width: auto;
   }
 }
 </style>

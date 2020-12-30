@@ -34,6 +34,8 @@ services:
     build:
       context: ./client
     env_file: .env
+    depends_on:
+      - server
     environment:
       NUXT_HOST: 0.0.0.0
       NUXT_PORT: $CLIENT_PORT

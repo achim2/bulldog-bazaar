@@ -1,5 +1,5 @@
 <template>
-  <img :src="require(`~/assets/logo.png`)"
+  <img :src="require(`~/assets/images/logo.png`)"
        alt="logo"
        class="NuxtLogo"
   />

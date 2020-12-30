@@ -15,6 +15,7 @@ export default {
   'any question': 'Any question?',
   available: 'I\'m available on Whatsapp, Facebook and Viber. ',
   paypal: 'Payment is safe! We accept PayPal payment menthod. Paying for purchases with PayPal is the most safe and popular online paying around the world.',
+  'cookie-message': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab alias blanditiis dolores eius, harum inventore nihil nostrum omnis pariatur placeat quasi, repudiandae tempore voluptate voluptatem voluptates! Culpa doloremque fugit modi.',
 
   //colors
   blue: 'Blue',

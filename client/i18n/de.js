@@ -15,6 +15,7 @@ export default {
   // 'any question': '',
   // available: '',
   // paypal: '',
+  // 'cookie-message': '',
 
   //colors
   // blue: '',

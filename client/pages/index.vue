@@ -1,7 +1,7 @@
 <template>
   <div>
     <!--  Hero  -->
-    <section class="hero" :style="{ backgroundImage: 'url(' + require('@/assets/hero.jpg') + ')' }">
+    <section class="hero" :style="{ backgroundImage: 'url(' + require('@/assets/images/hero.jpg') + ')' }">
       <div class="container">
         <div class="hero__inner">
           <h1 class="hero__title">{{ $t('hero title') }}</h1>
@@ -69,7 +69,7 @@ export default {
   text-align: center;
 
   .hero__inner {
-    padding-bottom: 2rem;
+    padding-bottom: 5rem;
   }
 
   .hero__title,

@@ -20,13 +20,13 @@
                  v-if="info.fbUrl"
                  class="social mr-3"
                  target="_blank">
-                <img :src="require('~/assets/facebook.png')" alt="facebook">
+                <img :src="require('~/assets/images/facebook.png')" alt="facebook">
               </a>
               <a :href="info.instaUrl"
                  v-if="info.instaUrl"
                  class="social"
                  target="_blank">
-                <img :src="require('~/assets/instagram.png')" alt="instagram">
+                <img :src="require('~/assets/images/instagram.png')" alt="instagram">
               </a>
             </div>
 

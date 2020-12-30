@@ -5,7 +5,7 @@
     <div class="container">
       <PageText :text="$t('transport text 0')"/>
 
-      <img :src="require('~/assets/airplane.png')"
+      <img :src="require('~/assets/images/airplane.png')"
            alt="transport">
 
       <PageText :text="$t('transport text 1')"/>

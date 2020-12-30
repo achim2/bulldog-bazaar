@@ -3,7 +3,7 @@
     <PageTitle :title="$t('breed')" :text="$t('breed subtitle')"/>
 
     <div class="container">
-      <img :src="require('~/assets/breed-bull.jpg')"
+      <img :src="require('~/assets/images/breed-bull.jpg')"
            alt="bulldog">
 
       <div class="row">

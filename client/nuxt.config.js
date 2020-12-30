@@ -30,6 +30,7 @@ export default {
     '~/plugins/axios',
     '~/plugins/dateFilter',
     '~/plugins/loading',
+    '~/plugins/storage',
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
