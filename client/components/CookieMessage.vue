@@ -10,12 +10,12 @@ export default {
   props: [],
   data() {
     return {
-      active: true,
+      active: false,
     };
   },
   mounted() {
-    if (this.$storage.getCookieMessage() != null) {
-      this.active = false;
+    if (this.$storage.getCookieMessage() == null) {
+      this.active = true;
     }
   },
   methods: {

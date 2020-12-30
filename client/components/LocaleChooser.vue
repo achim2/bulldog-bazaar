@@ -20,7 +20,7 @@ export default {
   props: [],
   data() {
     return {
-      active: true,
+      active: false,
     };
   },
   computed: {
@@ -31,8 +31,9 @@ export default {
   mounted() {
     const code = this.$storage.getLocale();
     if (code != null) {
-      this.active = false;
       this.$i18n.setLocale(code);
+    } else {
+      this.active = true;
     }
   },
   methods: {
