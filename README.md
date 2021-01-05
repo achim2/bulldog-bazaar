@@ -2,8 +2,6 @@
 
 ## This is a simple cms test project to learn nodejs & nuxt
 
-## There will be a live upgraded project soon 
-
 ### Tech
 
 * docker, docker-compose
@@ -19,7 +17,7 @@
 * make .env file from .env.example
 * docker-compose up --build
 
-### To stop
+### To stop docker
 
 * docker-compose down
 
