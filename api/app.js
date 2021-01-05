@@ -1,5 +1,6 @@
 const express = require('express');
 // const dotenv = require("dotenv").config({ path: '../.env' });
+// const dotenv = require("dotenv").config(); // use this if you don't want use docker
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors');
@@ -15,12 +16,12 @@ const isAuth = require('./middleware/auth');
 
 const fileStorage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, './uploads')
+    cb(null, './uploads');
   },
   filename: (req, file, cb) => {
     cb(null, new Date().toISOString() + '_' + file.originalname);
   }
-})
+});
 
 //Todo: file filter not works in multer.
 const fileFilter = (req, file, cb) => {
@@ -29,7 +30,7 @@ const fileFilter = (req, file, cb) => {
   } else {
     cb(null, false);
   }
-}
+};
 
 const app = express();
 
@@ -37,7 +38,7 @@ app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(cookieParser());
-app.use(multer({ storage: fileStorage }).array('images', 10))
+app.use(multer({ storage: fileStorage }).array('images', 10));
 
 app.use(`/${process.env.API_PREFIX}/uploads`, express.static(path.join(__dirname, 'uploads')));
 app.use(`/${process.env.API_PREFIX}/`, pageRouter);
@@ -51,16 +52,24 @@ app.use((err, req, res, next) => {
     .json({
       message: err.message,
       errors: err.errors
-    })
-})
+    });
+});
 
-// const {
-//   MONGO_USERNAME,
-//   MONGO_PASSWORD,
-//   MONGO_HOSTNAME,
-//   MONGO_PORT,
-//   MONGO_DB
-// } = process.env;
+let url;
+
+if (process.env.MONGO_CONNECTION) {
+  url = process.env.MONGO_CONNECTION;
+} else {
+  const {
+    MONGO_USERNAME,
+    MONGO_PASSWORD,
+    MONGO_HOSTNAME,
+    MONGO_PORT,
+    MONGO_DB
+  } = process.env;
+
+  url = `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOSTNAME}:${MONGO_PORT}/${MONGO_DB}?authSource=admin`;
+}
 
 const options = {
   useNewUrlParser: true,
@@ -68,14 +77,12 @@ const options = {
   useFindAndModify: true,
 };
 
-// const url = `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOSTNAME}:${MONGO_PORT}/${MONGO_DB}?authSource=admin`;
-
-mongoose.connect(process.env.MONGO_CONNECTION, options)
+mongoose.connect(url, options)
   .then(function () {
     console.log('MongoDB is connected');
     let server = app.listen(process.env.SERVER_PORT || 8080, () => {
-      console.log('Listening to: ', server.address())
-    })
+      console.log('Listening to: ', server.address());
+    });
   })
   .catch(function (err) {
     console.log(err);

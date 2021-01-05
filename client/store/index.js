@@ -9,18 +9,18 @@ export const state = () => ({
     fbUrl: '',
     instaUrl: '',
   }
-})
+});
 
 export const getters = {
   info: state => {
     return state.info;
   },
-}
+};
 
 export const mutations = {
   showMessage(state, payload) {
-    state.alert.message = payload.message
-    state.alert.type = payload.type
+    state.alert.message = payload.message;
+    state.alert.type = payload.type;
   },
   fetchInfo(state, payload) {
     state.info.email = payload.email;
@@ -28,16 +28,17 @@ export const mutations = {
     state.info.fbUrl = payload.fbUrl;
     state.info.instaUrl = payload.instaUrl;
   }
-}
+};
 
 export const actions = {
   async fetchInfo({ commit }) {
     await this.$axios.get('/info')
       .then((res) => {
-        if (res.status === 200) {
-          commit('fetchInfo', res.data)
+        console.log(res)
+        if (res.status === 200 && res.data) {
+          commit('fetchInfo', res.data);
         }
-      })
+      });
   },
-}
+};
 

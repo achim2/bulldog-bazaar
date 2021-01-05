@@ -60,8 +60,8 @@ export default {
   data() {
     return {
       form: {
-        email: 'ahimjuhasz@gmail.com',
-        name: 'achim2',
+        email: '',
+        name: '',
         password: '',
       }
     };

@@ -5,14 +5,14 @@ services:
     build:
       context: api
     env_file: .env
-    #    depends_on:
-    #      - db
-    #    environment:
-    #      - MONGO_USERNAME=$MONGO_USERNAME
-    #      - MONGO_PASSWORD=$MONGO_PASSWORD
-    #      - MONGO_HOSTNAME=db
-    #      - MONGO_PORT=$MONGO_PORT
-    #      - MONGO_DB=$MONGO_DB
+    depends_on:
+      - db
+    environment:
+      - MONGO_USERNAME=$MONGO_USERNAME
+      - MONGO_PASSWORD=$MONGO_PASSWORD
+      - MONGO_HOSTNAME=db
+      - MONGO_PORT=$MONGO_PORT
+      - MONGO_DB=$MONGO_DB
     expose:
       - $API_PORT
     ports:
@@ -21,14 +21,14 @@ services:
       - ./api:/usr/app
       - /usr/app/node_modules
 
-    #  db:
-    #    image: mongo:4.4.1-bionic
-    #    env_file: .env
-    #    environment:
-    #      - MONGO_INITDB_ROOT_USERNAME=$MONGO_USERNAME
-    #      - MONGO_INITDB_ROOT_PASSWORD=$MONGO_PASSWORD
-    #    volumes:
-    #      - ./db:/data/db
+  db:
+    image: mongo:4.4.1-bionic
+    env_file: .env
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=$MONGO_USERNAME
+      - MONGO_INITDB_ROOT_PASSWORD=$MONGO_PASSWORD
+    volumes:
+      - ./db:/data/db
 
   client:
     build:
