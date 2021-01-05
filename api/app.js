@@ -38,11 +38,11 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(cookieParser());
 app.use(multer({ storage: fileStorage }).array('images', 10))
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-app.use('/', pageRouter);
-app.use('/admin', isAuth, adminRouter);
-app.use('/auth', authRouter);
+app.use(`/${process.env.API_PREFIX}/uploads`, express.static(path.join(__dirname, 'uploads')));
+app.use(`/${process.env.API_PREFIX}/`, pageRouter);
+app.use(`/${process.env.API_PREFIX}/admin`, isAuth, adminRouter);
+app.use(`/${process.env.API_PREFIX}/auth`, authRouter);
 
 app.use((err, req, res, next) => {
   console.error('ERROR: ', err);

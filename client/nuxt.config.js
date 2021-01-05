@@ -1,5 +1,5 @@
 export default {
-  // Disable server-side rendering (https://go.nuxtjs.dev/ssr-mode)
+  // Disable api-side rendering (https://go.nuxtjs.dev/ssr-mode)
   ssr: false,
 
   // Global page headers (https://go.nuxtjs.dev/config-head)
@@ -73,6 +73,17 @@ export default {
 
   axios: {
     // baseURL: ``, //built by docker compose from API_PORT && API_HOST variables
+    baseURL: `${process.env.BASE_URL}:${process.env.API_PORT}/${process.env.API_PREFIX}/`,
+  },
+
+  env: {
+    baseUrl: `${process.env.BASE_URL}`,
+    imagePath: `${process.env.BASE_URL}:${process.env.API_PORT}/${process.env.API_PREFIX}/uploads`,
+  },
+
+  publicRuntimeConfig: {
+    baseUrl: `${process.env.BASE_URL}`,
+    imagePath: `${process.env.BASE_URL}:${process.env.API_PORT}/${process.env.API_PREFIX}/uploads`,
   },
 
   auth: {
@@ -120,16 +131,6 @@ export default {
         },
       );
     }
-  },
-
-  env: {
-    baseUrl: `${process.env.BASE_URL}`,
-    imagePath: `${process.env.BASE_URL}:${process.env.API_PORT}/uploads`,
-  },
-
-  publicRuntimeConfig: {
-    baseUrl: `${process.env.BASE_URL}`,
-    imagePath: `${process.env.BASE_URL}:${process.env.API_PORT}/uploads`,
   },
 
   loading: '~/components/LoadingBar.vue',

@@ -1,46 +1,46 @@
 version: '3'
 
 services:
-  server:
+  api:
     build:
-      context: ./server
+      context: api
     env_file: .env
-#    depends_on:
-#      - db
-#    environment:
-#      - MONGO_USERNAME=$MONGO_USERNAME
-#      - MONGO_PASSWORD=$MONGO_PASSWORD
-#      - MONGO_HOSTNAME=db
-#      - MONGO_PORT=$MONGO_PORT
-#      - MONGO_DB=$MONGO_DB
+    #    depends_on:
+    #      - db
+    #    environment:
+    #      - MONGO_USERNAME=$MONGO_USERNAME
+    #      - MONGO_PASSWORD=$MONGO_PASSWORD
+    #      - MONGO_HOSTNAME=db
+    #      - MONGO_PORT=$MONGO_PORT
+    #      - MONGO_DB=$MONGO_DB
     expose:
-      - $SERVER_PORT
+      - $API_PORT
     ports:
-      - $SERVER_PORT:$SERVER_PORT
+      - $API_PORT:$API_PORT
     volumes:
-      - ./server:/usr/app
+      - ./api:/usr/app
       - /usr/app/node_modules
 
-#  db:
-#    image: mongo:4.4.1-bionic
-#    env_file: .env
-#    environment:
-#      - MONGO_INITDB_ROOT_USERNAME=$MONGO_USERNAME
-#      - MONGO_INITDB_ROOT_PASSWORD=$MONGO_PASSWORD
-#    volumes:
-#      - ./db:/data/db
+    #  db:
+    #    image: mongo:4.4.1-bionic
+    #    env_file: .env
+    #    environment:
+    #      - MONGO_INITDB_ROOT_USERNAME=$MONGO_USERNAME
+    #      - MONGO_INITDB_ROOT_PASSWORD=$MONGO_PASSWORD
+    #    volumes:
+    #      - ./db:/data/db
 
   client:
     build:
       context: ./client
     env_file: .env
     depends_on:
-      - server
+      - api
     environment:
       NUXT_HOST: 0.0.0.0
       NUXT_PORT: $CLIENT_PORT
       API_HOST: 0.0.0.0
-      API_PORT: $SERVER_PORT
+      API_PORT: $API_PORT
       BASE_URL: $BASE_URL
     volumes:
       - ./client:/usr/app

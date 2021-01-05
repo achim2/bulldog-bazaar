@@ -98,4 +98,4 @@ typings/
 
 db
 
-server/uploads/*
+api/uploads/*

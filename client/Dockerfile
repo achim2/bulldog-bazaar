@@ -12,5 +12,5 @@ COPY . .
 
 CMD ["yarn", "dev"]
 
-#CMD ["yarn", "build"]
-#CMD ["yarn", "start"]
+#RUN yarn build
+#CMD [ "yarn", "start" ]
