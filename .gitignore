@@ -100,4 +100,4 @@ db
 
 api/uploads/*
 
-.Docker/nginx/conf.d/default.conf
+.docker/nginx/conf.d/default.conf

@@ -3,11 +3,11 @@ version: '3'
 services:
   # Nginx proxy service
   nginx:
-    image: nginx:1.17
+    build: ./.docker/nginx
     ports:
       - 80:80
     volumes:
-      - ./.Docker/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
+      - ./.docker/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - api
       - client
@@ -16,7 +16,7 @@ services:
   api:
     build:
       context: api
-      dockerfile: ../.Docker/api/Dockerfile
+      dockerfile: ../.docker/api/Dockerfile
     env_file: .env
     depends_on:
       - db
@@ -42,13 +42,13 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=$MONGO_USERNAME
       - MONGO_INITDB_ROOT_PASSWORD=$MONGO_PASSWORD
     volumes:
-      - ./.Docker/mongodb/db:/data/db
+      - ./.docker/mongodb/db:/data/db
 
   # Nuxt client
   client:
     build:
       context: ./client
-      dockerfile: ../.Docker/client/Dockerfile
+      dockerfile: ../.docker/client/Dockerfile
     env_file: .env
     depends_on:
       - api
