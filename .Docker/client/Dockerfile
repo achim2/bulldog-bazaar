@@ -2,7 +2,7 @@
 
 FROM node:14.11.0-alpine
 
-WORKDIR /usr/app
+WORKDIR /usr/src/app
 
 COPY package*.json ./
 

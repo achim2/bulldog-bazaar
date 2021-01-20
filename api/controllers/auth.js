@@ -68,11 +68,11 @@ exports.login = (req, res, next) => {
         throw error;
       }
 
-      // if (!loadedUser.isConfirmed) {
-      //   const error = new Error('Not confirmed registration!');
-      //   error.statusCode = 401;
-      //   throw error;
-      // }
+      if (!loadedUser.isConfirmed) {
+        const error = new Error('Not confirmed registration!');
+        error.statusCode = 401;
+        throw error;
+      }
 
       const token = jwt.sign(
         {
@@ -120,5 +120,11 @@ exports.user = (req, res, next) => {
             email: user.email
           }
         })
+    })
+    .catch(err => {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
     })
 }

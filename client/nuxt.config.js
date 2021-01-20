@@ -1,7 +1,4 @@
 export default {
-  // Disable api-side rendering (https://go.nuxtjs.dev/ssr-mode)
-  ssr: false,
-
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
     title: 'Icon Bulls',
@@ -72,18 +69,24 @@ export default {
   },
 
   axios: {
-    // baseURL: ``, //built by docker compose from API_PORT && API_HOST variables
-    baseURL: `${process.env.BASE_URL}:${process.env.API_PORT}/${process.env.API_PREFIX}/`,
+    baseURL: `${process.env.BASE_URL}/${process.env.API_PREFIX}/`,
   },
 
   env: {
-    baseUrl: `${process.env.BASE_URL}`,
-    imagePath: `${process.env.BASE_URL}:${process.env.API_PORT}/${process.env.API_PREFIX}/uploads`,
+    baseUrl: `${process.env.BASE_URL}/${process.env.API_PREFIX}/`,
+    imagePath: `${process.env.BASE_URL}/${process.env.API_PREFIX}/uploads`,
   },
 
   publicRuntimeConfig: {
     baseUrl: `${process.env.BASE_URL}`,
-    imagePath: `${process.env.BASE_URL}:${process.env.API_PORT}/${process.env.API_PREFIX}/uploads`,
+    imagePath: `${process.env.BASE_URL}/${process.env.API_PREFIX}/uploads`,
+  },
+
+  // https://axios.nuxtjs.org/options/
+  privateRuntimeConfig: {
+    axios: {
+      baseURL: 'http://nginx/api' // name of the docker proxy
+    }
   },
 
   auth: {

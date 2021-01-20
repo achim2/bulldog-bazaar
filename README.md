@@ -4,6 +4,7 @@
 
 ### Tech
 
+* nginx
 * docker, docker-compose
 * nodejs, express, multer
 * mongodb, mongoose
@@ -15,15 +16,19 @@
 
 * git pull
 * make .env file from .env.example
+* make ./Docker/nginx/conf.d/default.conf file from ./Docker/nginx/conf.d/default.example.conf
 * docker-compose up --build
 
 ### To stop docker
 
 * docker-compose down
 
-### Optional
-
-* you can use mongo atlas too if set the correct information
+### Enter to mongodb with compass
+#### Inspect your docker db container: docker inspect <-- your db -->
+* hostname:  Networks/IPAddress of your Docker container
+* port: .env MONGO_PORT
+* username: .env MONGO_USERNAME
+* password: .env MONGO_PASSWORD
 
 ### To get admin page
 
@@ -43,5 +48,4 @@
 * password encryption to FE
 * multer file filter & limits
 * drop nuxt auth (if user not logged in then nuxt auth trying to get auth & BE response send back 'token expired') & write custom auth (not important), nuxt auth very annoying
-* image optimalization (not finished, only build, check if build)
-* nuxt ssr not works under docker (nuxt srr proxy problem)
+* image optimization 

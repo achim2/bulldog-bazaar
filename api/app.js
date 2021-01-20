@@ -80,7 +80,7 @@ const options = {
 mongoose.connect(url, options)
   .then(function () {
     console.log('MongoDB is connected');
-    let server = app.listen(process.env.SERVER_PORT || 8080, () => {
+    let server = app.listen(8080, () => {
       console.log('Listening to: ', server.address());
     });
   })
