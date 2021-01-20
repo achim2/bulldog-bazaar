@@ -18,16 +18,16 @@ export default {
   // 'cookie-message': '',
   // 'choose-lang': '',
   // accept: '',
+  home: 'Startseite',
+  gallery: 'Galerie',
+  transport: 'Transport',
+  // 'available puppies': '',
+  // 'all available': '',
 
   //colors
   // blue: '',
   // tan: '',
   // lilac: '',
-
-  //navigation
-  home: 'Startseite',
-  gallery: 'Galerie',
-  transport: 'Transport',
 
   //product page
   color: 'Farbe',

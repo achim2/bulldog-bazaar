@@ -21,7 +21,13 @@
       </div>
     </section>
 
-    <Widget :items="filtered"/>
+    <section>
+      <page-subtitle :text="$t('available puppies')"/>
+      <Widget :items="filtered"/>
+      <div class="text-center mt-3 mb-5">
+        <nuxtLink :to="localePath({name: 'puppies'})" class="btn btn-info">{{ $t('all available') }}</nuxtLink>
+      </div>
+    </section>
 
     <section class="">
       <div class="container">
@@ -40,16 +46,17 @@
 <script>
 import PageText from '../components/PageText';
 import Widget from '../components/Widget';
+import PageSubtitle from '../components/PageSubtitle';
 
 export default {
-  components: { Widget, PageText },
+  components: { PageSubtitle, Widget, PageText },
   data() {
     return {
       filtered: [],
     };
   },
   mounted() {
-    this.$axios.$get('/products/filtered')
+    this.$axios.$get('/products/filtered/6')
       .then(res => {
         this.filtered = res;
       });

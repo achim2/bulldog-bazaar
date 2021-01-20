@@ -40,17 +40,19 @@ export default {
   border-radius: 5px;
   overflow: hidden;
 
-  &:hover {
-    .custom-image {
-      img {
-        transform: translate(-50%, -50%) scale(1.1);
+  @include media-breakpoint-up(lg) {
+    &:hover {
+      .custom-image {
+        img {
+          transform: translate(-50%, -50%) scale(1.1);
+        }
       }
-    }
 
-    .widget__birthday {
-      height: 24px;
-      visibility: visible;
-      opacity: 1;
+      .widget__birthday {
+        height: 24px;
+        visibility: visible;
+        opacity: 1;
+      }
     }
   }
 
@@ -81,12 +83,15 @@ export default {
   }
 
   .widget__birthday {
-    height: 0;
     display: block;
     transition: .25s ease;
-    opacity: 0;
-    visibility: hidden;
     font-weight: 300;
+
+    @include media-breakpoint-up(lg) {
+      height: 0;
+      opacity: 0;
+      visibility: hidden;
+    }
   }
 }
 </style>

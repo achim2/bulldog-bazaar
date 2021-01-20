@@ -31,8 +31,9 @@
             </div>
 
             <p>{{ $t('available') }}</p>
-            <p>Email: <b>{{ info.email }}</b></p>
-            <p>{{ $t('phone') }}: <b>{{ info.phone }}</b></p>
+            <p><b-icon-envelope /> - <b>{{ info.email }}</b></p>
+            <p><b-icon-telephone /> - <b>{{ info.phone }}</b></p>
+            <p><b-icon-geo-alt-fill /> - <b>Budapest, Hungary</b></p>
 
           </div>
         </div>

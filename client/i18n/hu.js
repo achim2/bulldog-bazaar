@@ -18,16 +18,16 @@ export default {
   // 'cookie-message': '',
   // 'choose-lang': '',
   accept: 'Elfogadás',
+  home: 'Főoldal',
+  gallery: 'Galéria',
+  transport: 'Szállítás',
+  'available puppies': 'Elérhető kutyusok',
+  // 'all available': '',
 
   //colors
   blue: 'Kék',
   tan: 'Barna',
   lilac: 'Lila',
-
-  //navigation
-  home: 'Főoldal',
-  gallery: 'Galéria',
-  transport: 'Szállítás',
 
   //product page
   color: 'Szín',

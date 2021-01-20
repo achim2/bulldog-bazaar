@@ -18,16 +18,16 @@ export default {
   'cookie-message': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab alias blanditiis dolores eius, harum inventore nihil nostrum omnis pariatur placeat quasi, repudiandae tempore voluptate voluptatem voluptates! Culpa doloremque fugit modi.',
   'choose-lang': 'Choose your language!',
   accept: 'Accept',
+  home: 'Home',
+  gallery: 'Gallery',
+  transport: 'Transport',
+  'available puppies': 'Available Puppies',
+  'all available': 'All the available pups',
 
   //colors
   blue: 'Blue',
   tan: 'Tan',
   lilac: 'Lilac',
-
-  //navigation
-  home: 'Home',
-  gallery: 'Gallery',
-  transport: 'Transport',
 
   //product page
   color: 'Color',

@@ -3,7 +3,9 @@ const Info = require('../models/info');
 const Gallery = require('../models/gallery');
 
 exports.getProductsFiltered = (req, res, next) => {
-  Product.find()
+  const limit = req.params.limit ? parseInt(req.params.limit) : 0;
+
+  Product.find().limit(limit)
     .then(products => {
       const filteredProducts = products.filter(product => product.status);
 

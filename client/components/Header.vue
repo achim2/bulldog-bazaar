@@ -14,7 +14,8 @@
             <b-nav-item :to="localePath({name: 'gallery'})">{{ $t('gallery') }}</b-nav-item>
             <b-nav-item :to="localePath({name: 'breed'})">{{ $t('breed') }}</b-nav-item>
             <b-nav-item :to="localePath({name: 'transport'})">{{ $t('transport') }}</b-nav-item>
-            <b-nav-item :to="localePath({name: 'about'})">{{ $t('about') }}</b-nav-item>
+            <b-nav-item :to="localePath({name: 'puppies'})">{{ $t('available puppies') }}</b-nav-item>
+<!--            <b-nav-item :to="localePath({name: 'about'})">{{ $t('about') }}</b-nav-item>-->
             <b-nav-item :to="localePath({name: 'contact'})">{{ $t('contact') }}</b-nav-item>
 
             <!-- Navbar dropdowns -->
@@ -49,7 +50,7 @@ import Logo from './Logo';
 export default {
   components: { Logo },
   mounted() {
-    this.setNavbarScroll();
+    this.setHeaderScroll();
   },
   computed: {
     availableLocales() {
@@ -57,17 +58,20 @@ export default {
     }
   },
   methods: {
-    setNavbarScroll() {
+    setHeaderScroll() {
       let prevScrollpos = window.pageYOffset;
-      const navbar = document.querySelector('nav.navbar');
-      const navbarHeight = navbar.offsetHeight;
+      const header = document.querySelector('header');
+      const headerHeight = header.offsetHeight;
+      const toggler = document.querySelector('.navbar-toggler');
 
       window.onscroll = function () {
         const currentScrollPos = window.pageYOffset;
-        if (prevScrollpos > currentScrollPos) {
-          navbar.style.top = '0';
+        const isNavbarOpened = toggler.classList.contains('not-collapsed');
+
+        if (prevScrollpos > currentScrollPos || isNavbarOpened) {
+          header.style.top = '0';
         } else {
-          navbar.style.top = -navbarHeight + 'px';
+          header.style.top = -headerHeight + 'px';
         }
         prevScrollpos = currentScrollPos;
       };
@@ -87,18 +91,17 @@ export default {
 
 <style lang="scss">
 header {
-  background: $header;
-}
-
-.navbar,
-.navbar.navbar-dark {
   position: sticky;
   top: 0;
   left: 0;
   width: 100%;
   transition: .25s ease;
   z-index: 100;
+  background: $header;
+}
 
+.navbar,
+.navbar.navbar-dark {
   .navbar-nav.navbar-nav--admin {
     @include media-breakpoint-down(md) {
       border-top: 1px solid $white;

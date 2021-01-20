@@ -34,7 +34,6 @@ export default {
   mounted() {
     this.$axios.$get('/gallery')
       .then(res => {
-        console.log(res);
         this.items = res;
       })
       .catch(err => console.log(err));
