@@ -53,7 +53,7 @@ export default {
   // Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
   buildModules: [
     'nuxt-lazysizes', //https://github.com/ivodolenc/nuxt-lazysizes
-    '@aceforth/nuxt-optimized-images', //https://github.com/juliomrqz/nuxt-optimized-images //only build
+    // '@aceforth/nuxt-optimized-images', //https://github.com/juliomrqz/nuxt-optimized-images //only build
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
@@ -186,29 +186,29 @@ export default {
     },
   },
 
-  optimizedImages: {
-    inlineImageLimit: 1000,
-    handleImages: ['jpeg', 'png', 'svg', 'webp', 'gif'],
-    optimizeImages: false,
-    optimizeImagesInDev: false,
-    defaultImageLoader: 'img-loader',
-    mozjpeg: {
-      quality: 80,
-    },
-    optipng: {
-      optimizationLevel: 3,
-    },
-    pngquant: false,
-    gifsicle: {
-      interlaced: true,
-      optimizationLevel: 3,
-    },
-    svgo: {
-      // enable/disable svgo plugins here
-    },
-    webp: {
-      preset: 'default',
-      quality: 75,
-    },
-  },
+  // optimizedImages: {
+  //   inlineImageLimit: 1000,
+  //   handleImages: ['jpeg', 'png', 'svg', 'webp', 'gif'],
+  //   optimizeImages: false,
+  //   optimizeImagesInDev: false,
+  //   defaultImageLoader: 'img-loader',
+  //   mozjpeg: {
+  //     quality: 80,
+  //   },
+  //   optipng: {
+  //     optimizationLevel: 3,
+  //   },
+  //   pngquant: false,
+  //   gifsicle: {
+  //     interlaced: true,
+  //     optimizationLevel: 3,
+  //   },
+  //   svgo: {
+  //     // enable/disable svgo plugins here
+  //   },
+  //   webp: {
+  //     preset: 'default',
+  //     quality: 75,
+  //   },
+  // },
 };

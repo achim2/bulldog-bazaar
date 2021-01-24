@@ -6,11 +6,30 @@ services:
     build: ./.docker/nginx
     ports:
       - 80:80
+      - 443:443
     volumes:
-      - ./.docker/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
+      - ./.docker/nginx/conf.d:/etc/nginx/conf.d
+#      - certbot-etc:/etc/letsencrypt
+#      - certbot-var:/var/lib/letsencrypt
+#      - web-root:/var/www/html
+#      - dhparam:/etc/ssl/certs
     depends_on:
       - api
       - client
+    networks:
+      - app-network
+
+#  certbot:
+#    image: certbot/certbot
+#    container_name: certbot
+#    volumes:
+#      - certbot-etc:/etc/letsencrypt
+#      - certbot-var:/var/lib/letsencrypt
+#      - web-root:/var/www/html
+#    depends_on:
+#      - nginx
+##    command: certonly --webroot --webroot-path=/var/www/html --email test@ahimjuhasz.com --agree-tos --no-eff-email --staging -d iconbulls.com
+#    command: certonly --webroot --webroot-path=/var/www/html --email test@ahimjuhasz.com --agree-tos --no-eff-email --force-renewal -d iconbulls.com
 
   # NodeJs api
   api:
@@ -18,14 +37,14 @@ services:
       context: api
       dockerfile: ../.docker/api/Dockerfile
     env_file: .env
-    depends_on:
-      - db
-    environment:
-      - MONGO_USERNAME=$MONGO_USERNAME
-      - MONGO_PASSWORD=$MONGO_PASSWORD
-      - MONGO_HOSTNAME=db
-      - MONGO_PORT=$MONGO_PORT
-      - MONGO_DB=$MONGO_DB
+#    depends_on:
+#      - db
+#    environment:
+#      - MONGO_USERNAME=$MONGO_USERNAME
+#      - MONGO_PASSWORD=$MONGO_PASSWORD
+#      - MONGO_HOSTNAME=db
+#      - MONGO_PORT=$MONGO_PORT
+#      - MONGO_DB=$MONGO_DB
     expose:
       - 8080
     ports:
@@ -33,16 +52,18 @@ services:
     volumes:
       - ./api:/usr/src/app
       - /usr/src/app/node_modules
+    networks:
+      - app-network
 
   # Mongodb
-  db:
-    image: mongo:4.4.1-bionic
-    env_file: .env
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=$MONGO_USERNAME
-      - MONGO_INITDB_ROOT_PASSWORD=$MONGO_PASSWORD
-    volumes:
-      - ./.docker/mongodb/db:/data/db
+#  db:
+#    image: mongo:4.4.1-bionic
+#    env_file: .env
+#    environment:
+#      - MONGO_INITDB_ROOT_USERNAME=$MONGO_USERNAME
+#      - MONGO_INITDB_ROOT_PASSWORD=$MONGO_PASSWORD
+#    volumes:
+#      - ./.docker/mongodb/db:/data/db
 
   # Nuxt client
   client:
@@ -62,3 +83,25 @@ services:
       - 3000
     ports:
       - 3000:3000
+    networks:
+      - app-network
+
+#volumes:
+#  certbot-etc:
+#  certbot-var:
+#  web-root:
+#    driver: local
+#    driver_opts:
+#      type: none
+#      device: /root/bulldog-bazaar/
+#      o: bind
+#  dhparam:
+#    driver: local
+#    driver_opts:
+#      type: none
+#      device: /root/bulldog-bazaar/.docker/dhparam/
+#      o: bind
+
+networks:
+  app-network:
+    driver: bridge
